@@ -1,0 +1,66 @@
+﻿% DoctIP Refined Use Case Diagram: Use AI Triage
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    actorlabel/.style={font=\scriptsize, align=center},
+    usecase/.style={
+      ellipse,
+      draw=black!75,
+      fill=white,
+      font=\scriptsize,
+      align=center,
+      minimum width=4.2cm,
+      minimum height=0.95cm,
+      inner sep=2.5pt
+    },
+    boundary/.style={draw=black!70, line width=0.6pt, fill=white},
+    assoc/.style={black!70, line width=0.55pt},
+    include/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    extend/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    rellabel/.style={font=\scriptsize, fill=white, inner sep=1.5pt},
+  }
+
+  % System boundary
+  \node[boundary, minimum width=21.0cm, minimum height=15.0cm, anchor=north west] (sys) at (0,12.5) {};
+  \node[font=\footnotesize\bfseries, anchor=north] at ($(sys.north)+(0,-0.72)$) {Use AI Triage};
+
+  % Actor (Patient)
+  \begin{scope}[shift={(-1.80,4.55)}]
+    \draw[black!75, line width=0.55pt] (0,0.34) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.20) -- (0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.22,0.02) -- (0.22,0.02);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (-0.18,-0.47);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (0.18,-0.47);
+    \node[actorlabel, below] at (0,-0.52) {Patient};
+  \end{scope}
+
+  % Use cases
+  \node[usecase] (main) at (4.0, 4.55) {Use AI Triage};
+  
+  \node[usecase] (s1)   at (13.0, 10.5) {enter symptoms};
+  \node[usecase] (s2)   at (13.0, 8.8)  {provide medical history};
+  \node[usecase] (s3)   at (13.0, 7.1)  {answer follow-up questions};
+  \node[usecase] (s4)   at (13.0, 5.4)  {view urgency level};
+  \node[usecase] (s5)   at (13.0, 3.7)  {view possible conditions};
+  \node[usecase] (s6)   at (13.0, 2.0)  {receive action plan};
+  \node[usecase] (s7)   at (13.0, 0.3)  {save triage session};
+  \node[usecase] (auth) at (13.0,-1.4)  {authenticate};
+
+  \node[usecase] (book) at (18.5, 5.4)  {book appointment};
+
+  % Associations
+  \draw[assoc] (-1.20,4.55) -- (main.west);
+
+  % Included relationships forming a neat fan (orthogonal vertical-then-horizontal routing)
+  \draw[include] (main.70) |- node[rellabel, pos=0.8] {<<include>>} (s1.west);
+  \draw[include] (main.50) |- node[rellabel, pos=0.8] {<<include>>} (s2.west);
+  \draw[include] (main.30) |- node[rellabel, pos=0.8] {<<include>>} (s3.west);
+  \draw[include] (main.10) |- node[rellabel, pos=0.8] {<<include>>} (s4.west);
+  \draw[include] (main.350) |- node[rellabel, pos=0.8] {<<include>>} (s5.west);
+  \draw[include] (main.330) |- node[rellabel, pos=0.8] {<<include>>} (s6.west);
+  \draw[include] (main.310) |- node[rellabel, pos=0.8] {<<include>>} (s7.west);
+  \draw[include] (main.290) |- node[rellabel, pos=0.8] {<<include>>} (auth.west);
+
+  % Extended relationship
+  \draw[extend] (book.west) -- node[rellabel, pos=0.5, above=1pt] {<<extend>>} (s4.east);
+\end{tikzpicture}
+

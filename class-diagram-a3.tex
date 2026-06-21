@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage[a3paper,landscape,margin=0cm,headheight=0pt,headsep=0pt,footskip=0pt]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{shapes.multipart,arrows.meta}
+\usepackage{graphicx}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newlength{\diagheight}
+\setlength{\diagheight}{0.92\textheight}
+\begin{document}
+\hbox to \textwidth{%
+  \vbox to \textheight{%
+    \vfill
+    \hbox to 2.5cm{%
+      \hfill
+      \rotatebox{90}{\large\textbf{Figure 15: DocTIP System Class Diagram}}%
+      \hfill
+    }%
+    \vfill
+  }%
+  \hfill
+  \vbox to \textheight{%
+    \vspace*{0.02\textheight}
+    \resizebox{!}{\diagheight}{\input{figures/tikz/class-diagram.tex}}%
+    \vfill
+  }%
+}
+\end{document}

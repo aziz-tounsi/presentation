@@ -1,0 +1,94 @@
+% Consult Doctor Dashboard Use Case Diagram
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\tikzset{
+  actorlabel/.style={font=\large\bfseries, align=center},
+  usecase/.style={ellipse, draw=black!80, fill=white,
+                  font=\large\bfseries, align=center,
+                  minimum width=6.2cm, minimum height=1.2cm, inner sep=1pt},
+  boundary/.style={draw=black!80, line width=0.8pt},
+  assoc/.style={black!80, line width=0.6pt},
+  extend/.style={black!70, dashed, line width=0.6pt,
+                  -{>[length=8pt, width=6pt]}},
+  systemactor/.style={rectangle, draw=black!80, thick, fill=gray!10,
+                  font=\large\bfseries, align=center,
+                  minimum width=3.8cm, minimum height=1.2cm, rounded corners=3pt}
+}
+
+\newcommand{\actor}[3]{
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[thick] (0,0.40) circle (0.18);
+    \draw[thick] (0,0.22) -- (0,-0.25);
+    \draw[thick] (-0.35,0.05) -- (0.35,0.05);
+    \draw[thick] (0,-0.25) -- (-0.25,-0.65);
+    \draw[thick] (0,-0.25) -- (0.25,-0.65);
+    \node[actorlabel, below] at (0,-0.75) {#3};
+  \end{scope}
+}
+
+% Boundary and title
+\draw[boundary] (-0.5, 13.5) rectangle (32.0, -13.5);
+\node[font=\LARGE\bfseries] at (15.75, 12.5) {Consult Doctor Dashboard};
+
+% Actors
+\actor{-3.0}{1.0}{Doctor}
+
+% AI actors
+\node[systemactor] (airisk) at (34.5,  7.0) {AI Risk\\Analyst};
+\node[systemactor] (aiclin) at (34.5,  1.0) {AI Clinical\\Assistant};
+\node[systemactor] (aidiff) at (34.5, -1.5) {AI Differential\\Analyst};
+\node[systemactor] (aisoap) at (34.5, -5.5) {AI SOAP\\Generator};
+\node[systemactor] (aivoice) at (34.5, -7.5) {AI Voice\\Transcriber};
+\node[systemactor] (aires)  at (34.5, -10.5) {AI Research\\Assistant};
+
+% Root
+\node[usecase] (dash) at (3.5, 1.0) {Consult Doctor\\Dashboard};
+\draw[assoc] (-2.5, 1.0) -- (dash.west);
+
+% Level 2
+\node[usecase] (sched)    at (11.0,  9.0) {Consult Schedule};
+\node[usecase] (risk)     at (15.0,  7.0) {Consult Risk Radar};
+\node[usecase] (alerts)   at (16.0,  3.0) {Consult critical Alerts};
+\node[usecase] (interact) at (14.0,  1.0) {Interact with AI\\clinical Assistant};
+\node[usecase] (tools)    at ( 9.0, -7.0) {Manage clinical Tools};
+
+% Level 3
+\node[usecase] (arisks)   at (27.0,  7.0) {Analyse Health Risks};
+\node[usecase] (apat)     at (26.0,  1.0) {Analyse Patient Health Data\\And Provide Decision Support};
+\node[usecase] (soap)     at (24.0, -5.5) {Generate SOAP Notes};
+
+\node[usecase] (diff)     at (18.5, -2.5) {Analyse Differential};
+\node[usecase] (voice)    at (18.5, -7.5) {Record Voice Scribe};
+\node[usecase] (research) at (18.5, -10.5) {Conduct Research};
+
+% Level 4
+\node[usecase] (trans)    at (28.5, -7.5) {Transcribe Voice\\Interaction};
+\node[usecase] (insight)  at (28.5, -10.5) {Generate Population\\Health Insights};
+
+% Lines
+\draw[extend] (sched.west)    -- node[pos=0.35, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (dash.70);
+\draw[extend] (risk.west)     -- node[pos=0.35, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (dash.45);
+\draw[extend] (alerts.west)   -- node[pos=0.35, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (dash.20);
+\draw[extend] (interact.west) -- node[pos=0.35, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (dash.0);
+\draw[extend] (tools.west)    -- node[pos=0.35, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (dash.-45);
+
+\draw[extend] (risk.east)     -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (arisks.west);
+\draw[extend] (interact.east) -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (apat.west);
+
+\draw[extend] (tools.30)     -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (diff.west);
+\draw[extend] (tools.0)     -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (soap.west);
+\draw[extend] (voice.west)    -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (tools.-20);
+\draw[extend] (research.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$extend$\gg$} (tools.-40);
+
+\draw[extend] (voice.east)    -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (trans.west);
+\draw[extend] (research.east) -- node[pos=0.45, fill=white, inner sep=2pt, font=\normalsize] {$\ll$include$\gg$} (insight.west);
+
+% Associations
+\draw[assoc] (arisks.east)  -- (airisk.west);
+\draw[assoc] (apat.east)    -- (aiclin.west);
+\draw[assoc] (diff.east)    -- (aidiff.west);
+\draw[assoc] (soap.east)    -- (aisoap.west);
+\draw[assoc] (trans.east)   -- (aivoice.west);
+\draw[assoc] (insight.east) -- (aires.west);
+
+\end{tikzpicture}

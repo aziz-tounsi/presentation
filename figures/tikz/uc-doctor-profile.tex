@@ -1,0 +1,55 @@
+% Complete Doctor Profile Use Case Diagram
+\begin{tikzpicture}[x=1.2cm,y=0.85cm]
+
+\tikzset{
+  actorlabel/.style={font=\footnotesize\bfseries, align=center},
+  usecase/.style={ellipse, draw=black!80, fill=white,
+                  font=\footnotesize\bfseries, align=center,
+                  minimum width=6.2cm, minimum height=1.2cm, inner sep=1pt},
+  boundary/.style={draw=black!80, line width=0.8pt},
+  assoc/.style={black!80, line width=0.6pt},
+  extend/.style={black!70, dashed, line width=0.6pt,
+                  -{>[length=8pt, width=6pt]}}
+}
+
+\newcommand{\actor}[3]{
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[thick] (0,0.40) circle (0.18);
+    \draw[thick] (0,0.22) -- (0,-0.25);
+    \draw[thick] (-0.35,0.05) -- (0.35,0.05);
+    \draw[thick] (0,-0.25) -- (-0.25,-0.65);
+    \draw[thick] (0,-0.25) -- (0.25,-0.65);
+    \node[actorlabel, below] at (0,-0.75) {#3};
+  \end{scope}
+}
+
+% Boundary and title
+\draw[boundary] (-0.5, 11.0) rectangle (20.0, -9.0);
+\node[font=\Large\bfseries] at (9.75, 9.5) {Manage Doctor Profile};
+
+% Actor
+\actor{-3.0}{0.0}{Doctor}
+
+% Root
+\node[usecase] (root) at (3.0, 0.0) {Manage Doctor\\Profile};
+\draw[assoc] (-2.5, 0.0) -- (root.west);
+
+% Extensions
+\node[usecase] (uc1) at (16.0,  7.5) {Edit Profile};
+\node[usecase] (uc2) at (16.0,  5.0) {Edit schedule\\And fees};
+\node[usecase] (uc3) at (16.0,  2.5) {Consult Revenue\\And earnings};
+\node[usecase] (uc4) at (16.0,  0.0) {Consult Reviews\\\& Public Profile};
+\node[usecase] (uc5) at (16.0, -2.5) {Select Language};
+\node[usecase] (uc6) at (16.0, -5.0) {Contact Support};
+\node[usecase] (uc7) at (16.0, -7.5) {Manage Settings};
+
+% Lines
+\draw[extend] (uc1.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.75);
+\draw[extend] (uc2.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.50);
+\draw[extend] (uc3.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.25);
+\draw[extend] (uc4.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.0);
+\draw[extend] (uc5.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.-25);
+\draw[extend] (uc6.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.-50);
+\draw[extend] (uc7.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (root.-75);
+
+\end{tikzpicture}

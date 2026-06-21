@@ -1,0 +1,85 @@
+% Manage Patient Profile
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% --- STYLES ---
+\tikzset{
+  actorlabel/.style={font=\footnotesize\bfseries, align=center},
+  usecase/.style={ellipse, draw=black!80, fill=white,
+                  font=\small, align=center,
+                  minimum width=6.2cm, minimum height=1.2cm, inner sep=1pt},
+  boundary/.style={draw=black!80, line width=0.8pt},
+  assoc/.style={black!80, line width=0.6pt},
+  extend/.style={black!70, dashed, line width=0.6pt,
+                  -{>[length=8pt, width=6pt]}},
+}
+
+% --- ACTOR DRAWING MACRO ---
+\newcommand{\actor}[3]{
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[thick] (0,0.40) circle (0.18);
+    \draw[thick] (0,0.22) -- (0,-0.25);
+    \draw[thick] (-0.35,0.05) -- (0.35,0.05);
+    \draw[thick] (0,-0.25) -- (-0.25,-0.65);
+    \draw[thick] (0,-0.25) -- (0.25,-0.65);
+    \node[actorlabel, below] at (0,-0.75) {#3};
+  \end{scope}
+}
+
+% ================= EXPLICIT SYSTEM BOUNDARY & TITLE =================
+\draw[boundary] (-0.5, 9.5) rectangle (27.5, -13.5);
+\node[font=\Large\bfseries] at (13.5, 8.5) {Manage Patient Profile};
+
+% ================= ACTOR =================
+\actor{-3.5}{ -2.0}{Patient}
+
+% ================= LEVEL 1: ROOT USE CASE =================
+\node[usecase] (u1) at (3.5, -2.0) {Manage Patient Profile};
+\draw[assoc] (-3.0, -2.0) -- (u1.west);
+
+% ================= LEVEL 2: MAIN EXTENSIONS =================
+\node[usecase] (e1a) at (14.0,  6.5) {Edit Personal info};
+\node[usecase] (e1b) at (14.0,  4.5) {Edit emergency contact};
+\node[usecase] (e1c) at (14.0,  2.5) {Select language};
+\node[usecase] (e1d) at (14.0,  0.5) {Contact Support};
+
+\node[usecase] (u2)  at (14.0, -2.0) {Manage Health Profile};
+\node[usecase] (u3)  at (14.0, -5.5) {Manage Insurance \\ And Payment};
+\node[usecase] (u4)  at (14.0, -9.0) {Manage Medical Record};
+\node[usecase] (u5)  at (14.0,-11.5) {Manage Settings};
+
+% ================= LEVEL 3: SUB-EXTENSIONS =================
+\node[usecase] (e2a) at (23.5, -0.2) {Add/Remove Allergies};
+\node[usecase] (e2b) at (23.5, -2.0) {Add/Remove chronic conditions};
+\node[usecase] (e2c) at (23.5, -3.8) {Add/Remove Dietary Preferences};
+
+\node[usecase] (e3a) at (23.5, -5.5) {Edit spending settings};
+\node[usecase] (e3b) at (23.5, -7.3) {Edit insurance settings};
+\node[usecase] (e3c) at (23.5, -9.1) {Consult cost Breakdown};
+
+\node[usecase] (e4a) at (23.5,-10.9) {Consult medical Records};
+\node[usecase] (e4b) at (23.5,-12.3) {Consult History};
+
+% ================= STRICTLY STRAIGHT LINES =================
+% --- From LEVEL 2 to LEVEL 1 ---
+\draw[extend] (e1a.west) -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.60);
+\draw[extend] (e1b.west) -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.45);
+\draw[extend] (e1c.west) -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.30);
+\draw[extend] (e1d.west) -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.15);
+\draw[extend] (u2.west)  -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.0);
+\draw[extend] (u3.west)  -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.-20);
+\draw[extend] (u4.west)  -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.-40);
+\draw[extend] (u5.west)  -- node[pos=0.35, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u1.-60);
+
+% --- From LEVEL 3 to LEVEL 2 ---
+\draw[extend] (e2a.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u2.20);
+\draw[extend] (e2b.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u2.0);
+\draw[extend] (e2c.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u2.-20);
+
+\draw[extend] (e3a.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u3.0);
+\draw[extend] (e3b.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u3.-15);
+\draw[extend] (e3c.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u3.-30);
+
+\draw[extend] (e4a.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u4.-20);
+\draw[extend] (e4b.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (u4.-35);
+
+\end{tikzpicture}

@@ -1,0 +1,297 @@
+PROMPT FOR BEAUTIFUL.AI - GESTION DES DONNÉES
+
+Create a minimalist, professional presentation in French about "Gestion des Données" with exactly 37 slides. Use a clean, modern design with a white background, dark blue (#1a365d) and teal (#0d9488) accent colors. Use simple icons and minimal text. Each slide should have a clear title and concise bullet points or definitions.
+
+---
+
+SLIDE 1 - PAGE DE GARDE
+Title: Gestion, Archivage, Sécurité, Transfert et Destruction des Données
+Subtitle: Présenté par : Aziz Harbaoui | Formation : TSIG | Centre : ATFP Sousse | Année : 2025-2026
+
+---
+
+SLIDE 2 - TABLE DES MATIÈRES
+Title: Sommaire
+Content (numbered list):
+1. Gestion des données
+2. Archivage des données
+3. Sécurité des données
+4. Transfert des données
+5. Destruction des données
+6. Conclusion
+
+---
+
+CHAPTER 1: GESTION DES DONNÉES
+
+SLIDE 3
+Title: Gestion des données
+Content: La gestion des données est l'ensemble des opérations permettant de collecter, organiser, stocker, sécuriser et exploiter les données d'une organisation.
+
+SLIDE 4
+Title: Information et donnée
+Content:
+• Une donnée est un fait brut sans interprétation
+• Une information est une donnée traitée qui possède une signification et peut être utilisée pour prendre une décision
+• Exemple : "38" est une donnée, "La température est de 38°C" est une information
+
+SLIDE 5
+Title: Base de données
+Content: Une base de données est un ensemble structuré de données stockées de manière organisée afin de faciliter leur consultation, leur modification et leur gestion.
+
+SLIDE 6
+Title: Les types de données
+Content (with icons):
+• Données textuelles
+• Données numériques
+• Dates et heures
+• Images
+• Sons
+• Vidéos
+
+SLIDE 7
+Title: BIG DATA
+Content: Le Big Data désigne un ensemble très volumineux de données générées à grande vitesse et sous différents formats nécessitant des technologies spécifiques pour leur traitement. Exemples : Facebook, Google, YouTube, Amazon.
+
+SLIDE 8
+Title: Rôle du gestionnaire des données
+Content:
+• Collecter les données
+• Organiser les données
+• Contrôler la qualité
+• Assurer la sécurité
+• Superviser les sauvegardes
+
+SLIDE 9
+Title: Logiciels de gestion des données
+Content (with logos/icons):
+• Microsoft Access
+• MySQL
+• PostgreSQL
+• Oracle Database
+• Microsoft SQL Server
+
+SLIDE 10
+Title: Objectifs de la gestion des données
+Content:
+• Disponibilité
+• Intégrité
+• Confidentialité
+• Fiabilité
+• Performance
+
+---
+
+CHAPTER 2: ARCHIVAGE DES DONNÉES
+
+SLIDE 11
+Title: Archivage des données
+Content: L'archivage permet de conserver les documents importants pendant une longue durée pour consultation future et respect des obligations légales.
+
+SLIDE 12
+Title: Sauvegarde de documents
+Content: La sauvegarde consiste à créer une copie de sécurité des données afin d'éviter leur perte en cas de panne, d'erreur ou de sinistre.
+
+SLIDE 13
+Title: Archivage de documents
+Content: L'archivage consiste à conserver les documents qui ne sont plus utilisés quotidiennement mais qui doivent être gardés pour des raisons légales, historiques ou administratives.
+
+SLIDE 14
+Title: Différence entre sauvegarde et archivage
+Content:
+• Sauvegarde : Protection contre la perte, copie temporaire
+• Archivage : Conservation à long terme, pérennité des données
+
+SLIDE 15
+Title: Intérêt de créer une archive
+Content:
+• Conservation des informations
+• Respect des obligations légales
+• Consultation future
+• Protection contre la perte
+
+SLIDE 16
+Title: Délais de conservation
+Content: Les documents doivent être conservés pendant une durée déterminée selon leur nature :
+• Documents administratifs
+• Documents comptables
+• Documents juridiques
+
+SLIDE 17
+Title: Stockage des archives numériques
+Content (with icons):
+• Disque dur
+• SSD
+• Serveur
+• NAS
+• Cloud
+
+SLIDE 18
+Title: Choix du support de stockage
+Content: Critères de choix :
+• Capacité
+• Coût
+• Sécurité
+• Fiabilité
+• Rapidité
+
+SLIDE 19
+Title: Logiciels d'archivage électronique
+Content:
+• SharePoint
+• Alfresco
+• Nuxeo
+• OpenText
+
+SLIDE 20
+Title: Avantages de l'archivage numérique
+Content:
+• Gain d'espace
+• Recherche rapide
+• Sécurité renforcée
+• Partage simplifié
+
+---
+
+CHAPTER 3: SÉCURITÉ DES DONNÉES
+
+SLIDE 21
+Title: Sécurité des données
+Content: La sécurité des données protège les informations contre les accès non autorisés, les modifications non désirées et la destruction.
+
+SLIDE 22
+Title: Menaces informatiques
+Content (with warning icons):
+• Virus
+• Malware
+• Ransomware
+• Phishing
+• Piratage
+
+SLIDE 23
+Title: Sécurité du réseau
+Content: Mesures de protection réseau :
+• Pare-feu
+• Antivirus
+• VPN
+• Surveillance du réseau
+
+SLIDE 24
+Title: Gestion des accès
+Content:
+• Identifiant
+• Mot de passe
+• Authentification à deux facteurs
+• Autorisations
+
+SLIDE 25
+Title: Protection contre les menaces
+Content:
+• Mise à jour des systèmes
+• Antivirus à jour
+• Sauvegardes régulières
+• Formation des utilisateurs
+
+SLIDE 26
+Title: Objectifs de sécurité
+Content (with shield icons):
+• Confidentialité : accès uniquement aux personnes autorisées
+• Intégrité : données non modifiées de manière non autorisée
+• Disponibilité : données accessibles quand nécessaire
+
+---
+
+CHAPTER 4: TRANSFERT DES DONNÉES
+
+SLIDE 27
+Title: Transfert des données
+Content: Le transfert consiste à déplacer des données entre deux appareils ou systèmes de manière sécurisée.
+
+SLIDE 28
+Title: Moyens de transfert
+Content (with icons):
+• Internet
+• Réseau local
+• Clé USB
+• Bluetooth
+• Cloud
+
+SLIDE 29
+Title: Outils et services d'échange
+Content:
+• Gmail
+• Google Drive
+• OneDrive
+• Dropbox
+• WeTransfer
+
+SLIDE 30
+Title: Actions à mettre en œuvre
+Content:
+• Chiffrer les données
+• Vérifier les destinataires
+• Contrôler les accès
+• Utiliser des connexions sécurisées
+
+---
+
+CHAPTER 5: DESTRUCTION DES DONNÉES
+
+SLIDE 31
+Title: Destruction des données
+Content: La destruction des données consiste à supprimer définitivement les informations devenues inutiles ou sensibles pour éviter tout accès non autorisé.
+
+SLIDE 32
+Title: Démagnétisation
+Content: Technique utilisant un champ magnétique puissant pour effacer les données stockées sur les supports magnétiques (bandes, disquettes, disques durs).
+
+SLIDE 33
+Title: Destruction physique
+Content: Méthodes de destruction physique :
+• Broyage
+• Perforation
+• Incinération
+
+SLIDE 34
+Title: Logiciels d'effacement
+Content:
+• DBAN (Darik's Boot and Nuke)
+• Eraser
+• CCleaner Drive Wiper
+
+SLIDE 35
+Title: Récupération des données
+Content: La récupération permet de retrouver des données perdues ou supprimées accidentellement.
+Outils : Recuva, EaseUS Data Recovery, Disk Drill
+
+---
+
+CONCLUSION
+
+SLIDE 36
+Title: Conclusion générale
+Content: La gestion des données couvre tout leur cycle de vie :
+• Création
+• Gestion
+• Archivage
+• Protection
+• Transfert
+• Destruction
+Une bonne gestion garantit la sécurité, la disponibilité et la valeur des informations.
+
+SLIDE 37
+Title: Merci pour votre attention
+Content: Questions ?
+Subtitle: Aziz Harbaoui - TSIG - ATFP Sousse 2025-2026
+
+---
+
+DESIGN INSTRUCTIONS:
+- Style: Minimalist, clean, professional
+- Color palette: White background, dark blue (#1a365d) for headings, teal (#0d9488) for accents
+- Typography: Modern sans-serif font (Montserrat or similar)
+- Use simple line icons for visual elements
+- Keep text concise and readable
+- Use subtle transitions between slides
+- Each slide should have plenty of white space
+- Use consistent layout throughout the presentation

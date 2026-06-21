@@ -1,0 +1,86 @@
+﻿% DoctIP Sequence Diagram: AI Symptom Triage
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    life/.style={black!60, dashed, line width=0.5pt},
+    part/.style={draw=black!70, fill=white, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    msg/.style={-{Stealth[length=4pt]}, black!75, line width=0.55pt, font=\tiny},
+    ret/.style={-{Stealth[length=4pt]}, black!55, dashed, line width=0.5pt, font=\tiny},
+    frame/.style={draw=black!70, line width=0.55pt},
+    note/.style={draw=black!70, fill=black!5, rounded corners=2pt, font=\tiny, align=left, inner sep=3pt}
+  }
+
+  % X positions spanning wide enough to prevent overlap
+  \def\xU{0}
+  \def\xA{4.2}
+  \def\xE{8.4}
+  \def\xG{12.6}
+  \def\xD{16.8}
+
+  % Patient actor (stick figure)
+  \begin{scope}[shift={(\xU,0.25)}]
+    \draw[black!75, line width=0.55pt] (0,0.35) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.21)--(0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.20,0.03)--(0.20,0.03);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(-0.16,-0.46);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(0.16,-0.46);
+    \node[font=\scriptsize, below] at (0,-0.50) {Patient};
+  \end{scope}
+
+  % Other participants
+  \node[part] (app) at (\xA,0.05) {Mobile App};
+  \node[part] (fn) at (\xE,0.05) {ai-triage\\Edge Fn};
+  \node[part] (gpt) at (\xG,0.05) {GPT-4\\OpenAI};
+  \node[part] (db) at (\xD,0.05) {PostgreSQL};
+
+  % Lifelines
+  \draw[life] (\xU,-0.6) -- (\xU,-16.5);
+  \draw[life] (\xA,-0.3) -- (\xA,-16.5);
+  \draw[life] (\xE,-0.3) -- (\xE,-16.5);
+  \draw[life] (\xG,-0.3) -- (\xG,-16.5);
+  \draw[life] (\xD,-0.3) -- (\xD,-16.5);
+
+  % ================= LOOP FRAME =================
+  \def\lyT{-1.0}\def\lyB{-8.5}\def\lxL{-0.8}\def\lxR{\xD+0.8}
+  \draw[frame] (\lxL,\lyT) rectangle (\lxR,\lyB);
+  \draw[frame, fill=white] (\lxL,\lyT) -- ++(0,-0.4) -- ++(0.7,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\lxL+0.35,\lyT-0.2) {\textbf{loop}};
+  \node[font=\tiny, anchor=west] at (\lxL+1.0,\lyT-0.2) {[until triage\_complete == true]};
+
+  % Messages inside loop
+  \draw[msg] (\xU,-1.8) -- node[above] {Describe symptoms / Answer questions} (\xA,-1.8);
+  \draw[msg] (\xA,-2.6) -- node[above] {POST /ai-triage \{symptoms, ...\}} (\xE,-2.6);
+  
+  \draw[msg] (\xE,-3.0) -- +(0.35,0) |- node[right, align=left] {Build\\clinical prompt} (\xE,-3.7);
+
+  \draw[msg] (\xE,-4.5) -- node[above] {chat.completions.create(model="gpt-4")} (\xG,-4.5);
+  \draw[ret] (\xG,-5.2) -- node[above] {JSON \{message, urgency, ...\}} (\xE,-5.2);
+
+  \draw[msg] (\xE,-5.6) -- +(0.35,0) |- node[right, align=left] {Parse +\\validate JSON} (\xE,-6.3);
+
+  \draw[msg] (\xE,-7.1) -- node[above] {INSERT / UPDATE triage\_sessions} (\xD,-7.1);
+  \draw[ret] (\xD,-7.8) -- node[above] {session\_id} (\xE,-7.8);
+
+  % ================= ALT FRAME =================
+  \def\ayT{-9.2}\def\ayB{-15.6}\def\axL{-0.9}\def\axR{\xA+0.9}
+  \draw[frame] (\axL,\ayT) rectangle (\axR,\ayB);
+  \draw[frame, fill=white] (\axL,\ayT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\axL+0.3,\ayT-0.2) {\textbf{alt}};
+  \node[font=\tiny, anchor=west] at (\axL+0.9,\ayT-0.2) {[urgency == "emergency"]};
+  
+  % Branch 1: Critical Emergency
+  \draw[ret] (\xE,-10.0) -- node[above] {Return Critical Emergency flag} (\xA,-10.0);
+  \draw[ret] (\xA,-10.8) -- node[above] {Show RED warning "Seek Immediate Care!"} (\xU,-10.8);
+
+  % ================= ELSE SEPARATOR =================
+  \def\ey{-11.6}
+  \draw[frame, dashed] (\axL,\ey) -- (\axR,\ey);
+  \node[font=\tiny, anchor=west] at (\axL+0.2,\ey-0.2) {[else: triage\_complete == true \& Standard care]};
+  
+  \draw[ret] (\xE,-12.4) -- node[above] {Return \{urgency, recommended\_specialty\}} (\xA,-12.4);
+  \draw[ret] (\xA,-13.2) -- node[above] {Display urgency badge, action plan} (\xU,-13.2);
+  
+  \draw[msg] (\xU,-14.0) -- node[above] {Tap "Book Appointment"} (\xA,-14.0);
+  \draw[ret] (\xA,-14.8) -- node[above] {Navigate to booking flow} (\xU,-14.8);
+
+\end{tikzpicture}
+

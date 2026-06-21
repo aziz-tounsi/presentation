@@ -1,0 +1,172 @@
+% Consult Patient Dashboard
+\begin{tikzpicture}[x=1.2cm,y=1.1cm]
+
+% ---------------- STYLES ----------------
+\tikzset{
+  usecase/.style={
+    ellipse,
+    draw=black!80,
+    fill=white,
+    font=\fontsize{24}{28}\selectfont\bfseries,
+    align=center,
+    minimum width=16.0cm,
+    minimum height=3.5cm
+  },
+  boundary/.style={
+    draw=black!80,
+    line width=2.5pt
+  },
+  assoc/.style={
+    black!80,
+    line width=1.8pt
+  },
+  dashedarrow/.style={
+    black!70,
+    dashed,
+    line width=1.8pt,
+    -{>[length=22pt,width=16pt]}
+  },
+  systemactor/.style={
+    rectangle,
+    draw=black!80,
+    thick,
+    fill=gray!10,
+    font=\fontsize{24}{28}\selectfont\bfseries,
+    align=center,
+    minimum width=7.5cm,
+    minimum height=3.5cm,
+    rounded corners=8pt
+  },
+  stereotext/.style={
+    pos=0.5,
+    fill=white,
+    inner sep=6pt,
+    font=\fontsize{18}{22}\selectfont,
+    sloped
+  }
+}
+
+% ===================================================
+% SYSTEM BOUNDARY
+% ===================================================
+\draw[boundary] (-6.0, 34.0) rectangle (61.5, -25.5);
+
+% TITLE
+\node[font=\fontsize{56}{64}\selectfont\bfseries] at (27.75, 32.0)
+  {Consult Patient Dashboard};
+
+% ===================================================
+% ACTOR
+% ===================================================
+\begin{scope}[shift={(-8.5, 3)}]
+  \draw[line width=2pt] (0, 1.2) circle (0.55);
+  \draw[line width=2pt] (0, 0.65) -- (0, -0.9);
+  \draw[line width=2pt] (-1.2, 0.2) -- (1.2, 0.2);
+  \draw[line width=2pt] (0, -0.9) -- (-0.9, -2.2);
+  \draw[line width=2pt] (0, -0.9) -- (0.9, -2.2);
+  \node[font=\fontsize{34}{40}\selectfont\bfseries, below] at (0, -2.4) {Patient};
+\end{scope}
+
+% ===================================================
+% AI SYSTEM ACTORS
+% ===================================================
+\node[systemactor] (ai1) at (66, 28.0) {AI Risk\\Predictor};
+\node[systemactor] (ai2) at (66, -2.0) {AI Analysis\\System};
+\node[systemactor] (ai3) at (66,-22.0) {AI Health\\Assistant};
+
+% ===================================================
+% LEVEL 1 ROOT
+% ===================================================
+\node[usecase] (dashboard) at (0, 3.0)
+  {Consult Patient\\Dashboard};
+\draw[assoc] (-7.0, 3.0) -- (dashboard.west);
+
+% ===================================================
+% LEVEL 2 DIRECT DASHBOARD EXTENSIONS
+% ===================================================
+\node[usecase] (schedule)  at (16, 28.0) {Consult schedule};
+\node[usecase] (recovery)  at (16, 24.5) {Consult Recovery Index};
+\node[usecase] (insights)  at (16, 21.0) {Consult Health insights};
+\node[usecase] (risk)      at (16, 17.5) {Consult Risk score};
+\node[usecase] (services)  at (16, 10.5) {Manage Services};
+\node[usecase] (wellness)  at (16, -4.5) {Consult wellness trends};
+\node[usecase] (meds)      at (16,-13.0) {Manage Medications};
+\node[usecase] (aiinteract) at (16,-22.0) {Interact with AI\\Health assistant};
+
+% LEVEL 2 -> ROOT
+\draw[dashedarrow] (schedule.west)   -- node[stereotext]{$\ll$extend$\gg$} (dashboard.70);
+\draw[dashedarrow] (recovery.west)   -- node[stereotext]{$\ll$extend$\gg$} (dashboard.55);
+\draw[dashedarrow] (insights.west)   -- node[stereotext]{$\ll$extend$\gg$} (dashboard.40);
+\draw[dashedarrow] (risk.west)       -- node[stereotext]{$\ll$extend$\gg$} (dashboard.25);
+\draw[dashedarrow] (services.west)   -- node[stereotext]{$\ll$extend$\gg$} (dashboard.10);
+\draw[dashedarrow] (wellness.west)   -- node[stereotext]{$\ll$extend$\gg$} (dashboard.-10);
+\draw[dashedarrow] (meds.west)       -- node[stereotext]{$\ll$extend$\gg$} (dashboard.-30);
+\draw[dashedarrow] (aiinteract.west) -- node[stereotext]{$\ll$extend$\gg$} (dashboard.-55);
+
+% ===================================================
+% LEVEL 3 SUB-EXTENSIONS
+% ===================================================
+\node[usecase] (riskpred)   at (50, 28.0) {Predict Health Risks};
+
+\node[usecase] (emergency)  at (50, 24.0) {Manage emergency};
+\node[usecase] (behavioral) at (50, 20.5) {Manage Behavioral Health};
+\node[usecase] (activity)   at (50, 17.0) {Record Physical Activity};
+\node[usecase] (sleep)      at (34, 11.0) {Record sleep data};
+\node[usecase] (lab)        at (34,  5.5) {Manage lab results};
+\node[usecase] (followup)   at (34,  0.5) {Consult followup plan};
+
+\node[usecase] (download)   at (34, -7.0) {Download Medical Plan};
+\node[usecase] (addmed)     at (34,-10.5) {Add Medication};
+\node[usecase] (consultmed) at (34,-17.0) {Consult Medication};
+
+\node[usecase] (guide)      at (34,-22.0) {Provide conversational\\guidance};
+
+% LEVEL 3 -> LEVEL 2
+\draw[dashedarrow] (risk.east) -- node[stereotext]{$\ll$include$\gg$} (riskpred.west);
+
+\draw[dashedarrow] (emergency.west)  -- node[stereotext]{$\ll$extend$\gg$} (services.45);
+\draw[dashedarrow] (behavioral.west) -- node[stereotext]{$\ll$extend$\gg$} (services.25);
+\draw[dashedarrow] (activity.west)   -- node[stereotext]{$\ll$extend$\gg$} (services.10);
+\draw[dashedarrow] (sleep.west)      -- node[stereotext]{$\ll$extend$\gg$} (services.0);
+\draw[dashedarrow] (lab.west)        -- node[stereotext]{$\ll$extend$\gg$} (services.-20);
+\draw[dashedarrow] (followup.west)   -- node[stereotext]{$\ll$extend$\gg$} (services.-40);
+
+\draw[dashedarrow] (download.west)   -- node[stereotext]{$\ll$extend$\gg$} (meds.40);
+\draw[dashedarrow] (addmed.west)     -- node[stereotext]{$\ll$extend$\gg$} (meds.15);
+\draw[dashedarrow] (consultmed.west) -- node[stereotext]{$\ll$extend$\gg$} (meds.-20);
+
+\draw[dashedarrow] (aiinteract.east) -- node[stereotext]{$\ll$include$\gg$} (guide.west);
+
+% ===================================================
+% LEVEL 4 DEEP SUB-EXTENSIONS
+% ===================================================
+\node[usecase] (delab)    at (52,  9.0) {Delete lab results};
+\node[usecase] (conlab)   at (52,  5.5) {Consult lab results};
+\node[usecase] (uplab)    at (52,  2.0) {Upload lab results};
+
+\node[usecase] (analysis) at (52, -2.0) {Analyse Health Data};
+
+\node[usecase] (editmed)  at (52, -8.0) {Edit Medications};
+\node[usecase] (delmed)   at (52,-11.5) {Delete Medications};
+\node[usecase] (markmed)  at (52,-15.0) {Mark/unMark Medications\\as taken};
+\node[usecase] (refill)   at (52,-18.5) {Send Refill Request};
+
+% LEVEL 4 -> LEVEL 3
+\draw[dashedarrow] (delab.west)  -- node[stereotext]{$\ll$extend$\gg$} (lab.30);
+\draw[dashedarrow] (conlab.west) -- node[stereotext]{$\ll$extend$\gg$} (lab.0);
+\draw[dashedarrow] (uplab.west)  -- node[stereotext]{$\ll$extend$\gg$} (lab.-30);
+
+\draw[dashedarrow] (followup.east) -- node[stereotext]{$\ll$include$\gg$} (analysis.165);
+\draw[dashedarrow] (wellness.east) -- node[stereotext]{$\ll$include$\gg$} (analysis.195);
+
+\draw[dashedarrow] (editmed.west) -- node[stereotext]{$\ll$extend$\gg$} (consultmed.45);
+\draw[dashedarrow] (delmed.west)  -- node[stereotext]{$\ll$extend$\gg$} (consultmed.20);
+\draw[dashedarrow] (markmed.west) -- node[stereotext]{$\ll$extend$\gg$} (consultmed.0);
+\draw[dashedarrow] (refill.west)  -- node[stereotext]{$\ll$extend$\gg$} (consultmed.-25);
+
+% AI SYSTEM ASSOCIATIONS
+\draw[assoc] (riskpred.east) -- (ai1.west);
+\draw[assoc] (analysis.east) -- (ai2.west);
+\draw[assoc] (guide.east)    -- (ai3.west);
+
+\end{tikzpicture}

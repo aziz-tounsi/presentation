@@ -1,0 +1,61 @@
+﻿% DoctIP Overall System Architecture (simple scientific diagram)
+\begin{tikzpicture}[
+  font=\small,
+  panel/.style={draw, thick, minimum width=5.2cm, minimum height=7.3cm},
+  block/.style={draw, minimum width=4.0cm, minimum height=1.0cm, align=center, font=\scriptsize},
+  actor/.style={draw, rounded corners=2pt, minimum width=2.7cm, minimum height=0.85cm, align=center, fill=gray!10, font=\scriptsize\bfseries},
+  flow/.style={-{Stealth[length=5pt]}, thick},
+  bidir/.style={<->, thick},
+]
+  % Left: system actors
+  \node[actor] (admin) at (-8.2,2.2) {Administrator};
+  \node[actor] (doctor) at (-8.2,0.7) {Doctor};
+  \node[actor] (patient) at (-8.2,-0.8) {Patient};
+
+  % Panel 1: presentation
+  \node[panel] (presentation) at (-3.0,0.7) {};
+  \node[font=\small\bfseries, anchor=south] at (presentation.north) {Presentation Layer};
+  \node[block] (mobile) at (-3.0,2.3) {Mobile App\\React Native + Expo};
+  \node[block] (web) at (-3.0,0.7) {Web Dashboard\\React + Vite};
+  \node[block] (shared) at (-3.0,-0.9) {Shared Navigation\\and UI Components};
+
+  % Panel 2: core services
+  \node[panel] (services) at (2.7,0.7) {};
+  \node[font=\small\bfseries, anchor=south] at (services.north) {Application Services};
+  \node[block] (auth) at (2.7,2.7) {Authentication};
+  \node[block] (clinical) at (2.7,1.2) {Appointments and Medical Records};
+  \node[block] (ai) at (2.7,-0.3) {Clinical AI Modules};
+  \node[block] (notify) at (2.7,-1.8) {Realtime Messaging\\and Notifications};
+
+  % Panel 3: technology platform
+  \node[panel, minimum width=4.5cm] (platform) at (7.9,0.7) {};
+  \node[font=\small\bfseries, anchor=south] at (platform.north) {Technology Platform};
+  \node[block, minimum width=3.5cm] (edge) at (7.9,2.5) {Supabase Edge Functions};
+  \node[block, minimum width=3.5cm] (db) at (7.9,1.0) {PostgreSQL + RLS};
+  \node[block, minimum width=3.5cm] (storage) at (7.9,-0.5) {Storage + Realtime};
+  \node[block, minimum width=3.5cm] (external) at (7.9,-2.0) {OpenAI/OpenRouter\\FCM and Agora};
+
+  % Inbound actor flows
+  \coordinate (p1) at ($(presentation.west)+(0,1.6)$);
+  \coordinate (p2) at ($(presentation.west)+(0,0.1)$);
+  \coordinate (p3) at ($(presentation.west)+(0,-1.4)$);
+  \draw[flow] (admin.east) -- (p1);
+  \draw[flow] (doctor.east) -- (p2);
+  \draw[flow] (patient.east) -- (p3);
+
+  % Main architecture flow
+  \draw[bidir] (presentation.east) -- (services.west);
+  \draw[bidir] (services.east) -- (platform.west);
+
+  % Service to platform mappings
+  \draw[flow] (auth.east) -- (edge.west);
+  \draw[flow] (clinical.east) -- (db.west);
+  \draw[flow] (ai.east) -- (external.west);
+  \draw[flow] (notify.east) -- (storage.west);
+
+  % Bottom labels
+  \node[font=\scriptsize, anchor=north] at ($(presentation.south)+(0,-0.3)$) {User Interaction};
+  \node[font=\scriptsize, anchor=north] at ($(services.south)+(0,-0.3)$) {Business Processing};
+  \node[font=\scriptsize, anchor=north] at ($(platform.south)+(0,-0.3)$) {Infrastructure and Integrations};
+\end{tikzpicture}
+

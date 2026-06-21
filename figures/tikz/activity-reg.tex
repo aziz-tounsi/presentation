@@ -1,0 +1,63 @@
+\begin{tikzpicture}[
+    x=1.1cm, y=1.1cm,
+    box/.style={rectangle, rounded corners=5pt, draw=black, thin,
+                minimum height=1.1cm, align=center,
+                fill=white, font=\sffamily\small, inner xsep=3.5mm, inner ysep=2mm},
+    diamond_node/.style={diamond, draw=black, thin, minimum size=0.5cm, inner sep=0pt},
+    bar/.style={rectangle, fill=black, minimum width=2.4cm, minimum height=0.12cm, inner sep=0pt},
+    arrow/.style={-{Latex[length=3mm, width=2mm]}, thin}
+]
+
+% ================= COORDINATES & NODES =================
+% Start Node
+\coordinate (Start) at (0, 8.5);
+\fill (Start) circle (2.5pt);
+
+% Action Nodes
+\node[box] (Req) at (0, 7.2) {Request registration\\screen};
+\node[box] (Disp) at (3.8, 5.0) {Display registration form};
+\node[box] (Enter) at (-3.8, 3.8) {Enter data};
+\node[box] (Send) at (3.8, 2.0) {Send data to the database};
+\node[box] (Exist) at (-3.8, 0.4) {Existence verification};
+
+% Decision Diamond
+\node[diamond_node] (Dia) at (0, -1.0) {};
+
+% Branches (Preserving the exact spelling from the image)
+\node[box] (Error) at (-4.2, -2.8) {Email already exists error massage};
+\node[box] (Save) at (3.8, -1.8) {Save new patient};
+\node[box] (Update) at (3.8, -4.8) {Update};
+
+% Synchronization Bar (Join Node)
+\node[bar] (Join) at (0, -6.4) {};
+
+% End Node
+\coordinate (End) at (0, -7.4);
+\draw[thin] (End) circle (4.5pt);
+\fill (End) circle (2pt);
+
+
+% ================= DRAWING ARROWS =================
+% Main zigzag flow
+\draw[arrow] (Start) -- (Req);
+\draw[arrow] (Req) -- (Disp);
+\draw[arrow] (Disp) -- (Enter);
+\draw[arrow] (Enter) -- (Send);
+\draw[arrow] (Send) -- (Exist);
+\draw[arrow] (Exist) -- (Dia);
+
+% Diamond conditional branches
+\draw[arrow] (Dia) -- node[above left, xshift=1mm, yshift=-1mm, font=\sffamily\small] {yes} (Error);
+\draw[arrow] (Dia) -- node[above, yshift=1mm, font=\sffamily\small] {no} (Save);
+
+% Vertical continuation
+\draw[arrow] (Save) -- (Update);
+
+% Connections hitting the outer edges of the Join bar
+\draw[arrow] (Error) -- (Join.north west);
+\draw[arrow] (Update) -- (Join.north east);
+
+% Final End arrow
+\draw[arrow] (Join.south) -- (End);
+
+\end{tikzpicture}

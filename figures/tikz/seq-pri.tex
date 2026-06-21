@@ -1,0 +1,76 @@
+﻿% DoctIP Sequence Diagram: PRI Computation
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    life/.style={black!60, dashed, line width=0.5pt},
+    part/.style={draw=black!70, fill=white, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    msg/.style={-{Stealth[length=4pt]}, black!75, line width=0.55pt, font=\tiny},
+    ret/.style={-{Stealth[length=4pt]}, black!55, dashed, line width=0.5pt, font=\tiny},
+    frame/.style={draw=black!70, line width=0.55pt},
+    note/.style={draw=black!70, fill=black!5, rounded corners=2pt, font=\tiny, align=left, inner sep=3pt}
+  }
+
+  % X positions (widened to 4.2 to prevent overlap)
+  \def\xP{0}
+  \def\xA{4.2}
+  \def\xE{8.4}
+  \def\xDB{12.6}
+  \def\xN{16.8}
+
+  % Patient actor (stick figure)
+  \begin{scope}[shift={(\xP,0.25)}]
+    \draw[black!75, line width=0.55pt] (0,0.35) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.21)--(0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.20,0.03)--(0.20,0.03);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(-0.16,-0.46);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(0.16,-0.46);
+    \node[font=\scriptsize, below] at (0,-0.50) {Patient};
+  \end{scope}
+
+  % Other participants
+  \node[part] (app) at (\xA,0.05) {Mobile App};
+  \node[part] (fn) at (\xE,0.05) {compute-pri\\Edge Fn};
+  \node[part] (db) at (\xDB,0.05) {PostgreSQL};
+  \node[part] (fcm) at (\xN,0.05) {FCM Push};
+
+  % Lifelines
+  \draw[life] (\xP,-0.6) -- (\xP,-14.2);
+  \draw[life] (\xA,-0.3) -- (\xA,-14.2);
+  \draw[life] (\xE,-0.3) -- (\xE,-14.2);
+  \draw[life] (\xDB,-0.3) -- (\xDB,-14.2);
+  \draw[life] (\xN,-0.3) -- (\xN,-14.2);
+
+  % Messages
+  \draw[msg] (\xP,-1.2) -- node[above] {Open Recovery Index screen} (\xA,-1.2);
+  \draw[msg] (\xA,-2.0) -- node[above] {POST /compute-pri \{patient\_id\}} (\xE,-2.0);
+
+  \draw[msg] (\xE,-2.8) -- node[above] {Fetch medication\_logs (7 days)} (\xDB,-2.8);
+  \draw[ret] (\xDB,-3.4) -- node[above] {Dose records (taken/missed/skipped)} (\xE,-3.4);
+
+  \draw[msg] (\xE,-4.2) -- node[above] {Fetch lab\_results (latest)} (\xDB,-4.2);
+  \draw[ret] (\xDB,-4.8) -- node[above] {Lab values + reference ranges} (\xE,-4.8);
+
+  \draw[msg] (\xE,-5.6) -- node[above] {Fetch appointments (completion)} (\xDB,-5.6);
+  \draw[ret] (\xDB,-6.2) -- node[above] {Appointment statuses} (\xE,-6.2);
+
+  \draw[msg] (\xE,-6.8) -- +(0.35,0) |- node[right, align=left] {Compute\\sub-scores} (\xE,-7.5);
+  
+  \node[note] at (\xE,-8.3) {Adherence (30\%) \textperiodcentered{} Labs (25\%)\\Appt (20\%) \textperiodcentered{} Sym (15\%) \textperiodcentered{} Act (10\%)};
+
+  \draw[msg] (\xE,-9.1) -- node[above] {INSERT recovery\_scores} (\xDB,-9.1);
+  \draw[ret] (\xDB,-9.7) -- node[above] {Saved record} (\xE,-9.7);
+
+  \draw[ret] (\xE,-10.5) -- node[above] {\{pri: 76, sub\_scores, trend\}} (\xA,-10.5);
+  \draw[ret] (\xA,-11.3) -- node[above] {Display PRI ring + radar chart + history} (\xP,-11.3);
+
+  % ================= OPT FRAME =================
+  \def\oyT{-12.0}\def\oyB{-13.6}\def\oxL{-0.8}\def\oxR{\xN+0.8}
+  \draw[frame] (\oxL,\oyT) rectangle (\oxR,\oyB);
+  \draw[frame, fill=white] (\oxL,\oyT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\oxL+0.3,\oyT-0.2) {\textbf{opt}};
+  \node[font=\tiny, anchor=west] at (\oxL+0.9,\oyT-0.2) {[pri < 50]};
+
+  \draw[msg] (\xE,-12.6) -- node[above] {Invoke sendPushNotification Fn} (\xN,-12.6);
+  \draw[ret] (\xN,-13.2) -- node[above] {"Your Recovery Index dropped"} (\xP,-13.2);
+
+\end{tikzpicture}
+

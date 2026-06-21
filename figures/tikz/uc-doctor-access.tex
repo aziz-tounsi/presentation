@@ -1,0 +1,56 @@
+﻿% DoctIP Refined Use Case Diagram: Manage Doctor Access
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    actorlabel/.style={font=\scriptsize, align=center},
+    usecase/.style={
+      ellipse,
+      draw=black!75,
+      fill=white,
+      font=\scriptsize,
+      align=center,
+      minimum width=4.2cm,
+      minimum height=0.95cm,
+      inner sep=2.5pt
+    },
+    boundary/.style={draw=black!70, line width=0.6pt, fill=white},
+    assoc/.style={black!70, line width=0.55pt},
+    include/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    extend/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    rellabel/.style={font=\scriptsize, fill=white, inner sep=1.5pt},
+  }
+
+  % Spacious system boundary and centered title
+  \node[boundary, minimum width=16.2cm, minimum height=11.2cm, anchor=north west] (sys) at (0,5.8) {};
+  \node[font=\footnotesize\bfseries, anchor=north] at ($(sys.north)+(0,-0.72)$) {Manage Doctors};
+
+  % Actor (Admin)
+  \begin{scope}[shift={(-1.55,0.80)}]
+    \draw[black!75, line width=0.55pt] (0,0.34) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.20) -- (0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.22,0.02) -- (0.22,0.02);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (-0.18,-0.47);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (0.18,-0.47);
+    \node[actorlabel, below] at (0,-0.52) {Admin};
+  \end{scope}
+
+  % Use cases
+  \node[usecase, minimum width=4.6cm, minimum height=1.02cm] (main) at (4.8,0.8) {Manage doctors};
+  \node[usecase, minimum width=4.6cm, minimum height=1.02cm] (add) at (12.2,3.4) {add doctor};
+  \node[usecase, minimum width=4.9cm, minimum height=1.02cm] (auth) at (12.2,0.8) {authenticate};
+  \node[usecase, minimum width=5.6cm, minimum height=1.02cm] (disable) at (12.2,-1.8) {disable doctor account};
+  \node[usecase, minimum width=5.3cm, minimum height=1.02cm] (delete) at (12.2,-4.2) {delete doctor account};
+
+  % Associations
+  \draw[assoc] (-1.00,0.80) -- (main.west);
+
+  % include relationship (horizontal)
+  \draw[include] (main.east) -- node[rellabel, pos=0.5] {<<include>>} (auth.west);
+
+  % fan-in extend relationships (orthogonal lines)
+  \draw[extend] (add.west) -- node[rellabel, above=0.4pt] {<<extend>>} (add.west -| main.north) -- (main.north);
+
+  \draw[extend] (disable.west) -- node[rellabel, above=0.4pt] {<<extend>>} (disable.west -| main.south) -- (main.south);
+
+  \draw[extend] (delete.north) -- node[rellabel, left=1.0pt] {<<extend>>} (disable.south);
+\end{tikzpicture}
+

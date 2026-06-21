@@ -1,0 +1,59 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Aderfia INC Logo}}{4}{figure.caption.9}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Amwell Application Interface}}{7}{figure.caption.10}%
+\contentsline {figure}{\numberline {3}{\ignorespaces NHS App Interface}}{8}{figure.caption.11}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Medisafe Application Interface}}{9}{figure.caption.12}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Doctolib Application Interface}}{9}{figure.caption.13}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Feature Coverage Comparison of Healthcare Applications}}{11}{figure.caption.15}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Professional Scrum Methodology Cycle for the DocTIP Project}}{20}{figure.caption.16}%
+\contentsline {figure}{\numberline {8}{\ignorespaces DocTIP Project Gantt Chart}}{25}{figure.caption.18}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9}{\ignorespaces General Use Case Diagram}}{29}{figure.caption.21}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Refined Use Case Diagram: Manage Patient Profile}}{30}{figure.caption.22}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Refined Use Case Diagram: Consult Doctor Dashboard}}{34}{figure.caption.25}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Refined Use Case Diagram: Manage Doctor Profile}}{36}{figure.caption.27}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Refined Use Case Diagram: Manage Doctors}}{38}{figure.caption.29}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Refined Use Case Diagram: Manage Patients}}{40}{figure.caption.31}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Sequence Diagram: Authentication}}{44}{figure.caption.33}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Sequence Diagram: AI Symptom Triage}}{45}{figure.caption.34}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Sequence Diagram: AI Clinical Diagnostic Assistance}}{46}{figure.caption.35}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Sequence Diagram: Login Anomaly Detection (Zero Trust)}}{47}{figure.caption.36}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Authentication Activity Diagram}}{48}{figure.caption.37}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Registration Activity Diagram}}{49}{figure.caption.38}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Appointment Booking Activity Diagram}}{50}{figure.caption.39}%
+\contentsline {figure}{\numberline {23}{\ignorespaces AI Symptom Triage Activity Diagram}}{51}{figure.caption.40}%
+\contentsline {figure}{\numberline {24}{\ignorespaces PRI Computation Activity Diagram}}{52}{figure.caption.41}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Artificial Intelligence Module Architecture}}{53}{figure.caption.42}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {26}{\ignorespaces DocTIP Overall System Architecture}}{57}{figure.caption.47}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Visual Studio Code Logo}}{57}{figure.caption.48}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Android Studio Logo}}{58}{figure.caption.49}%
+\contentsline {figure}{\numberline {29}{\ignorespaces React Native Logo}}{58}{figure.caption.50}%
+\contentsline {figure}{\numberline {30}{\ignorespaces Expo Logo}}{59}{figure.caption.51}%
+\contentsline {figure}{\numberline {31}{\ignorespaces Vite Logo}}{59}{figure.caption.52}%
+\contentsline {figure}{\numberline {32}{\ignorespaces Tailwind CSS Logo}}{60}{figure.caption.53}%
+\contentsline {figure}{\numberline {33}{\ignorespaces Supabase Logo}}{60}{figure.caption.54}%
+\contentsline {figure}{\numberline {34}{\ignorespaces PostgreSQL Logo}}{61}{figure.caption.55}%
+\contentsline {figure}{\numberline {35}{\ignorespaces Deno Logo}}{61}{figure.caption.56}%
+\contentsline {figure}{\numberline {36}{\ignorespaces OpenAI Logo}}{62}{figure.caption.57}%
+\contentsline {figure}{\numberline {37}{\ignorespaces OpenRouter Logo}}{62}{figure.caption.58}%
+\contentsline {figure}{\numberline {38}{\ignorespaces Zustand Logo}}{63}{figure.caption.59}%
+\contentsline {figure}{\numberline {39}{\ignorespaces Authentication Flow: Role Selection, Login, and Registration}}{65}{figure.caption.60}%
+\contentsline {figure}{\numberline {40}{\ignorespaces Patient Home Dashboard}}{66}{figure.caption.61}%
+\contentsline {figure}{\numberline {41}{\ignorespaces AI Symptom Triage Interface}}{67}{figure.caption.62}%
+\contentsline {figure}{\numberline {42}{\ignorespaces Discover Doctor Flow}}{68}{figure.caption.63}%
+\contentsline {figure}{\numberline {43}{\ignorespaces Appointment Booking Flow: Profile, Date Selection}}{69}{figure.caption.64}%
+\contentsline {figure}{\numberline {44}{\ignorespaces Patient Medical Record Interface}}{70}{figure.caption.65}%
+\contentsline {figure}{\numberline {45}{\ignorespaces Medication Management Dashboard}}{71}{figure.caption.66}%
+\contentsline {figure}{\numberline {46}{\ignorespaces Laboratory Results with Trend Charts and OCR Upload}}{72}{figure.caption.67}%
+\contentsline {figure}{\numberline {47}{\ignorespaces Patient Recovery Index (PRI) Dashboard}}{73}{figure.caption.68}%
+\contentsline {figure}{\numberline {48}{\ignorespaces Predictive Risk Assessment with Semi Gauge}}{74}{figure.caption.69}%
+\contentsline {figure}{\numberline {49}{\ignorespaces Sleep Quality Monitoring Dashboard}}{75}{figure.caption.70}%
+\contentsline {figure}{\numberline {50}{\ignorespaces Doctor Onboarding: Professional Information and Document Upload}}{78}{figure.caption.71}%
+\contentsline {figure}{\numberline {51}{\ignorespaces Doctor Home Dashboard}}{79}{figure.caption.72}%
+\contentsline {figure}{\numberline {52}{\ignorespaces Patient Detail Screen with Clinical Tools Grid}}{80}{figure.caption.73}%
+\contentsline {figure}{\numberline {53}{\ignorespaces AI Assisted SOAP Clinical Note Generation}}{81}{figure.caption.74}%
+\contentsline {figure}{\numberline {54}{\ignorespaces Web Administration Main Dashboard}}{84}{figure.caption.75}%
+\contentsline {figure}{\numberline {55}{\ignorespaces Doctor Management and Verification Interface}}{85}{figure.caption.76}%
+\contentsline {figure}{\numberline {56}{\ignorespaces Platform Analytics Dashboard}}{86}{figure.caption.77}%

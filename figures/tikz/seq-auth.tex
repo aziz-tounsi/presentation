@@ -1,0 +1,93 @@
+﻿% DoctIP Sequence Diagram: Authentication (structured with loop/alt)
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    life/.style={black!60, dashed, line width=0.5pt},
+    part/.style={draw=black!70, fill=white, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    msg/.style={-{Stealth[length=4pt]}, black!75, line width=0.55pt, font=\tiny},
+    ret/.style={-{Stealth[length=4pt]}, black!55, dashed, line width=0.5pt, font=\tiny},
+    frame/.style={draw=black!70, line width=0.55pt}
+  }
+
+  % X positions spanning wide enough to prevent overlap
+  \def\xU{0}
+  \def\xA{4.6}
+  \def\xS{9.2}
+  \def\xD{13.8}
+
+  % User actor (stick figure)
+  \begin{scope}[shift={(\xU,0.25)}]
+    \draw[black!75, line width=0.55pt] (0,0.35) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.21)--(0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.20,0.03)--(0.20,0.03);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(-0.16,-0.46);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(0.16,-0.46);
+    \node[font=\scriptsize, below] at (0,-0.50) {User};
+  \end{scope}
+
+  % Other participants
+  \node[part] (app) at (\xA,0.05) {Frontend};
+  \node[part] (auth) at (\xS,0.05) {Backend};
+  \node[part] (db) at (\xD,0.05) {Database};
+
+  % Lifelines
+  \draw[life] (\xU,-0.6) -- (\xU,-18.2);
+  \draw[life] (\xA,-0.3) -- (\xA,-18.2);
+  \draw[life] (\xS,-0.3) -- (\xS,-18.2);
+  \draw[life] (\xD,-0.3) -- (\xD,-18.2);
+
+  % Messages before loop
+  \draw[msg] (\xU,-1.2) -- node[above] {Request login form} (\xA,-1.2);
+  \draw[msg] (\xA,-1.9) -- node[above] {Show login form} (\xU,-1.9);
+
+  % ================= LOOP FRAME =================
+  \def\lyT{-2.4}\def\lyB{-6.4}\def\lxL{-0.8}\def\lxR{\xS+0.6}
+  \draw[frame] (\lxL,\lyT) rectangle (\lxR,\lyB);
+  \draw[frame, fill=white] (\lxL,\lyT) -- ++(0,-0.4) -- ++(0.7,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\lxL+0.35,\lyT-0.2) {\textbf{loop}};
+  \node[font=\tiny, anchor=west] at (\lxL+1.0,\lyT-0.2) {[User enters and submits login data]};
+
+  \draw[msg] (\xU,-3.3) -- node[above] {Enter email and password} (\xA,-3.3);
+  \draw[msg] (\xA,-3.5) -- +(0.35,0) |- node[right, align=left] {Validate fields\\(non-empty, valid format)} (\xA,-4.2);
+  \draw[ret] (\xA,-4.8) -- node[above] {Show validation errors if any} (\xU,-4.8);
+  \draw[msg] (\xU,-5.4) -- node[above] {Click "Sign In"} (\xA,-5.4);
+  \draw[msg] (\xA,-6.1) -- node[above] {POST /auth/login with credentials} (\xS,-6.1);
+
+  % ================= MAIN ALT FRAME =================
+  \def\ayT{-6.8}\def\ayB{-17.8}\def\axL{-0.9}\def\axR{\xD+0.9}
+  \draw[frame] (\axL,\ayT) rectangle (\axR,\ayB);
+  \draw[frame, fill=white] (\axL,\ayT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\axL+0.3,\ayT-0.2) {\textbf{alt}};
+  \node[font=\tiny, anchor=west] at (\axL+0.9,\ayT-0.2) {[Data valid and login successful]};
+
+  \draw[msg] (\xS,-7.4) -- +(0.35,0) |- node[right, align=left] {Extract and validate\\email/password} (\xS,-8.1);
+  \draw[msg] (\xS,-8.6) -- node[above] {Search User table for email} (\xD,-8.6);
+  \draw[ret] (\xD,-9.3) -- node[above] {User found?} (\xS,-9.3);
+
+  % ================= NESTED ALT FRAME =================
+  \def\nyT{-9.8}\def\nyB{-11.3}\def\nxL{\xS-0.6}\def\nxR{\xD+0.4}
+  \draw[frame] (\nxL,\nyT) rectangle (\nxR,\nyB);
+  \draw[frame, fill=white] (\nxL,\nyT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\nxL+0.3,\nyT-0.2) {\textbf{alt}};
+  \node[font=\tiny, anchor=west] at (\nxL+0.9,\nyT-0.2) {[User not found in User table]};
+
+  \draw[msg] (\xS,-10.4) -- node[above] {Search Patient table for email} (\xD,-10.4);
+  \draw[ret] (\xD,-11.0) -- node[above] {Patient found?} (\xS,-11.0);
+
+  \draw[msg] (\xS,-11.7) -- +(0.35,0) |- node[right, align=left] {Compare password\\using bcrypt} (\xS,-12.4);
+  \draw[msg] (\xS,-12.6) -- +(0.35,0) |- node[right, align=left] {Generate JWT\\(userId, role, expiry)} (\xS,-13.3);
+
+  \draw[msg] (\xS,-13.8) -- node[above] {200 OK + token + user info} (\xA,-13.8);
+  \draw[msg] (\xA,-14.0) -- +(0.35,0) |- node[right, align=left] {Store token,\\update state} (\xA,-14.7);
+  \draw[ret] (\xA,-15.2) -- node[above] {Show success, redirect to protected route} (\xU,-15.2);
+
+  % ================= ELSE SEPARATOR =================
+  \def\ey{-15.8}
+  \draw[frame, dashed] (\axL,\ey) -- (\axR,\ey);
+  \node[font=\tiny, anchor=west] at (\axL+0.2,\ey-0.2) {[Error (invalid credentials, network/server error)]};
+
+  \draw[ret] (\xS,-16.5) -- node[above] {Return error status + message} (\xA,-16.5);
+  \draw[msg] (\xA,-16.7) -- +(0.35,0) |- node[right, align=left] {Show error\\(invalid email/pass)} (\xA,-17.4);
+  \draw[ret] (\xA,-17.6) -- node[above] {Display error message, allow retry} (\xU,-17.6);
+
+\end{tikzpicture}
+

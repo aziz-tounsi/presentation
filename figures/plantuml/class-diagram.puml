@@ -1,0 +1,174 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Arial
+skinparam roundcorner 5
+skinparam class {
+    BackgroundColor White
+    BorderColor #2C7CED
+    ArrowColor #334155
+}
+
+' ==========================================
+' ENUMS
+' ==========================================
+enum Role {
+    ADMIN
+    DOCTOR
+    PATIENT
+}
+
+enum AppointmentStatus {
+    SCHEDULED
+    COMPLETED
+    CANCELLED
+}
+
+' ==========================================
+' VALUE OBJECTS
+' ==========================================
+class EmergencyContact <<ValueObject>> {
+    + name: string
+    + relation: string
+    + phone: string
+}
+
+class MedicalHistoryEntry <<ValueObject>> {
+    + condition: string
+    + diagnosedDate: Date
+    + notes: string
+}
+
+' ==========================================
+' CORE CLASSES
+' ==========================================
+abstract class User {
+    + id: string
+    + name: string
+    + email: string
+    + password: string
+    + role: Role
+    + createdAt: Date
+    + updatedAt: Date
+    --
+    + login(): void
+    + logout(): void
+}
+
+class Admin extends User {
+    --
+    + addDoctor(doctor: Doctor): void
+    + disableDoctor(doctorId: string): void
+}
+
+class Doctor extends User {
+    + licenseNumber: string
+    + specialty: string
+    --
+    + writeMedicalNote(patientId: string, content: string): void
+}
+
+class Patient extends User {
+    + birthDate: Date
+    + gender: string
+    + cin: string
+    --
+    + bookAppointment(doctorId: string, dateTime: DateTime): void
+    + addBloodGlucose(value: float, date: Date): void
+}
+
+' ==========================================
+' DOMAIN ENTITIES
+' ==========================================
+class Appointment {
+    + id: string
+    + dateTime: DateTime
+    + status: AppointmentStatus
+    + reason: string
+    + note: string
+    + createdAt: Date
+    + updatedAt: Date
+    --
+    + updateStatus(status: AppointmentStatus): void
+    + reschedule(newDateTime: DateTime): void
+}
+
+class TreatmentPlan {
+    + id: string
+    + diagnosis: string
+    + medications: string[]
+    + status: string
+    + startDate: Date
+    + endDate: Date
+    --
+    + activate(): void
+    + complete(): void
+}
+
+class MedicalNote {
+    + id: string
+    + content: string
+    + createdAt: Date
+    + updatedAt: Date
+}
+
+class BloodGlucose {
+    + id: string
+    + date: Date
+    + value: float
+    + note: string
+}
+
+class Notification {
+    + id: string
+    + message: string
+    + type: string
+    + isRead: boolean
+    + createdAt: Date
+    --
+    + markAsRead(): void
+}
+
+' ==========================================
+' RELATIONSHIPS
+' ==========================================
+
+' Admin manages doctors
+Admin "1" --> "0..*" Doctor : manages
+
+' Doctor-Patient via appointments
+Doctor "1" --> "0..*" Appointment : conducts
+Patient "1" --> "0..*" Appointment : books
+
+' Appointment links doctor and patient
+Appointment "1" --> "1" Doctor : assignedTo
+Appointment "1" --> "1" Patient : for
+
+' Treatment plans
+Doctor "1" --> "0..*" TreatmentPlan : creates
+Patient "1" --> "0..*" TreatmentPlan : follows
+
+' Medical notes
+Patient "1" *-- "0..*" MedicalNote : has
+Doctor "1" --> "0..*" MedicalNote : writes
+
+' Blood glucose records
+Patient "1" *-- "0..*" BloodGlucose : records
+Doctor "1" --> "0..*" BloodGlucose : reviews
+
+' Value object ownership
+Patient "1" *-- "1" EmergencyContact : has
+Patient "1" *-- "0..*" MedicalHistoryEntry : history
+
+' Notifications
+User "1" --> "0..*" Notification : receives
+
+' Layout hints for cleaner rendering
+Role -[hidden]- AppointmentStatus
+Admin -[hidden]- Doctor
+Doctor -[hidden]- Patient
+TreatmentPlan -[hidden]- BloodGlucose
+BloodGlucose -[hidden]- MedicalNote
+EmergencyContact -[hidden]- MedicalHistoryEntry
+
+@enduml

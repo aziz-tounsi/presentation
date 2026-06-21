@@ -1,0 +1,66 @@
+﻿% DoctIP Sequence Diagram: AI Clinical Diagnostic Assistance
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    life/.style={black!60, dashed, line width=0.5pt},
+    part/.style={draw=black!70, fill=white, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    msg/.style={-{Stealth[length=4pt]}, black!75, line width=0.55pt, font=\tiny},
+    ret/.style={-{Stealth[length=4pt]}, black!55, dashed, line width=0.5pt, font=\tiny},
+    frame/.style={draw=black!70, line width=0.55pt},
+    note/.style={draw=black!70, fill=black!5, rounded corners=2pt, font=\tiny, align=left, inner sep=3pt}
+  }
+
+  % X positions (widened to 4.2 to prevent overlap)
+  \def\xD{0}
+  \def\xA{4.2}
+  \def\xE{8.4}
+  \def\xG{12.6}
+  \def\xDB{16.8}
+
+  % Doctor actor (stick figure)
+  \begin{scope}[shift={(\xD,0.25)}]
+    \draw[black!75, line width=0.55pt] (0,0.35) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.21)--(0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.20,0.03)--(0.20,0.03);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(-0.16,-0.46);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(0.16,-0.46);
+    \node[font=\scriptsize, below] at (0,-0.50) {Doctor};
+  \end{scope}
+
+  % Other participants
+  \node[part] (app) at (\xA,0.05) {Mobile App};
+  \node[part] (fn) at (\xE,0.05) {ai-clinical-\\support Fn};
+  \node[part] (gpt) at (\xG,0.05) {GPT-4\\OpenAI};
+  \node[part] (db) at (\xDB,0.05) {PostgreSQL};
+
+  % Lifelines
+  \draw[life] (\xD,-0.6) -- (\xD,-13.0);
+  \draw[life] (\xA,-0.3) -- (\xA,-13.0);
+  \draw[life] (\xE,-0.3) -- (\xE,-13.0);
+  \draw[life] (\xG,-0.3) -- (\xG,-13.0);
+  \draw[life] (\xDB,-0.3) -- (\xDB,-13.0);
+
+  % Messages
+  \draw[msg] (\xD,-1.2) -- node[above] {Select patient, enter symptoms} (\xA,-1.2);
+  \draw[msg] (\xA,-2.0) -- node[above] {Fetch patient context (medical record)} (\xDB,-2.0);
+  \draw[ret] (\xDB,-2.8) -- node[above] {Allergies, conditions, medications} (\xA,-2.8);
+  
+  \draw[msg] (\xA,-3.6) -- node[above] {POST /ai-clinical-support} (\xE,-3.6);
+  
+  \draw[msg] (\xE,-4.2) -- +(0.35,0) |- node[right, align=left] {Build diff\\diagnosis prompt} (\xE,-4.9);
+  
+  \draw[msg] (\xE,-5.5) -- node[above] {chat.completions.create(model="gpt-4")} (\xG,-5.5);
+  \draw[ret] (\xG,-6.3) -- node[above] {Ranked diagnoses + ICD-10 + red flags} (\xE,-6.3);
+  
+  \draw[msg] (\xE,-6.9) -- +(0.35,0) |- node[right, align=left] {Parse\\JSON obj} (\xE,-7.6);
+  
+  \draw[ret] (\xE,-8.4) -- node[above] {\{diagnoses[], confidence[], tests[]\}} (\xA,-8.4);
+  \draw[ret] (\xA,-9.2) -- node[above] {Display ranked differential diagnoses} (\xD,-9.2);
+
+  \node[note] at (\xA,-10.0) {Disclaimer shown in UI: AI suggestions are advisory only};
+  
+  \draw[msg] (\xD,-10.8) -- node[above] {Select diagnosis, write SOAP note} (\xA,-10.8);
+  \draw[msg] (\xA,-11.6) -- node[above] {INSERT clinical\_notes + diagnosis} (\xDB,-11.6);
+  \draw[ret] (\xDB,-12.4) -- node[above] {Saved confirmation} (\xA,-12.4);
+
+\end{tikzpicture}
+

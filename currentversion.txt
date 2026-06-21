@@ -1,0 +1,2128 @@
+
+Abstract
+This work is part of a final year project to obtain the National Bachelor’s Degree in
+Computer Science, specializing in Software Engineering. The objective was to design
+and implement DocTIP, an integrated platform for medical practice management and
+intelligent patient recovery monitoring, developed during an internship at Aderfia
+Incorporation.
+The solution combines a cross-platform mobile application and a web dashboard for
+appointment management, clinical history access, and secure communication, with
+centralized supervision. Technically, DocTIP relies on a serverless Supabase backend
+and integrates AI modules for symptom triage, diagnosis support, and clinical
+documentation. The implementation improves continuity of care and provides practical
+decision support for healthcare professionals.
+Résumé
+Ce travail s’inscrit dans un projet de fin d’études pour l’obtention de la Licence
+nationale en informatique, spécialité Génie logiciel. L’objectif était de concevoir et
+réaliser DocTIP, une plateforme intégrée de gestion des pratiques médicales et de suivi
+intelligent de la récupération des patients, développée lors d’un stage chez Aderfia
+Incorporation.
+La solution associe une application mobile multiplateforme et un tableau de bord web
+pour la gestion des rendez-vous, l’accès à l’historique clinique et la communication
+sécurisée, avec une supervision centralisée. Techniquement, DocTIP s’appuie sur un
+backend serverless Supabase et intègre des modules d’IA pour le triage des symptômes,
+l’aide au diagnostic et la documentation clinique. L’implémentation améliore la
+continuité des soins et offre un support décisionnel pratique aux professionnels de santé.
+Dedication
+In the name of Allah, the Most Gracious, the Most Merciful.
+To my parents, the two pillars of my life: your love, support, and sacrifices are the
+foundation on which I stand. In every difficult period of this journey, your trust, your
+prayers, and your encouragement gave me the strength to continue.
+To my family, thank you for your patience, your presence, and your confidence in me.
+Your advice and kindness helped me stay focused and motivated throughout this project.
+To my friends and colleagues, thank you for every discussion, every suggestion, and every
+moment of support during this academic experience. Your companionship made this path
+lighter and more meaningful.
+This work is dedicated, with deep gratitude, to all those who believed in me and
+contributed to this achievement.
+With sincere thanks,
+Mouhamed Aziz Tounsi
+i
+Acknowledgments
+I would like to express my deepest gratitude to everyone who contributed to the completion
+of this final year project.
+My sincere thanks go to my academic and professional supervisor, Mr. Ahmed Ben
+Ayed, for his guidance, constructive feedback, and continuous encouragement. His
+support was essential in shaping the technical quality and direction of this work.
+I also thank the team at Aderfia Incorporation for their trust and for the professional
+environment they provided during my internship. Working on DocTIP in a real-world
+context was a valuable experience that strengthened both my technical and personal
+skills.
+I am equally grateful to my professors and to the members of the jury for their time, their
+evaluation, and their valuable remarks. Finally, I warmly thank my family and friends
+for their unwavering support throughout my academic journey.
+ii
+Table of contents
+Dedication . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . i
+Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ii
+list of figures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . vii
+list of tables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ix
+List of Acronyms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . x
+General Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+Chapter 1: General Context . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+1 Presentation of the Host Organization . . . . . . . . . . . . . . . . . . . . 4
+2 Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3 Study of Existing Solutions . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.1 Analysis of Existing Solutions . . . . . . . . . . . . . . . . . . . . . 5
+3.1.1 Amwell . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.1.2 NHS App . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.1.3 Medisafe . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+3.1.4 Doctolib . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.2 Critique of Existing Solutions . . . . . . . . . . . . . . . . . . . . . 8
+3.3 Comparative Study . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4 Proposed Solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.1 Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+5 Requirements Analysis and Specification . . . . . . . . . . . . . . . . . . . 12
+5.1 Actor Identification . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+5.2 Functional Requirements . . . . . . . . . . . . . . . . . . . . . . . . 12
+5.2.1 Common Functional Requirements . . . . . . . . . . . . . 12
+5.2.2 Patient Functional Requirements . . . . . . . . . . . . . . 13
+5.2.3 Doctor Functional Requirements . . . . . . . . . . . . . . 14
+5.2.4 Administrator Functional Requirements . . . . . . . . . . 15
+5.3 Non-Functional Requirements . . . . . . . . . . . . . . . . . . . . . 16
+6 Work Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+6.1 Agile Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+iii
+6.2 Product Backlog . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+7 Planning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+7.1 Sprint Planning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+7.2 Gantt Chart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Chapter 2: Conceptual Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+1 UML Definition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+2 Use Case Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+2.1 General Use Case Diagram . . . . . . . . . . . . . . . . . . . . . . . 23
+2.2 Refined Use Case Diagrams . . . . . . . . . . . . . . . . . . . . . . 24
+2.2.1 Manage Patient Profile . . . . . . . . . . . . . . . . . . . . 24
+2.2.2 Consult Patient Dashboard . . . . . . . . . . . . . . . . . 26
+2.2.3 Consult Doctor Dashboard . . . . . . . . . . . . . . . . . 28
+2.2.4 Manage Doctor Profile . . . . . . . . . . . . . . . . . . . . 30
+2.2.5 Manage Doctors . . . . . . . . . . . . . . . . . . . . . . . 32
+2.2.6 Manage Patients . . . . . . . . . . . . . . . . . . . . . . . 34
+3 Class Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+4 Sequence Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+4.1 Authentication Sequence Diagram . . . . . . . . . . . . . . . . . . . 38
+4.2 AI Symptom Triage Sequence Diagram . . . . . . . . . . . . . . . . 39
+4.3 AI Clinical Diagnostic Assistance Sequence Diagram . . . . . . . . 40
+4.4 Login Anomaly Detection Sequence Diagram . . . . . . . . . . . . . 41
+5 Activity Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+5.1 Authentication Activity Diagram . . . . . . . . . . . . . . . . . . . 42
+5.2 Registration Activity Diagram . . . . . . . . . . . . . . . . . . . . . 43
+5.3 Appointment Booking Activity Diagram . . . . . . . . . . . . . . . 44
+5.4 AI Symptom Triage Activity Diagram . . . . . . . . . . . . . . . . 45
+5.5 PRI Computation Activity Diagram . . . . . . . . . . . . . . . . . . 46
+6 AI Module Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+Chapter 3: Implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+1 System Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+2 Technologies Used . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+2.1 Development Tools . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+2.2 Frontend Technologies . . . . . . . . . . . . . . . . . . . . . . . . . 52
+2.2.1 React Native with Expo . . . . . . . . . . . . . . . . . . . 52
+2.2.2 React with Vite . . . . . . . . . . . . . . . . . . . . . . . . 53
+iv
+2.2.3 Tailwind CSS . . . . . . . . . . . . . . . . . . . . . . . . . 53
+2.3 Backend Technologies . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+2.3.1 Supabase and PostgreSQL . . . . . . . . . . . . . . . . . . 53
+2.3.2 Edge Functions (Deno) . . . . . . . . . . . . . . . . . . . . 54
+2.4 AI Technologies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+2.5 State Management . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+3 Presentation of the Mobile Portal: Patient Side . . . . . . . . . . . . . . . 55
+3.1 Authentication and Onboarding . . . . . . . . . . . . . . . . . . . . 55
+3.2 Patient Home Dashboard . . . . . . . . . . . . . . . . . . . . . . . . 56
+3.3 AI Symptom Triage . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+3.4 Appointment Booking . . . . . . . . . . . . . . . . . . . . . . . . . 59
+3.5 Medical Record . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+3.6 Medication Management . . . . . . . . . . . . . . . . . . . . . . . . 60
+3.7 Laboratory Results and Trends . . . . . . . . . . . . . . . . . . . . 61
+3.8 Patient Recovery Index (PRI) . . . . . . . . . . . . . . . . . . . . . 62
+3.9 Predictive Risk Assessment . . . . . . . . . . . . . . . . . . . . . . 63
+3.10 Sleep Quality Monitoring . . . . . . . . . . . . . . . . . . . . . . . . 64
+3.11 Behavioral Health Tracking . . . . . . . . . . . . . . . . . . . . . . 65
+3.12 Emergency Mode . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+3.13 Real-Time Messaging . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+3.14 Video Teleconsultation . . . . . . . . . . . . . . . . . . . . . . . . . 67
+4 Presentation of the Mobile Portal: Doctor Side . . . . . . . . . . . . . . . . 67
+4.1 Doctor Onboarding and Verification . . . . . . . . . . . . . . . . . . 67
+4.2 Doctor Home Dashboard . . . . . . . . . . . . . . . . . . . . . . . . 68
+4.3 Patient Detail Screen . . . . . . . . . . . . . . . . . . . . . . . . . . 69
+4.4 AI Clinical Notes (SOAP) . . . . . . . . . . . . . . . . . . . . . . . 70
+4.5 AI Differential Diagnosis . . . . . . . . . . . . . . . . . . . . . . . . 71
+4.6 ORION: AI Clinical Assistant . . . . . . . . . . . . . . . . . . . . . 72
+4.7 Risk Radar . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 72
+4.8 Voice Scribe . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 72
+4.9 Prescription and Laboratory Management . . . . . . . . . . . . . . 73
+5 Presentation of the Web Administration Dashboard . . . . . . . . . . . . . 73
+5.1 Main Dashboard . . . . . . . . . . . . . . . . . . . . . . . . . . . . 73
+5.2 Doctor Management . . . . . . . . . . . . . . . . . . . . . . . . . . 74
+5.3 Patient Management . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+5.4 AI Monitoring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+5.5 Analytics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76
+5.6 Additional Administration Pages . . . . . . . . . . . . . . . . . . . 76
+6 Difficulties Encountered and Solutions . . . . . . . . . . . . . . . . . . . . 77
+Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78
+v
+General Conclusion and Perspectives . . . . . . . . . . . . . . . . . . . . . . . . 79
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+vi
+list of figures
+Figure 1: Aderfia INC Logo . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+Figure 2: Amwell Application Interface . . . . . . . . . . . . . . . . . . . . . . 6
+Figure 3: NHS App Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+Figure 4: Medisafe Application Interface . . . . . . . . . . . . . . . . . . . . . 7
+Figure 5: Doctolib Application Interface . . . . . . . . . . . . . . . . . . . . . 8
+Figure 6: Feature Coverage Comparison of Healthcare Applications . . . . . . 9
+Figure 7: Professional Scrum Methodology Cycle for the DocTIP Project . . . 18
+Figure 8: DocTIP Project Gantt Chart . . . . . . . . . . . . . . . . . . . . . . 20
+Figure 9: General Use Case Diagram . . . . . . . . . . . . . . . . . . . . . . . 24
+Figure 10: Refined Use Case Diagram: Manage Patient Profile . . . . . . . . . 25
+Figure 11: Refined Use Case Diagram: Consult Patient Dashboard . . . . . . . 27
+Figure 12: Refined Use Case Diagram: Consult Doctor Dashboard . . . . . . . 29
+Figure 13: Refined Use Case Diagram: Manage Doctor Profile . . . . . . . . . . 31
+Figure 14: Refined Use Case Diagram: Manage Doctors . . . . . . . . . . . . . 33
+Figure 15: Refined Use Case Diagram: Manage Patients . . . . . . . . . . . . . 35
+Figure 16: DocTIP System Class Diagram . . . . . . . . . . . . . . . . . . . . . 37
+Figure 17: Sequence Diagram: Authentication . . . . . . . . . . . . . . . . . . 39
+Figure 18: Sequence Diagram: AI Symptom Triage . . . . . . . . . . . . . . . . 40
+Figure 19: Sequence Diagram: AI Clinical Diagnostic Assistance . . . . . . . . 41
+Figure 20: Sequence Diagram: Login Anomaly Detection (Zero-Trust) . . . . . 42
+Figure 21: Authentication Activity Diagram . . . . . . . . . . . . . . . . . . . . 43
+Figure 22: Registration Activity Diagram . . . . . . . . . . . . . . . . . . . . . 44
+Figure 23: Appointment Booking Activity Diagram . . . . . . . . . . . . . . . . 45
+Figure 24: AI Symptom Triage Activity Diagram . . . . . . . . . . . . . . . . . 46
+Figure 25: PRI Computation Activity Diagram . . . . . . . . . . . . . . . . . . 47
+Figure 26: Artificial Intelligence Module Architecture . . . . . . . . . . . . . . 48
+Figure 27: DocTIP Overall System Architecture . . . . . . . . . . . . . . . . . 52
+Figure 28: Authentication Flow: Role Selection, Login, and Registration . . . . 56
+Figure 29: Patient Home Dashboard . . . . . . . . . . . . . . . . . . . . . . . . 57
+Figure 30: AI Symptom Triage Interface . . . . . . . . . . . . . . . . . . . . . . 58
+Figure 31: Appointment Booking Flow: Doctor List, Profile, Date Selection . . 59
+Figure 32: Patient Medical Record Interface . . . . . . . . . . . . . . . . . . . . 60
+Figure 33: Medication Management Dashboard . . . . . . . . . . . . . . . . . . 61
+Figure 34: Laboratory Results with Trend Charts and OCR Upload . . . . . . 62
+vii
+Figure 35: Patient Recovery Index (PRI) Dashboard . . . . . . . . . . . . . . . 63
+Figure 36: Predictive Risk Assessment with Semi-Gauge . . . . . . . . . . . . . 64
+Figure 37: Sleep Quality Monitoring Dashboard . . . . . . . . . . . . . . . . . 65
+Figure 38: Doctor Onboarding: Professional Information and Document Upload 68
+Figure 39: Doctor Home Dashboard . . . . . . . . . . . . . . . . . . . . . . . . 69
+Figure 40: Patient Detail Screen with Clinical Tools Grid . . . . . . . . . . . . 70
+Figure 41: AI-Assisted SOAP Clinical Note Generation . . . . . . . . . . . . . 71
+Figure 42: Web Administration Main Dashboard . . . . . . . . . . . . . . . . . 74
+Figure 43: Doctor Management and Verification Interface . . . . . . . . . . . . 75
+Figure 44: Platform Analytics Dashboard . . . . . . . . . . . . . . . . . . . . . 76
+viii
+list of tables
+Table 1: Comparative Table of Existing Healthcare Applications . . . . . . . . 9
+Table 2: Sprint Organization for the DocTIP Project . . . . . . . . . . . . . . . 19
+Table 3: Use Case Description: “Manage Patient Profile” . . . . . . . . . . . . 26
+Table 4: Use Case Description: “Consult Patient Dashboard” . . . . . . . . . . 28
+Table 5: Use Case Description: “Consult Doctor Dashboard” . . . . . . . . . . 30
+Table 6: Use Case Description: “Manage Doctor Profile” . . . . . . . . . . . . . 32
+Table 7: Use Case Description: “Manage Doctors” . . . . . . . . . . . . . . . . 34
+Table 8: Use Case Description: “Manage Patients” . . . . . . . . . . . . . . . . 36
+Table 9: Artificial Intelligence Module Inventory . . . . . . . . . . . . . . . . . 48
+Table 10: Technologies Used per Architectural Layer . . . . . . . . . . . . . . . 51
+ix
+list of acronyms
+2FA Two-Factor Authentication
+ACID Atomicity, Consistency, Isolation, Durability
+AI Artificial Intelligence
+API Application Programming Interface
+BaaS Backend as a Service
+BMI Body Mass Index
+CBT Cognitive Behavioral Therapy
+CLI Command Line Interface
+CRUD Create, Read, Update, Delete
+CSS Cascading Style Sheets
+ES5 ECMAScript 5
+ES6 ECMAScript 6
+EUR Euro
+FCM Firebase Cloud Messaging
+GPS Global Positioning System
+GPT Generative Pre-trained Transformer (GPT-4, GPT-4o, GPT-4.1-nano)
+HIPAA Health Insurance Portability and Accountability Act
+HMR Hot Module Replacement
+ICD International Classification of Diseases (ICD-10)
+IDE Integrated Development Environment
+ID Identification
+JIT Just-In-Time
+JSON JavaScript Object Notation
+JWT JSON Web Token
+KPI Key Performance Indicator
+LLM Large Language Model
+LTS Long-Term Support
+NHS National Health Service
+NIST National Institute of Standards and Technology
+OCR Optical Character Recognition
+ORION Clinical AI assistant (name used in DocTIP)
+OSRM Open Source Routing Machine
+PFE Projet de Fin d’Études (Final Year Project)
+PRI Patient Recovery Index
+RAM Random Access Memory
+x
+RLS Row Level Security
+RTC Real-Time Communication
+SDK Software Development Kit
+SOAP Subjective, Objective, Assessment, Plan
+SOS Emergency distress signal
+SPA Single Page Application
+SQI Sleep Quality Index
+SSD Solid-State Drive
+STAT Immediate priority (from Latin “statim”)
+SVG Scalable Vector Graphics
+TND Tunisian Dinar
+TTL Time To Live
+UI/UX User Interface / User Experience
+UML Unified Modeling Language
+USD United States Dollar
+xi
+General Introduction
+The healthcare sector is undergoing a profound digital transformation, driven by the
+convergence of mobile technologies, cloud computing, and artificial intelligence. Yet,
+despite significant progress in telemedicine and health information systems, the
+management of medical practices remains fragmented: patient records are scattered
+across disconnected platforms, communication between healthcare professionals and
+patients is limited, and intelligent tools for clinical decision support are still largely
+absent from everyday medical workflows.
+In parallel, patients are becoming increasingly proactive in managing their own health.
+They expect seamless digital experiences, such as real-time appointment booking, instant
+access to their medical history, medication reminders, and personalized health insights.
+Healthcare professionals, on the other hand, face mounting administrative burdens that
+detract from patient care, and lack integrated tools for recovery monitoring, differential
+diagnosis, and clinical documentation.
+It is within this context that the DocTIP project was conceived. Developed during a final
+year internship at Aderfia Incorporation, DocTIP is a comprehensive medical platform
+that addresses these challenges through three interconnected portals: a cross-platform
+mobile application for patients and doctors, a web-based administration dashboard for
+platform supervisors, and a serverless backend powered by Supabase.
+This report documents the analysis, design, and implementation of the DocTIP platform.
+It is organized as follows:
+• Chapter 1 General Context: Presents the host organization, the problem
+statement, the objectives, a comparative analysis of existing healthcare
+applications, the proposed solution with its functional and non-functional
+requirements, and the adopted Agile Scrum methodology.
+• Chapter 2 Conceptual Design: Details the system architecture, UML modeling
+(use case, class, and sequence diagrams), the data model, the security architecture,
+and the AI module architecture.
+1
+• Chapter 3 Implementation: Describes the development environment, the
+technologies employed with their justification, and presents the realized interfaces
+of the three portals (patient mobile, doctor mobile, web administration) through
+annotated screenshots.
+2
+Chapter 1: General Context
+Chapter 1
+General Context
+Introduction
+This chapter constitutes the starting point of our final year project. It presents the general
+context in which the project was carried out, exposes the identified problem statement,
+defines the objectives to be achieved, and analyses existing solutions on the market. We
+also detail the proposed solution, the functional and non-functional requirements, as well
+as the adopted work methodology. This preliminary study allows us to lay the necessary
+foundations to guarantee the coherence and relevance of the developed solution.
+1. Presentation of the Host Organization
+This project was carried out within Aderfia Incorporation, a startup specializing in IT
+competencies applied to the healthcare sector. Founded with the mission of modernizing
+and facilitating the use of digital technologies for practitioners and patients, Aderfia INC
+is committed to continuous innovation aimed at solving challenges in the medical sector
+through custom software solutions.
+Figure 1: Aderfia INC Logo
+The company focuses its efforts on the development of medical applications integrating the
+latest advances in artificial intelligence, telemedicine, and health data security. It is within
+this context that the DocTIP project takes shape, aiming to provide a comprehensive
+platform for medical practice management and patient recovery monitoring.
+4
+2. Problem Statement
+Traditional medical record management, often fragmented and non-integrated, leads to
+major inefficiencies in patient monitoring, care coordination, and the securing of sensitive
+information. Existing systems present several critical shortcomings:
+• Data fragmentation: Medical information (records, prescriptions, lab results,
+diagnoses) is distributed across multiple disconnected systems, making it difficult
+to obtain a comprehensive view of the patient’s health journey.
+• Lack of intelligent monitoring: No existing application offers a composite
+recovery index automatically calculated from medication adherence, laboratory
+results, and clinical evaluation by the physician.
+• Insufficient communication: Communication channels between doctors and
+patients remain limited; most solutions offer neither real-time messaging, nor
+integrated video calls, nor intelligent symptom triage systems.
+• Inadequate security: Traditional authentication mechanisms (simple
+username/password) do not meet the security requirements of the medical sector,
+where data confidentiality is paramount.
+• Absence of clinical decision support: Physicians lack artificial intelligence tools
+to assist them in differential diagnosis, drug interaction verification, or automated
+clinical note generation.
+This fragmentation of information and the complexity of its management reveal a pressing
+need for a centralized application that integrates medical data, facilitates appointment
+scheduling, improves interaction between the different actors in the system, and provides
+artificial intelligence tools for clinical decision support.
+3. Study of Existing Solutions
+Every project must undergo a study of existing solutions, which enables defining the
+strengths and weaknesses of competing products in order to promote the application’s
+evolution while taking into account real market needs. This section leads us to a
+comparative study of different healthcare applications.
+3.1. Analysis of Existing Solutions
+Several healthcare applications exist on the market. We examine the most relevant ones
+here:
+5
+3.1.1. Amwell
+Amwell is a telemedicine application that allows users to consult doctors online,
+manage appointments, and receive medical advice. It focuses primarily on remote video
+consultations.
+Figure 2: Amwell Application Interface
+Strengths: Online medical consultation, appointment management, access to medical
+records.
+Limitations: Unattractive interface, absence of instant messaging, no AI-assisted
+diagnosis, no recovery tracking.
+3.1.2. NHS App
+NHS App is the official application of the British National Health Service. It allows
+users to organize appointment bookings with doctors and consult their medical records.
+6
+Figure 3: NHS App Interface
+Strengths: Access to medical records, appointment management.
+Limitations: No video teleconsultation, no instant messaging, no clinical AI, too
+professionally oriented.
+3.1.3. Medisafe
+Medisafe is a personal health management application focused on medication tracking.
+It helps users track their medication intake through scheduled reminders.
+Figure 4: Medisafe Application Interface
+7
+Strengths: Medication tracking, intake reminders.
+Limitations: Features limited to medication management, no consultations, no complete
+medical record, no doctor-patient communication.
+3.1.4. Doctolib
+Doctolib is the reference platform in France for online medical appointment booking. It
+connects patients with healthcare professionals.
+Figure 5: Doctolib Application Interface
+Strengths: Efficient online appointment booking, teleconsultation, large practitioner
+network.
+Limitations: No integrated medical records, no recovery tracking, no clinical AI, no
+real-time chat with doctors.
+3.2. Critique of Existing Solutions
+After analyzing existing solutions, we identified the following shortcomings:
+• Amwell: The interface is perceived as visually unattractive. Technical support is
+difficult to access. The application offers no artificial intelligence tools for diagnostic
+assistance.
+• NHS App: The application lacks advanced features such as instant messaging and
+video teleconsultation. It is too oriented toward healthcare professionals.
+• Medisafe: Features are limited to medication management. No integration with
+medical records, laboratory results, or consultations.
+8
+• Doctolib: Excellent for appointment booking but does not offer integrated medical
+records, recovery tracking, or clinical AI tools.
+Critique conclusion: No existing application offers an integrated solution combining
+appointment management, complete medical records, medication tracking with adherence,
+laboratory results, AI-assisted diagnosis, video telemedicine, real-time messaging, and a
+composite recovery index. It is this gap that needs to be filled.
+3.3. Comparative Study
+We classify the results of our analysis according to the major functional criteria identified
+in our specifications. Table 1 presents this comparison.
+Table 1: Comparative Table of Existing Healthcare Applications
+Criterion Amwell NHS Medisafe Doctolib
+Video consultation Yes No No Yes
+Appointment management Yes Yes No Yes
+Integrated medical record Yes Yes No No
+Instant messaging No No No No
+Medication tracking No No Yes No
+AI symptom triage No No No No
+AI diagnostic assistance No No No No
+Laboratory results No Partial No No
+Recovery index No No No No
+Admin dashboard No No No Partial
+Internationalization No No Yes Partial
+Zero-Trust security No No No No
+A visual representation of this comparison is provided in Figure 6.
+Amwell NHS App Medisafe Doctolib
+0
+2
+4
+6
+8
+10
+12
+14
+4
+5
+1
+5
+Features Supported (out of 12)
+Figure 6: Feature Coverage Comparison of Healthcare Applications
+9
+4. Proposed Solution
+After detailing our problem statement and analyzing the different existing solutions, the
+following question arises: can the applications available on the market represent a solution
+that addresses our problem?
+Existing applications are either too general or limited to a single aspect of medical
+management (appointments, or medications, or teleconsultation), and often expensive.
+We need a specific, integrated solution that perfectly meets the needs specified by the
+client company.
+4.1. Objectives
+The primary objective of this project is to design and develop DocTIP, a comprehensive
+medical platform dedicated to integrated medical practice management and intelligent
+patient recovery monitoring. The specific objectives are as follows:
+• Centralize medical data in a secure PostgreSQL relational database covering the
+entire medical lifecycle.
+• Develop a cross-platform mobile application (iOS and Android) covering
+patient, doctor, and shared portals.
+• Implement a web-based administration dashboard for global platform
+supervision.
+• Integrate artificial intelligence modules for symptom triage, differential
+diagnosis assistance, clinical note generation, health risk prediction, and
+appointment optimization.
+• Establish a telemedicine system with real-time video and audio calls.
+• Design a Zero-Trust security model with login anomaly detection, device
+fingerprinting, and comprehensive audit logging.
+• Compute a weighted composite Patient Recovery Index (PRI) integrating
+medication adherence, laboratory result trends, patient engagement, and physician
+evaluation.
+• Support internationalization with three languages (French, English, Arabic) and
+three currencies (TND, EUR, USD).
+10
+We propose in this project to develop DocTIP, a comprehensive medical platform
+composed of three interconnected portals: a cross platform mobile application offering a
+patient portal, a doctor portal, shared features, and an authentication flow; a web based
+administration dashboard covering all platform data; and a serverless backend with a
+PostgreSQL database, Edge Functions, an authentication system with Row Level
+Security, and real time subscriptions.
+The solution integrates the following functional modules:
+• Medical Records Module: Manages access, updates, and security of patient
+medical records.
+• Laboratory Analysis Module: Facilitates requesting and consulting analysis
+results with biomarker trend tracking and anomaly detection.
+• Communication Module: Enables patients and doctors to communicate via a
+real-time messaging system supporting text, images, and files, as well as video/audio
+calls via Agora RTC.
+• Appointment Booking Module: Allows patients to schedule appointments with
+AI optimization of time slots, support for three visit types (clinic, home, video),
+and an interactive calendar.
+• Artificial Intelligence Module: Specialized AI functions including symptom
+triage, differential diagnosis, drug interaction verification, SOAP note generation,
+risk prediction, and behavioral analysis.
+• Recovery Monitoring Module: Automatic computation of the Patient Recovery
+Index (PRI) a weighted composite score from 0 to 100.
+• Security Module: Zero-Trust architecture with login anomaly detection, device
+fingerprinting, audit logging, and Row Level Security.
+• Medication Management Module: Dose-by-dose tracking
+(taken/missed/skipped), automatic reminders via cron every 15 minutes,
+computed adherence rate, medication delivery orders.
+• Mental Health Module: Longitudinal tracking of mood, anxiety, sleep, and stress
+with trend visualization.
+• Emergency Module: SOS mode with countdown, GPS geolocation, automatic
+emergency services call, treating physician notification.
+11
+5. Requirements Analysis and Specification
+Taking into account the preliminary study conducted previously, it is necessary to
+determine the specifications of functional and non-functional requirements, and to
+identify the different system actors.
+5.1. Actor Identification
+An actor is an entity external to the modeled system that interacts directly with it. Our
+project comprises three main actors, each with specific features and a dedicated portal:
+• Patient: Primary user of the mobile application. They browse the list of doctors,
+book appointments, access their medical record, track their medications, receive
+notifications, and communicate with their doctors.
+• Doctor: Healthcare professional who manages their patients, establishes diagnoses,
+writes prescriptions, requests lab analyses, plans operations, and uses clinical AI
+tools.
+• DocTIP Administrator: Responsible for platform supervision. They manage
+doctor access (approval/rejection), monitor patient activity, moderate complaints,
+consult platform analytics, and supervise AI modules.
+5.2. Functional Requirements
+In order to develop a coherent and complete system, a requirements specification phase
+is considered very important. It enables cataloging the system’s features and defining its
+functional architecture. Functional requirements are organized by actor.
+5.2.1. Common Functional Requirements
+All actors can:
+• Authenticate: Every user can authenticate via Supabase Auth to access their
+workspace. The system supports registration with role selection
+(doctor/patient/admin).
+• Manage their profile: Every user can view and modify their personal information
+(first name, last name, phone, date of birth, gender, address, profile picture).
+• Receive notifications: The system sends push notifications for appointments,
+medications, lab results, messages, and security alerts.
+12
+• Configure the application: Language selection (French, English, Arabic), currency
+selection (TND, EUR, USD), and dark mode toggle.
+5.2.2. Patient Functional Requirements
+The patient can:
+• Browse the list of doctors: Search doctors by specialty, view on an interactive map,
+and filter by price and rating.
+• Book an appointment: Select a doctor, choose a visit type (clinic, home, video), pick
+a date and time slot, benefit from intelligent sorting (condition → doctor specialty
+matching).
+• Manage their appointments: View history, cancel with reason, reschedule, launch a
+video call.
+• Create and update their medical record: Enter health information (blood type,
+height, weight, chronic diseases, allergies, surgical history, family history, lifestyle).
+• View clinical records: Laboratory results with trend charts, prescriptions, diagnoses,
+surgical schedules.
+• Track their medications: Daily dashboard with adherence progress ring, mark doses
+as taken/missed, and search medications in the directory.
+• Use AI triage: Describe symptoms to receive an urgency assessment, possible
+conditions, recommended specialty, and follow-up questions.
+• Chat: Real-time messaging with doctors (text, images, files), online presence
+indicators.
+• Make video/audio calls: Teleconsultation with camera toggle, mute, speaker.
+• Access advanced AI analytics: Longitudinal health intelligence, predictive risk scores
+(cardiovascular, diabetes, hospitalization), smart follow-up plan, behavioral analysis
+(mood, stress, burnout), billing analysis.
+• Use emergency mode: SOS with countdown, automatic call to emergency services,
+GPS geolocation, nearby hospitals map, emergency medical record sharing.
+• Manage complaints: Submit and track complaints for encountered issues.
+13
+5.2.3. Doctor Functional Requirements
+The doctor can:
+• Manage their patients: View the patient list, access detailed profiles with three tabs
+(Overview, Records, Notes).
+• Manage prescriptions: Create multi-medication prescriptions with dosage,
+frequency, administration route, duration, and time slots. View prescription
+history.
+• View their appointments: Interactive monthly calendar with heat map, day view,
+status management.
+• Establish a diagnosis: Examine symptoms, make a diagnosis with ICD code, indicate
+severity.
+• Use AI differential diagnosis: Enter symptoms, examination results, history, and
+obtain diagnoses ranked by confidence with red flags, missing tests, and clinical
+pearls.
+• Request lab analyses: Draft and send analysis requests with priority, view results
+with per-biomarker trend charts.
+• Plan operations: Organize surgical interventions with pre- and post-operative
+instructions.
+• Write clinical notes: AI-assisted generation of SOAP notes with auto-suggestion of
+medical terms and ICD-10 codes.
+• Use Voice Scribe: Voice dictation of clinical notes with 4 templates (progress note,
+procedure note, discharge summary), AI polish into professional clinical text.
+• Interact with ORION: Persistent clinical AI chatbot with drug interaction checker,
+differential diagnosis, clinical guidelines, and dosage calculator.
+• Monitor risk radar: Real-time dashboard of all patients by risk score, adherence
+rate, deterioration detection.
+• View per-patient AI analytics: Health intelligence, predictive risks, follow-up plan,
+behavioral analysis, emergency mode, billing analysis all individually per patient.
+• Manage professional profile: 4-step setup wizard (personal, location with 10
+countries and GPS, medical with 24 specialties, practice with rates and
+availability).
+14
+• Research mode: Anonymized analysis of aggregate data from all patients for
+epidemiological insights.
+5.2.4. Administrator Functional Requirements
+The DocTIP administrator can:
+• Supervise the dashboard: Real-time KPIs (patients, doctors, appointments,
+prescriptions, lab results, average PRI), specialty distribution chart, monthly trend
+curves, recent activity feed.
+• Manage doctors: Approve, reject, or suspend doctor accounts. View profile details,
+schedules, and schedule exceptions.
+• Manage patients: View enriched profiles (blood type, allergies, conditions, PRI
+score), activity, and medical records.
+• Manage appointments: Filter by status, visit type, and date. Modify statuses. View
+status change history.
+• Manage prescriptions: Filter by status, view prescription items with per-dose
+adherence tracking.
+• Manage laboratory results: View results with reference ranges, anomaly flags, and
+trends. Manage analysis requests along the processing cycle.
+• Moderate reviews: View and delete inappropriate reviews of doctors.
+• Supervise messaging: Read-only view of conversations and message threads.
+• Manage notifications: Filter by type, send broadcast notifications
+(all/patients/doctors).
+• Manage complaints: Status pipeline (open, in review, resolved, dismissed),
+resolution notes.
+• View analytics: User growth, appointments by type and status, specialty rankings,
+triage by urgency, completion rates, average PRI score.
+• Monitor AI: Triage sessions (risk score, urgency, recommended specialty), AI chat
+sessions, urgency distribution.
+• Manage diagnoses, operations, consultation reports, video sessions, medication
+orders, clinical notes, mental health logs, and attachments.
+• Configure the platform: Name, timezone, language, maintenance mode, max daily
+appointments, auto-approval, 2FA, session duration, notification channels.
+15
+5.3. Non-Functional Requirements
+Non-functional requirements represent internal application requirements essential for
+guaranteeing an optimal user experience and system security:
+• Security:
+• Authentication via Supabase Auth with secure JWT tokens and automatic
+refresh.
+• Row Level Security (RLS): row-level security policies for every table, ensuring
+each user can only access their own data.
+• Zero-Trust architecture: login anomaly detection (new device, unusual
+location, abnormal time, multiple failed attempts, impossible travel), risk
+scoring (0–100), automatic alert for scores ≥ 30, 2FA requirement for scores
+≥ 50.
+• Device fingerprinting and comprehensive audit logging.
+• Performance:
+• Serverless architecture for automatic scaling.
+• Optimized database indexes on all frequently queried columns.
+• Real-time subscriptions for messaging, notifications, and online presence.
+• Offline cache (AsyncStorage) for medication data and AI sessions.
+• Maintainability:
+• Strict TypeScript across the entire project (mobile, web, edge functions).
+• Modular architecture: separation into layers (screens, components, stores,
+services, navigation).
+• Reusable UI components (Button, Card, Avatar, Badge, ProgressRing, etc.).
+• 7 Zustand stores for state management.
+• Usability:
+• Premium user interface with fluid animations (Framer Motion for web, React
+Native Animated for mobile).
+• Haptic feedback on mobile (expo-haptics) for touch interactions.
+• Right-to-left (RTL) writing support for Arabic.
+• Rich visual components: SVG progress rings, trend charts, interactive maps.
+• Availability:
+16
+• Managed Supabase infrastructure with high availability.
+• Partial offline mode for medication management.
+• Cross-platform support: iOS, Android, and Web.
+• Internationalization:
+• 3 languages: French, English, Arabic (with over 100 translation keys).
+• 3 currencies: TND, EUR, USD with adapted formatting.
+6. Work Methodology
+Effective project management involves the use of an appropriate methodology to ensure
+the smooth progression of work through to completion, taking into account client needs
+and potential changes.
+6.1. Agile Methodology
+For the development of this project, we adopted the Agile Scrum methodology [6].
+Given the complexity and technological diversity of the platform, we needed a rigorous
+yet adaptable approach. The project combines information system design and modeling
+with mobile, web, and backend development, which requires continuous alignment
+between analysis and implementation. A structured methodology ensures traceability of
+requirements, consistent quality across phases, and controlled risk management, while
+preserving the flexibility to integrate feedback and accommodate changes in scope. In
+this context, selecting an appropriate development approach is essential. We therefore
+chose Scrum, an agile framework that emphasizes collaboration, transparency, and
+continuous improvement. Scrum structures work around a prioritized product backlog, a
+sprint backlog selected for a short time boxed iteration, and a potentially usable
+increment produced at the end of each sprint. Short cycles allow early validation, rapid
+feedback, and tighter control of timelines and costs. Daily scrum meetings keep
+communication fluid and enable quick decision making, while sprint reviews and
+retrospectives ensure alignment and continuous improvement. This choice is motivated
+by several considerations specific to the project context:
+• Rapid iterations: The project comprises multiple interfaces to develop. Scrum
+allows dividing this volume into 2-week sprints, each delivering a testable functional
+increment.
+• Adaptability: The AI and telemedicine modules require frequent adjustments
+based on test feedback. Agility enables rapid integration of this feedback.
+17
+• Value-based prioritization: Features are prioritized by business value
+(authentication and medical records first, clinical AI next, advanced features last).
+• Continuous delivery: Each sprint produces a deployable increment, enabling
+regular validation with the client.
+Figure 7: Professional Scrum Methodology Cycle for the DocTIP Project
+6.2. Product Backlog
+The Product Backlog is a prioritized list of features, functionalities, and requirements
+needed to build DocTIP. It is managed and continuously refined to reflect the most
+valuable requirements. Key epics include user authentication, AI symptom triage,
+appointment scheduling, video teleconsultation, and the clinical dashboard.
+7. Planning
+Proper planning ensures that the project is executed systematically. It breaks down the
+development process into manageable sprints and establishes a clear timeline.
+18
+7.1. Sprint Planning
+Development was structured across well-defined logical sprints to ensure continuous
+integration of features according to priority. Table 2 summarizes the core deliverable per
+iteration.
+Table 2: Sprint Organization for the DocTIP Project
+Sprint Module Deliverables
+0 Analysis Requirements analysis, project scope, product
+backlog, architecture outline, initial UML diagrams
+1 Core Foundation PostgreSQL schema, Supabase Authentication, Row-
+Level Security (RLS), project scaffolding
+2 Mobile Foundations Onboarding, user profiles, medical records, mobile
+navigation
+3 Scheduling & Meds Appointments, calendar, prescriptions, medication
+tracking
+4 Labs & Messaging Analysis requests, laboratory results, trend
+visualization, real-time chat, file sharing
+5 Clinical AI AI triage, SOAP notes, ORION integration,
+video/audio calls
+6 Admin & Analytics Web dashboard, complaints management, AI
+monitoring, analytics
+7 Advanced Features PRI integration, emergency handling, prediction
+models, testing, optimization, deployment
+19
+7.2. Gantt Chart
+The project planning is represented by the Gantt chart below, which visualizes the
+temporal sequencing of the main tasks. Figure 8 shows this planning.
+2026 Project Timeline
+Feb Mar Apr May
+Sprint 0: Analysis
+Sprint 1: Core Foundation
+Sprint 2: Mobile Foundations
+Sprint 3: Scheduling and Meds
+Sprint 4: Labs and Messaging
+Sprint 5: Clinical AI and Telemedicine
+Sprint 6: Admin and Analytics
+Sprint 7: Advanced Features
+Report writing and documentation
+Figure 8: DocTIP Project Gantt Chart
+Conclusion
+This chapter established the foundations of the DocTIP project. We presented the host
+organization, defined the project scope by identifying the gaps in existing solutions that
+motivated this initiative, and exhaustively specified the functional and non-functional
+requirements of the three system actors. The comparative analysis demonstrated that no
+existing solution combines the totality of features targeted by DocTIP in particular the
+integration of clinical artificial intelligence, intelligent recovery monitoring, and Zero-Trust
+security.
+The following chapter will focus on the design phase, which constitutes the central pillar
+of the system architecture, and will be explored in detail through UML diagrams, the
+data model, and the architecture of the AI modules.
+20
+Chapter 2: Conceptual Design
+Chapter 2
+Conceptual Design
+Introduction
+In the previous chapter, the different actors of the solution were identified by explicating
+the multiple available features. The current phase concerns design, a crucial step in
+application development. Throughout this chapter, we will present the overall system
+architecture, the use case diagrams (general and refined), the class diagram, the sequence
+diagrams, the data model, the security architecture, and the architecture of the artificial
+intelligence modules.
+1. UML Definition
+UML (Unified Modeling Language) is an object-oriented modeling language standardized
+by the Object Management Group in 1997. It results from the unification of methods
+proposed by Grady Booch, Ivar Jacobson, and Jim Rumbaugh, with the goal of providing
+a common and rigorous notation for software design [1]. UML is widely adopted in
+software engineering because it improves understanding and communication, provides
+standardized notation, and supports multiple viewpoints of a system.
+UML defines thirteen diagram types that cover structural and behavioral aspects. In
+this report, we focus on diagrams that best represent our solution from complementary
+perspectives: use case diagrams to describe the functional axis, a class diagram to describe
+the static structure, sequence diagrams to illustrate dynamic scenarios and interactions,
+and activity diagrams to model workflows and decision logic.
+We model our system by creating the following UML diagrams:
+22
+• Use case diagrams (general and refined)
+• Class diagram
+• Sequence diagrams
+• Activity diagrams
+2. Use Case Diagrams
+The use case diagram describes the functional requirements of the system. Each use case
+corresponds to a business function of the system, from the viewpoint of one of its actors.
+2.1. General Use Case Diagram
+Figure 9 represents the general use case diagram of our application, describing the global
+features accessible to each actor.
+23
+General Use Case Diagram
+Patient
+Doctor
+Admin
+Consult Notifications
+Manage Messages
+Register
+Consult Patient Dashboard
+Manage Patient Profile
+Discover Doctors
+Consult Doctor Dashboard
+Manage Doctor Profile
+Consult Patient List
+Consult Admin Dashboard
+Manage Doctors
+Manage Patients
+Manage Reviews
+Manage Complaints
+Consult Analytics
+Manage Settings
+Authenticate
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+Figure 9: General Use Case Diagram
+2.2. Refined Use Case Diagrams
+Use case refinement consists of adding more detail and specificity. We present below the
+most important refined use cases for each actor.
+2.2.1. Manage Patient Profile
+This refined use case details how a patient manages their profile information, including
+personal data, emergency contact, health profile, medical record, and application settings.
+24
+Manage Patient Profile
+Patient
+Manage Patient Profile
+Edit Personal info
+Edit emergency contact
+Select language
+Contact Support
+Manage Health Profile
+Manage Insurance
+And Payment
+Manage Medical Record
+Manage Settings
+Add/Remove Allergies
+Add/Remove chronic conditions
+Add/Remove Dietary Preferences
+Edit spending settings
+Edit insurance settings
+Consult cost Breakdown
+Consult medical Records
+Consult History
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+Figure 10: Refined Use Case Diagram: Manage Patient Profile
+25
+Table 3: Use Case Description: “Manage Patient Profile”
+Use Case Manage Patient Profile
+Primary Actor Patient
+Preconditions Patient authenticated
+Postconditions Profile information and preferences updated in the database
+Main Scenario
+1. The patient opens the profile section
+2. The system displays personal and health profile
+information
+3. The patient edits personal info and emergency contact
+4. The patient updates health profile (allergies,
+conditions, dietary preferences)
+5. The patient updates insurance/payment settings and
+app settings
+6. The system validates inputs and saves changes
+7. The system shows a success confirmation
+Alternative Flows Invalid inputs: the system displays validation errors and
+requests correction.
+2.2.2. Consult Patient Dashboard
+This refined use case illustrates the main features available from the patient dashboard,
+including the recovery index, risk score, insights, services management, medication
+management, and AI assistant interaction.
+26
+Consult Patient Dashboard
+Patient
+AI Risk
+Predictor
+AI Analysis
+System
+AI Health
+Assistant
+Consult Patient
+Dashboard
+Consult schedule
+Consult Recovery Index
+Consult Health insights
+Consult Risk score
+Manage Services
+Consult wellness trends
+Manage Medications
+Interact with AI
+Health assistant
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+Predict Health Risks
+Manage emergency
+Manage Behavioral Health
+Record Physical Activity
+Record sleep data
+Manage lab results
+Consult followup plan
+Download Medical Plan
+Add Medication
+Consult Medication
+Provide conversational
+guidance
+≪include≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪include≫
+Delete lab results
+Consult lab results
+Upload lab results
+Analyse Health Data
+Edit Medications
+Delete Medications
+Mark/unMark Medications
+as taken
+Send Refill Request
+≪extend≫
+≪extend≫
+≪extend≫
+≪include≫
+≪include≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+Figure 11: Refined Use Case Diagram: Consult Patient Dashboard
+27
+Table 4: Use Case Description: “Consult Patient Dashboard”
+Use Case Consult Patient Dashboard
+Primary Actor Patient
+Preconditions Patient authenticated
+Postconditions Dashboard data displayed; optional inputs recorded
+(medications, sleep, activity, labs)
+Main Scenario
+1. The patient opens the dashboard
+2. The system loads schedule, recovery index, insights,
+and risk score
+3. The patient navigates to services (sleep, activity, lab
+results, follow-up)
+4. The patient manages medications (add, consult, mark
+as taken)
+5. The system refreshes the dashboard indicators
+accordingly
+Alternative Flows Network error: the system shows an error state and allows
+retry.
+2.2.3. Consult Doctor Dashboard
+This refined use case presents how a doctor consults their dashboard to access the schedule,
+risk radar, critical alerts, and to interact with clinical AI tools for decision support.
+28
+Consult Doctor Dashboard
+Doctor
+AI Risk
+Analyst
+AI Clinical
+Assistant
+AI Differential
+Analyst
+AI SOAP
+Generator
+AI Voice
+Transcriber
+AI Research
+Assistant
+Consult Doctor
+Dashboard
+Consult Schedule
+Consult Risk Radar
+Consult critical Alerts
+Interact with AI
+clinical Assistant
+Manage clinical Tools
+Analyse Health Risks
+Analyse Patient Health Data
+And Provide Decision Support
+Generate SOAP Notes
+Analyse Differential
+Record Voice Scribe
+Conduct Research
+Transcribe Voice
+Interaction
+Generate Population
+Health Insights
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪include≫
+≪include≫
+≪include≫
+≪include≫
+≪extend≫
+≪extend≫
+≪include≫
+≪include≫
+Figure 12: Refined Use Case Diagram: Consult Doctor Dashboard
+29
+Table 5: Use Case Description: “Consult Doctor Dashboard”
+Use Case Consult Doctor Dashboard
+Primary Actor Doctor
+Preconditions Doctor authenticated; at least one patient linked
+Postconditions Dashboard data displayed; optional AI analyses generated
+on demand
+Main Scenario
+1. The doctor opens the dashboard
+2. The system displays schedule, alerts, and clinical tools
+shortcuts
+3. The doctor selects a patient and opens decision
+support
+4. The system performs AI analyses (risk radar,
+differential, SOAP, voice scribe)
+5. The system displays results for review
+Alternative Flows AI service unavailable: the system displays a warning and
+keeps manual workflow available.
+2.2.4. Manage Doctor Profile
+This refined use case describes how a doctor manages their professional profile, including
+schedule and fees, language preferences, reviews, revenue overview, and support options.
+30
+Manage Doctor Profile
+Doctor
+Manage Doctor
+Profile
+Edit Profile
+Edit schedule
+And fees
+Consult Revenue
+And earnings
+Consult Reviews
+& Public Profile
+Select Language
+Contact Support
+Manage Settings
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+Figure 13: Refined Use Case Diagram: Manage Doctor Profile
+31
+Table 6: Use Case Description: “Manage Doctor Profile”
+Use Case Manage Doctor Profile
+Primary Actor Doctor
+Preconditions Doctor authenticated
+Postconditions Profile, schedule, fees, and preferences updated
+Main Scenario
+1. The doctor opens the profile section
+2. The system displays profile information, schedule, and
+fees
+3. The doctor edits profile and availability
+4. The doctor reviews earnings and public reviews
+5. The system saves changes and confirms update
+Alternative Flows Invalid schedule slot: the system rejects the update and
+shows constraints.
+2.2.5. Manage Doctors
+This refined use case details the administration workflow used to consult the doctors list
+and apply moderation actions such as approval, rejection, suspension, or deletion.
+32
+Manage Doctors
+Admin
+Manage Doctors Consult Doctors list
+Consult Doctor Info
+Approve Doctor
+Reject Doc
+Suspend Doc
+Delete Doc
+≪generalization≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+≪extend≫
+Figure 14: Refined Use Case Diagram: Manage Doctors
+33
+Table 7: Use Case Description: “Manage Doctors”
+Use Case Manage Doctors
+Primary Actor Administrator
+Preconditions Administrator authenticated
+Postconditions Doctor accounts verified, suspended, or removed as needed
+Main Scenario
+1. The administrator opens the doctors management
+page
+2. The system displays the doctors list with filters
+3. The administrator consults a doctor profile
+4. The administrator approves, rejects, suspends, or
+deletes the doctor
+5. The system applies the update and shows confirmation
+Alternative Flows Update conflict: the system refreshes data and requests
+retry.
+2.2.6. Manage Patients
+This refined use case illustrates the administration workflow to consult patient accounts
+and perform management actions such as suspension or deletion.
+34
+Manage Patients
+Admin
+Manage Patients Consult Patient list
+Consult Patient
+Suspend Patient
+Delete Patient
+≪generalization≫
+≪extend≫
+≪extend≫
+≪extend≫
+Figure 15: Refined Use Case Diagram: Manage Patients
+35
+Table 8: Use Case Description: “Manage Patients”
+Use Case Manage Patients
+Primary Actor Administrator
+Preconditions Administrator authenticated
+Postconditions Patient accounts reviewed, suspended, or removed as needed
+Main Scenario
+1. The administrator opens the patients management
+page
+2. The system displays the patients list
+3. The administrator consults a patient profile
+4. The administrator suspends or deletes the patient
+5. The system applies the update and shows confirmation
+Alternative Flows Protected record: the system denies deletion and explains
+constraints.
+3. Class Diagram
+The class diagram represents the static structure of the core DocTIP domain, including
+classes, attributes, operations, and multiplicities. Figure 16 presents the main entities
+and their inheritance and association links.
+36
+User
++ id: string
++ name: string
++ email: string
++ password: string
++ role: string
++ createdAt: Date
++ updatedAt: Date
++ login(): void
++ logout(): void
+Notification
++ id: string
++ message: string
++ type: string
++ isRead: boolean
++ createdAt: Date
++ markAsRead(): void
+Admin
++ adminId: string
++ addDoctor(doctor: Doctor):
+void
++ disableDoctor(doctorId:
+string): void
+Doctor
++ licenseNumber: string
++ specialty: string
++ writeMedicalNote(patientId:
+string, content: string): void
+Patient
++ birthDate: Date
++ gender: string
++ cin: string
++ bookAppointment(doctorId:
+string, dateTime: DateTime):
+void
++ addBloodGlucose(value:
+Appointment float, date: Date): void
++ id: string
++ dateTime: DateTime
++ status: string
++ reason: string
++ note: string
++ createdAt: Date
++ updatedAt: Date
++ updateStatus(status:
+string): void
++ reschedule(newDateTime:
+TreatmentPlan DateTime): void
++ id: string
++ diagnosis: string
++ medications: string[]
++ status: string
++ startDate: Date
++ endDate: Date
++ activate(): void
++ complete(): void
+MedicalNote
++ id: string
++ content: string
++ createdAt: Date
++ updatedAt: Date
+Diagnosis
++ id: string
++ diagnosisName: string
++ icdCode: string
++ description: string
++ severity: string
++ isConfirmed: boolean
++ aiSuggestions: jsonb
++ confirm(): void
++ updateSeverity(severity:
+string): void
+MedicalRecord
++ id: string
++ bloodType: string
++ allergies: string[]
++ chronicDiseases: string[]
++ emergencyContact: string
++ insuranceProvider: string
++ updateAllergies(): void
++ addCondition(condition:
+string): void
+Prescription
++ id: string
++ medicationName: string
++ dosage: string
++ frequency: string
++ durationDays: integer
++ status: string
++ activate(): void
++ refill(): void
+RecoveryScore
++ id: string
++ priScore: numeric
++ adherenceScore: numeric
++ labTrendScore: numeric
++ activityScore: numeric
++ doctorEvalScore: numeric
++ recordedAt: Date
++ calculatePRI(): numeric
+TriageSession
++ id: string
++ symptomsText: string
++ riskScore: numeric
++ urgency: string
++ recommendedSpecialty:
+string
++ aiSummary: string
++ assessUrgency(): void
+1manag0es..*
+1 receives 0..*
+conducts 01..*
+1
+0c..r*eates
+1
+writes0..*
+1
+0..* books
+1
+follows
+0..*
+1
+0..* has
+1
+0..* conducts
+0..1* prescribes
+1
+has1
+1
+ge0n.e.*rates
+1
+0..* performs
+Figure 16: DocTIP System Class Diagram
+37
+Below is a description of the main classes:
+• Role / AppointmentStatus: Enumerations that standardize user roles and
+appointment lifecycle states.
+• User: Base class containing common identity and authentication attributes for all
+platform users.
+• Admin / Doctor / Patient: Specializations of User that define role-specific
+behavior.
+• Appointment: Consultation scheduling entity linking doctor and patient with
+status tracking.
+• TreatmentPlan: Structured care plan created by doctors and followed by patients.
+• MedicalNote: Clinical notes written by doctors and owned by the patient lifecycle.
+• Notification: User-targeted communication object used for alerts and reminders.
+4. Sequence Diagrams
+The sequence diagram describes how system elements interact with each other by
+specifying the different messages exchanged in chronological order. We detail below the
+most representative scenarios.
+4.1. Authentication Sequence Diagram
+To authenticate, the user enters their email and password. The system verifies the
+credentials via Supabase Auth. If the account exists and the information is correct, a
+JWT token is assigned and the user is redirected to their portal according to their role.
+Figure 17 illustrates this process.
+38
+User
+Frontend Backend Database
+Request login form
+Show login form
+loop [User enters and submits login data]
+Enter email and password
+Validate fields
+(non-empty, valid format)
+Show validation errors if any
+Click "Sign In"
+POST /auth/login with credentials
+alt [Data valid and login successful]
+Extract and validate
+email/password
+Search User table for email
+User found?
+alt [User not found in User table]
+Search Patient table for email
+Patient found?
+Compare password
+using bcrypt
+Generate JWT
+(userId, role, expiry)
+200 OK + token + user info
+Store token,
+Show success, redirect to protected route update state
+[Error (invalid credentials, network/server error)]
+Return error status + message
+Show error
+(invalid email/pass)
+Display error message, allow retry
+Figure 17: Sequence Diagram: Authentication
+4.2. AI Symptom Triage Sequence Diagram
+The AI triage process allows the patient to describe their symptoms and receive an urgency
+assessment powered by GPT-4. Figure 18 illustrates this process.
+39
+Patient
+Mobile App ai-triage
+Edge Fn
+GPT-4
+OpenAI PostgreSQL
+loop [until triage_complete == true]
+Describe symptoms / Answer questions
+POST /ai-triage {symptoms, ...}
+Build
+clinical prompt
+chat.completions.create(model="gpt-4")
+JSON {message, urgency, ...}
+Parse +
+validate JSON
+INSERT / UPDATE triage_sessions
+session_id
+alt [urgency == "emergency"]
+Return Critical Emergency flag
+Show RED warning "Seek Immediate Care!"
+[else: triage_complete == true & Standard care]
+Return {urgency, recommended_specialty}
+Display urgency badge, action plan
+Tap "Book Appointment"
+Navigate to booking flow
+Figure 18: Sequence Diagram: AI Symptom Triage
+4.3. AI Clinical Diagnostic Assistance Sequence Diagram
+This diagram illustrates the interaction between the doctor, the clinical support Edge
+Function, and OpenAI GPT-4 for diagnostic assistance. Figure 19 presents this flow.
+40
+Doctor
+Mobile App ai-clinicalsupport
+Fn
+GPT-4
+OpenAI PostgreSQL
+Select patient, enter symptoms
+Fetch patient context (medical record)
+Allergies, conditions, medications
+POST /ai-clinical-support
+Build diff
+diagnosis prompt
+chat.completions.create(model="gpt-4")
+Ranked diagnoses + ICD-10 + red flags
+Parse
+JSON obj
+{diagnoses[], confidence[], tests[]}
+Display ranked differential diagnoses
+Disclaimer shown in UI: AI suggestions are advisory only
+Select diagnosis, write SOAP note
+INSERT clinical_notes + diagnosis
+Saved confirmation
+Figure 19: Sequence Diagram: AI Clinical Diagnostic Assistance
+4.4. Login Anomaly Detection Sequence Diagram
+The Zero-Trust system verifies every login attempt. Figure 20 illustrates this process.
+41
+User
+Mobile App Supabase
+Auth
+check-loginanomaly
+Fn PostgreSQL
+Login attempt (email, password)
+signInWithPassword()
+JWT + user_id (if valid)
+Invoke check-login-anomaly (user_id, IP, device)
+Query login_logs (last 30 min)
+Previous attempts count
+Query registered_devices
+Known device list
+Compute
+risk score
++40 brute-force
++15 new device
++25 new location
++10 unusual time
+INSERT login_logs
+OK
+{action: "...", score}
+alt [action == "allow"]
+proceed to portal
+[else: action == "warn_user"]
+show security alert banner
+[else: action == "require_2fa"]
+2FA verification screen
+opt [score ≥ 50]
+Notify all admins (FCM / webhook)
+Figure 20: Sequence Diagram: Login Anomaly Detection (Zero-Trust)
+5. Activity Diagrams
+An activity diagram is a visual representation of the behavior of a method or a use case.
+It is used to model the sequential and concurrent steps in a process.
+5.1. Authentication Activity Diagram
+This diagram describes the login workflow, from launching the application to validating
+credentials and redirecting the user to the appropriate dashboard.
+42
+Start Application
+Display authentication
+interface
+Enter data
+Verify email address and password
+Display error massage
+Display dashboard interface
+no
+yes
+Figure 21: Authentication Activity Diagram
+5.2. Registration Activity Diagram
+This diagram models the patient registration flow, including the existence check for an
+email address and the creation of a new account when the email is not already used.
+43
+Request registration
+screen
+Display registration form
+Enter data
+Send data to the database
+Existence verification
+Email already exists error massage
+Save new patient
+Update
+yes
+no
+Figure 22: Registration Activity Diagram
+5.3. Appointment Booking Activity Diagram
+This diagram illustrates how a patient requests an appointment, how availability is
+checked, and how the booking is confirmed and persisted.
+44
+Access Appointment Section
+Display Doctors List
+Select Doctor & Time
+Check Availability
+Display unavailable message
+Confirm Booking & Save
+no
+yes
+Figure 23: Appointment Booking Activity Diagram
+5.4. AI Symptom Triage Activity Diagram
+This diagram details the triage workflow where a patient submits symptoms, the system
+calls the AI service, and the platform presents an urgency assessment and recommended
+next actions.
+45
+Access AI Triage Chat
+Display Input Prompt
+Enter Symptoms
+AI Model Analyzes Input
+Ask for Clarification
+Generate Triage Report
+ambiguous
+clear
+Figure 24: AI Symptom Triage Activity Diagram
+5.5. PRI Computation Activity Diagram
+This diagram models the computation of the Patient Recovery Index (PRI) by aggregating
+medication adherence, laboratory trends, engagement signals, and physician evaluation
+into a single score.
+46
+Trigger PRI Computation
+Fetch Health Metrics
+Extract Sleep & Vitals
+Evaluate Data Completeness
+Prompt User to Sync Wearable
+Calculate Score & Update View
+incomplete
+complete
+Figure 25: PRI Computation Activity Diagram
+6. AI Module Architecture
+DocTIP integrates AI modules distributed between server-side Edge Functions (using
+OpenAI GPT-4) and client-side functions (using OpenRouter with the GPT-4.1-nano
+model).
+47
+Server-Side Supabase Edge Functions
+(GPT-4)
+ai-triage Symptom urgency + conditions
+ai-clinical-support Differential diagnosis
+compute-pri Recovery Index computation
+compute-sqi Sleep Quality Index
+appointment-optimizer Optimal slot suggestion
+emergency-alert Critical alert dispatch
+generate-report Clinical report generation
+medication-reminder-cron Cron push reminders
+Client-Side OpenRouter (GPT-4.1-nano)
+generateSOAPNote SOAP note from findings
+getDifferentialDiagnosis Ranked diagnoses
+analyzeHealthData Trend interpretation
+predictHealthRisks Risk category scoring
+analyzeBehavioralHealth Wellness + burnout
+analyzeVoice Voice dictation polish
+getHealthIntelligence Clinical AI insights
+generateSmartFollowUp Follow-up plan
+parseLabUpload OCR + GPT-4o Vision
+Shared: aiCache.ts (10 min TTL) · aiJSON() parser · Error fallback · Rate limiting
+Figure 26: Artificial Intelligence Module Architecture
+Table 9 details each AI module with its location, model, and use case.
+Table 9: Artificial Intelligence Module Inventory
+# Module Location Use Case
+1 ai-triage Edge Function (GPT-4) Symptom urgency assessment
+2 ai-clinical-support Edge Function (GPT-4) Differential diagnosis, interactions
+3 appointment-optimizer Edge Function (algo) Optimal slot suggestion
+4 compute-pri Edge Function (algo) Composite PRI computation
+5 emergency-alert Edge Function Emergency alert dispatch
+6 analyzeHealthTrends Client (GPT-4.1-nano) Longitudinal health analysis
+7 predictHealthRisks Client (GPT-4.1-nano) Predictive risk scores
+8 generateFollowUpPlan Client (GPT-4.1-nano) Intelligent follow-up plan
+9 generateSOAPNote Client (GPT-4.1-nano) SOAP note generation
+10 analyzeBehavioralHealth Client (GPT-4.1-nano) Burnout, stress, sleep
+11 rankDifferentialDiagnoses Client (GPT-4.1-nano) Confidence-ranked diagnosis
+12 analyzeBilling Client (GPT-4.1-nano) Cost estimation
+13 analyzeResearchData Client (GPT-4.1-nano) Anonymized epidemiology
+14 analyzeImage Client (GPT-4.1-nano) Medical image analysis
+15 analyzeVoice Client (GPT-4.1-nano) Voice transcription
+16 aiGenerate Client (GPT-4.1-nano) General AI generation
+17 aiJSON Client (GPT-4.1-nano) Structured JSON extraction
+48
+Conclusion
+In this chapter, we presented the complete design of the DocTIP system through several
+complementary perspectives. The static aspect was illustrated by the class diagram,
+representing the database tables and their relationships. The dynamic aspect was detailed
+through use case diagrams (general and 6 refinements) and sequence diagrams (5 scenarios:
+authentication, AI triage, clinical diagnostic assistance, PRI computation, and anomaly
+detection).
+We also presented the serverless architecture based on Supabase, the multi-layered Zero-
+Trust security architecture, and the AI module architecture distributed between server
+and client.
+The next chapter will mark the implementation phase, where we will present the
+development environment, the implemented interfaces, and the features through
+annotated screenshots.
+49
+Chapter 3: Implementation
+Chapter 3
+Implementation
+Introduction
+This final chapter presents the implementation of the DocTIP platform, detailing the
+development environment, technological choices, and key engineering challenges.
+Applying the architectural models defined previously, it showcases the tangible
+outcomes of the project through annotated workflows of the patient mobile portal,
+doctor mobile portal, and web administration dashboard.
+1. System Architecture
+The DocTIP architecture is based on a serverless model centered on Supabase, which
+contrasts with traditional microservices architecture by eliminating the need to manage
+servers. This architecture presents significant advantages: automatic scaling,
+usage-proportional costs, simplified deployment, and high availability.
+The system is composed of three main layers, detailed in Table 10:
+Table 10: Technologies Used per Architectural Layer
+Layer Technologies & Components
+Presentation layer Mobile application (Expo/React Native) and web dashboard
+(React/Vite).
+Business logic layer Supabase Edge Functions (Deno runtime) and client-side AI
+functions (OpenRouter API).
+Data layer PostgreSQL (Supabase) with Row Level Security, Supabase
+Realtime for real-time subscriptions, and Supabase Storage
+for files.
+51
+Administrator
+Doctor
+Patient
+Presentation Layer
+Mobile App
+React Native + Expo
+Web Dashboard
+React + Vite
+Shared Navigation
+and UI Components
+Application Services
+Authentication
+Appointments and Medical Records
+Clinical AI Modules
+Realtime Messaging
+and Notifications
+Technology Platform
+Supabase Edge Functions
+PostgreSQL + RLS
+Storage + Realtime
+OpenAI/OpenRouter
+FCM and Agora
+User Interaction Business Processing Infrastructure and Integrations
+Figure 27: DocTIP Overall System Architecture
+2. Technologies Used
+2.1. Development Tools
+Visual Studio Code was used as the primary IDE for TypeScript development, debugging,
+and extension-based workflow. Android Studio provided the Android SDK, emulator, and
+build toolchain for mobile validation.
+This section presents the main technologies selected for the project, with a brief
+justification for each choice based on the requirements identified in Chapter 1. The goal
+was to keep a coherent stack across mobile, web, backend, and AI features while
+preserving maintainability and security.
+2.2. Frontend Technologies
+2.2.1. React Native with Expo
+52
+React Native [7] enables building native mobile applications using
+JavaScript/TypeScript and the React component model. Combined with Expo [3], it
+provides a managed workflow that accelerates development and simplifies access to
+common device capabilities (camera, GPS, notifications).
+Justification: The project required a cross-platform mobile application with a single
+codebase, rapid iteration, and stable deployment. React Native and Expo satisfied these
+constraints while keeping the UI layer consistent with the web dashboard.
+2.2.2. React with Vite
+React Vite
+The web administration dashboard was built with React [7] and Vite [13]. Vite offers
+fast development feedback (HMR) and a modern build pipeline.
+Justification: React was selected for consistency with the mobile portal (shared patterns
+and developer skills). Vite was chosen to reduce build friction during development.
+2.2.3. Tailwind CSS
+Tailwind CSS [8] was used to style the web dashboard.
+Justification: Tailwind supports fast UI iteration with consistent spacing and
+typography while keeping styles predictable across the application.
+2.3. Backend Technologies
+2.3.1. Supabase and PostgreSQL
+Supabase [2] was adopted as the main backend platform on top of PostgreSQL [10]. It
+provides authentication, storage, real-time subscriptions, and serverless Edge Functions,
+while PostgreSQL ensures a robust relational foundation for clinical and operational data.
+53
+Justification: This choice reduces backend boilerplate while enabling strong security
+enforcement through database policies and structured data modeling.
+2.3.2. Edge Functions (Deno)
+Deno
+Server-side logic is implemented with Supabase Edge Functions running on the Deno
+runtime [11].
+Justification: Edge Functions support isolated, domain-focused endpoints for tasks
+such as AI requests, background automation, and security checks without maintaining
+dedicated servers.
+2.4. AI Technologies
+OpenAI models are used for server-side clinical support and structured triage, while
+OpenRouter [4] is used as a client-side routing layer for selected AI features when
+appropriate.
+Justification: The AI layer was designed to keep outputs structured, reduce integration
+fragility, and support responsible handling of medical context.
+2.5. State Management
+Zustand [9] is used for lightweight global state management on the mobile application.
+Justification: Zustand integrates naturally with React hooks and keeps the state layer
+simple and easy to evolve as features grow.
+54
+3. Presentation of the Mobile Portal: Patient Side
+In this section, we present the main interfaces of the patient mobile application, organized
+by functional module. Each interface is illustrated with an annotated screenshot and a
+brief description of its functionality.
+3.1. Authentication and Onboarding
+The authentication flow comprises a role selection screen (patient or doctor), a login
+screen, and a registration screen. Upon first registration, the patient is guided through a
+4-step onboarding wizard that collects personal information, medical history, allergies,
+and lifestyle data. This data is persisted in the medical_records table and serves as the
+foundation for all subsequent AI analyses.
+The implemented security mechanisms for authentication and access control are as follows:
+1. JWT Authentication: Tokens signed by Supabase Auth with automatic refresh.
+Secure storage via AsyncStorage (mobile) or localStorage (web).
+2. Row Level Security (RLS): Every table has row-level security policies. A patient
+can only access their own data. A doctor can only access data of their linked patients.
+3. Anomaly Detection: The Edge Function check-login-anomaly analyzes each
+login attempt across 4 criteria: multiple failed attempts (+40 points), new device
+(+15), new geographic location (+25), unusual time (+10).
+4. Risk Scoring: Cumulative score from 0 to 100. “allow” action for scores < 30,
+“warn_user” for 30–49, “require_2fa” for ≥ 50.
+5. Alert Notifications: Automatic alert to the user for scores ≥ 30, alert to all
+administrators for scores ≥ 50.
+55
+Figure 28: Authentication Flow: Role Selection, Login, and Registration
+3.2. Patient Home Dashboard
+The patient home screen (Figure 29) is the central hub of the patient experience. It
+features:
+• A weekly calendar strip with interactive day pills, highlighting the current day
+in blue with a glow shadow.
+• A personalized greeting header with the patient’s avatar and time-based
+salutation (Good Morning / Afternoon / Evening).
+• An AI-powered health insight card generated via OpenRouter, cached for
+10 minutes to minimize API costs.
+• Quick action buttons for booking appointments, accessing medical records,
+managing medications, and launching AI triage.
+56
+• An upcoming appointments section with doctor avatar, specialty, visit type
+badge, and date.
+• A medication reminder section showing today’s medications with adherence
+progress ring (taken/missed/pending).
+• SVG sparkline charts with cubic Bézier smoothing for health metric trends.
+Figure 29: Patient Home Dashboard
+3.3. AI Symptom Triage
+The triage screen provides a conversational AI interface where the patient describes
+their symptoms in natural language. The system calls the ai-triage Edge Function
+(GPT-4) which returns:
+57
+• An urgency assessment (low, moderate, high, emergency) with a color-coded
+badge.
+• A list of possible conditions ranked by likelihood.
+• A recommended medical specialty for follow-up.
+• Follow-up questions for multi-turn conversation refinement.
+• An action plan with immediate, short-term, and long-term recommendations.
+The triage session is persisted in the triage_sessions table and can be reviewed by the
+patient’s doctor for clinical context.
+Figure 30: AI Symptom Triage Interface
+58
+3.4. Appointment Booking
+The booking flow consists of several steps: browsing the doctor list (filterable by specialty
+across 16 categories, with an interactive Leaflet map view), selecting a visit type (clinic,
+home, video), choosing a date from an interactive calendar, and confirming the time slot.
+The system integrates the appointment-optimizer Edge Function to suggest optimal
+time slots based on doctor availability and patient scheduling patterns.
+Figure 31: Appointment Booking Flow: Doctor List, Profile, Date Selection
+3.5. Medical Record
+The medical record screen displays the patient’s complete health profile including blood
+type, height, weight, chronic diseases, allergies, surgical history, family history, and
+lifestyle information. The patient can view and update all health data at any time from
+a structured multi-section interface.
+59
+Figure 32: Patient Medical Record Interface
+3.6. Medication Management
+The medication dashboard presents the patient’s active prescriptions with a daily doseby-
+dose tracking interface. Each medication displays:
+• Medication name, dosage, frequency, and administration route.
+• Time-slot pills (morning, afternoon, evening, night) with status indicators.
+• Action buttons to mark each dose as taken, missed, or skipped.
+• An adherence progress ring (SVG) showing the percentage of doses taken.
+The medication-reminder-cron Edge Function runs every 15 minutes and sends push
+notifications via Firebase Cloud Messaging [15] for upcoming doses.
+60
+Figure 33: Medication Management Dashboard
+3.7. Laboratory Results and Trends
+The laboratory module allows patients to view their analysis results with:
+• Per-biomarker values with reference ranges and abnormality flags (high, low,
+critical).
+• Trend charts (SVG sparklines with cubic Bézier smoothing) showing the evolution
+of key biomarkers over time.
+• Categorized views: hematology, lipid panel, metabolic, liver function, kidney
+function, endocrine, cardiac markers.
+61
+• Lab report upload with OCR parsing: the patient photographs a paper lab report,
+and the parse-lab-upload Edge Function (GPT-4o Vision) extracts all test values
+automatically.
+Figure 34: Laboratory Results with Trend Charts and OCR Upload
+3.8. Patient Recovery Index (PRI)
+The Recovery Index screen (Figure 35) presents the Patient Recovery Index, a composite
+weighted score from 0 to 100 computed by the compute-pri Edge Function. The interface
+features:
+• A central progress ring (SVG) with animated score display.
+• A radar chart (pentagon) visualizing five sub-scores: symptoms, medication
+adherence, laboratory results, physical activity, and medical evaluation.
+62
+• A 7-day history with interactive day pills and sparkline trend chart.
+• Recovery drivers showing the contribution factors with progress bars.
+Figure 35: Patient Recovery Index (PRI) Dashboard
+3.9. Predictive Risk Assessment
+The predictive risk screen implements a hybrid local-then-AI approach: risk scores
+are first computed locally via localRiskCalculator.ts for instant display, then refined
+by the predictHealthRisks AI function in the background. The interface features:
+• A semi-gauge (SVG arc with rounded stroke caps) showing the overall risk score.
+• Category cards for cardiovascular risk, diabetes risk, hospitalization risk, and
+medication non-adherence risk.
+63
+• Color-coded thresholds: green (≤25), amber (26–50), indigo (51–75), red (>75).
+• Risk drivers ranked by impact with actionable recommendations.
+• A data completeness indicator showing what information is missing for more
+accurate predictions.
+Figure 36: Predictive Risk Assessment with Semi-Gauge
+3.10. Sleep Quality Monitoring
+The sleep module provides a comprehensive sleep tracking experience:
+• Sleep onboarding to establish baseline sleep preferences.
+• Active sleep tracking with start/stop controls and duration timer.
+64
+• Sleep Quality Index (SQI) computed by the compute-sqi Edge Function, with
+weighted components: Duration (35%), Consistency (25%), Night Interruptions
+(20%), Sleep Disturbances (20%).
+• Sleep stages visualization with colored bars (deep, light, REM, awake).
+• Wake interruption analysis with cause identification.
+• Sleep history with weekly trend pills.
+Figure 37: Sleep Quality Monitoring Dashboard
+3.11. Behavioral Health Tracking
+The behavioral health module enables longitudinal tracking of mental health indicators:
+65
+• Daily mood, anxiety, sleep quality, stress level, and energy inputs.
+• AI-powered analysis (analyzeBehavioralHealth) producing a wellness score, stress
+index, burnout risk assessment, and CBT micro-prompts.
+• Trend visualization showing mood and stress evolution over time.
+• Habit correlation analysis linking behavioral patterns to health outcomes.
+3.12. Emergency Mode
+The emergency screen provides a critical SOS feature:
+• A countdown timer (default 10 seconds) before automatically calling emergency
+services.
+• GPS geolocation with real-time coordinates.
+• An interactive Leaflet map [14] showing nearby hospitals, clinics, and pharmacies
+(via Overpass API with multi-endpoint fallback and Nominatim backup).
+• Route planning to the nearest facility (OSRM driving and walking directions).
+• Emergency notification dispatched to the patient’s treating physician and all
+platform administrators via the emergency-alert Edge Function.
+• Medical snapshot sharing critical medical data (allergies, chronic diseases, blood
+type, current medications) displayed for first responders.
+3.13. Real-Time Messaging
+The messaging system enables bidirectional real-time communication between patients
+and doctors:
+• Text messages, image sharing, and file attachments.
+• Online presence indicators (green dot for active users).
+• Typing indicators and read receipts.
+• Push notifications for new messages via Firebase Cloud Messaging.
+• Conversation thread organization with last-message preview and unread count
+badges.
+66
+3.14. Video Teleconsultation
+The video call feature is powered by Agora RTC SDK [12] and supports:
+• Real-time video and audio streams.
+• Camera toggle (front/back), microphone mute, and speaker toggle.
+• Call duration timer.
+• Automatic video session logging in the video_sessions table.
+4. Presentation of the Mobile Portal: Doctor Side
+This section presents the main interfaces of the doctor mobile application.
+4.1. Doctor Onboarding and Verification
+Doctor registration includes a multi-step onboarding wizard:
+1. Step 1: Personal Information: First name, last name, date of birth, gender,
+phone number.
+2. Step 2: Professional Information: Specialty selection (24 specialties available),
+medical license number, consultation fees (clinic, home, video), biography, location
+with GPS-based map picker (10 countries supported).
+3. License Verification: Upload of medical license document.
+4. Professional Verification: Upload of national ID card and professional
+certificates.
+After submission, the doctor account enters a “pending” state. The administrator
+reviews the documents via the web dashboard and approves, rejects (with reason), or
+requests additional documentation. During the pending period, the doctor sees only the
+Verification Pending screen with a status indicator and a link to contact support.
+67
+Figure 38: Doctor Onboarding: Professional Information and Document Upload
+4.2. Doctor Home Dashboard
+The doctor home screen (Figure 39) serves as the command center for daily clinical
+operations:
+• A calendar view with daily appointment schedule.
+• Real-time statistics: today’s appointments, weekly consultation count, average
+patient rating, total linked patients.
+• An AI-powered clinical intelligence card providing daily clinical insights
+generated via OpenRouter.
+• Critical lab result alerts with contextual medical icons (cardiac markers, glucose,
+electrolytes, hematology), enabling the doctor to identify patients requiring urgent
+attention.
+68
+• SVG bar charts and sparklines for trend visualization.
+Figure 39: Doctor Home Dashboard
+4.3. Patient Detail Screen
+The patient detail screen provides a comprehensive view of a specific patient, organized
+into three tabs:
+1. Overview: Recovery score, recent vitals, active medications, allergies, and clinical
+alerts.
+2. Records: Complete history of diagnoses, prescriptions, lab results, and operations.
+3. Notes: Clinical notes written by the doctor, including AI-generated SOAP notes.
+69
+A clinical tools grid provides quick access to: Write Prescription, Write Lab Request,
+View Recovery, View Insights, Predictive Risk, Health Intelligence, Smart Follow-Up, and
+Behavioral Health: all contextualized to the selected patient.
+Figure 40: Patient Detail Screen with Clinical Tools Grid
+4.4. AI Clinical Notes (SOAP)
+The clinical notes screen enables AI-assisted generation of SOAP notes (Subjective,
+Objective, Assessment, Plan):
+• Auto-suggestion of medical terms: 24 chief complaints, 18 physical findings, 4 vital
+sign templates, 17 history elements.
+• Real-time AI generation of the complete SOAP note structure via
+generateSOAPNote.
+70
+• Automatic ICD-10 code suggestions.
+• Prescription draft based on the assessment.
+• Editable output before saving to the clinical_notes table.
+Figure 41: AI-Assisted SOAP Clinical Note Generation
+4.5. AI Differential Diagnosis
+The differential diagnosis screen provides an AI-powered diagnostic reasoning tool:
+• Input: symptoms with auto-suggestion, examination findings, patient history, vital
+signs.
+• Output: diagnoses ranked by confidence percentage, each with:
+71
+– ICD-10 code
+– Red flags to watch for
+– Missing tests (typed: lab, imaging, exam, referral)
+– Clinical pearls and teaching points
+• A prominent disclaimer reminding that all AI suggestions are advisory only.
+4.6. ORION: AI Clinical Assistant
+The ORION screen provides a persistent AI chatbot interface for doctors, supporting:
+• Natural language clinical queries with conversation history.
+• Drug interaction checker: input multiple medications and receive interaction
+warnings with severity and mechanism.
+• Clinical guidelines: evidence-based protocol summaries.
+• Dosage calculator: weight-based and renal-adjusted dosing.
+• Conversation persistence in the ai_chats and ai_chat_messages tables.
+4.7. Risk Radar
+The Risk Radar dashboard provides a real-time overview of all linked patients:
+• Patients sorted by aggregated risk score.
+• Medication adherence rate per patient.
+• Deterioration detection (patients whose risk scores are increasing).
+• Quick filters by risk level.
+4.8. Voice Scribe
+The Voice Scribe feature enables voice dictation of clinical notes:
+• Four templates: progress note, procedure note, discharge summary, consultation
+note.
+• Voice recording with automatic transcription.
+• AI polish: raw transcription is refined into professional clinical text via
+analyzeVoice.
+• Direct save to clinical notes.
+72
+4.9. Prescription and Laboratory Management
+Prescription creation supports multi-medication prescriptions with:
+• Medication search via the RxNorm API (standardized drug database).
+• Dosage, frequency, administration route, duration, and time-slot specification.
+• Prescription history with status tracking (active, completed, cancelled).
+Laboratory request creation includes:
+• Test selection with priority level (routine, urgent, STAT).
+• Results viewing with per-biomarker trend charts.
+• A 5-status pipeline: requested → sample collected → processing → completed →
+cancelled.
+5. Presentation of the Web Administration Dashboard
+The web administration dashboard provides a comprehensive supervision interface for
+platform administrators. Built with React, Vite, and Tailwind CSS, it comprises 22 pages
+organized around a sidebar navigation layout.
+5.1. Main Dashboard
+The main dashboard (Figure 42) displays real-time Key Performance Indicators (KPIs):
+• Total registered patients and doctors.
+• Today’s appointments (completed, cancelled, pending).
+• Active prescriptions and completed lab results.
+• AI conversations and average Patient Recovery Index.
+• Specialty distribution chart (PieChart via Recharts).
+• Monthly trend curves (AreaChart) showing user growth and appointment
+volume.
+• Recent activity feed displaying the latest platform events.
+73
+• Pending doctor approvals section with quick-action buttons.
+Figure 42: Web Administration Main Dashboard
+5.2. Doctor Management
+The doctors management page enables administrators to:
+• View the paginated list of all registered doctors with status filters (pending,
+approved, rejected, suspended).
+• Open a detail drawer showing the doctor’s profile, uploaded documents, schedule,
+and schedule exceptions.
+• Approve, reject (with mandatory reason), or suspend doctor accounts.
+• View verification document previews (national ID, medical license, professional
+certificates).
+74
+Figure 43: Doctor Management and Verification Interface
+5.3. Patient Management
+The patients page provides enriched patient profiles including:
+• Demographic data, blood type, allergies, and chronic conditions.
+• Current PRI score with color-coded status.
+• Activity metrics (appointment count, lab results, last visit date).
+• Direct links to the patient’s medical record history.
+5.4. AI Monitoring
+The AI monitoring page provides visibility into all AI-powered features:
+• Triage Sessions tab: Lists all triage sessions with patient name, risk score, urgency
+level, recommended specialty, and AI-generated summary. Includes an urgency
+distribution chart.
+• AI Chats tab: Shows doctor AI assistant (ORION) conversation sessions with
+message drill-down capability.
+• Session-level metrics and usage statistics.
+75
+5.5. Analytics
+The analytics page offers comprehensive platform-level insights:
+• KPI cards: Appointment completion rate, average PRI score, total triage count,
+video consultation rate.
+• User growth chart: Bar chart showing monthly new patients and doctors.
+• Appointments breakdown: By visit type (clinic, home, video) and by status.
+• Top specialties: Ranked bar chart of most-booked specialties.
+• Triage urgency distribution: Pie chart showing the proportion of
+low/moderate/high/emergency triage outcomes.
+• Period toggle: 6-month and 12-month views.
+Figure 44: Platform Analytics Dashboard
+5.6. Additional Administration Pages
+Beyond the pages described above, the web dashboard includes the following management
+interfaces, each with full CRUD capabilities, search, filtering, and pagination:
+• Appointments (6-status filter, visit type filter, status modification)
+• Prescriptions (prescription items with per-dose adherence tracking)
+• Laboratory Results (reference ranges, anomaly flags, 5-status request pipeline)
+76
+• Diagnoses (ICD codes, severity, AI suggestion flag)
+• Operations (surgical planning with status management)
+• Messages (read-only conversation threads)
+• Notifications (filter by type, broadcast sending to patients/doctors/all)
+• Reviews (doctor review moderation with delete capability)
+• Complaints (4-status pipeline: open → in review → resolved → dismissed)
+• Consultation Reports (structured medical reports)
+• Clinical Notes (SOAP notes with AI generation flag)
+• Mental Health (mood, anxiety, sleep, stress log entries)
+• Video Sessions (teleconsultation records)
+• Medication Orders (delivery pipeline: placed → confirmed → processing →
+delivered)
+• Support Tickets (user support request management)
+• Settings (platform configuration: name, timezone, maintenance mode, session
+duration, 2FA, notification channels)
+6. Difficulties Encountered and Solutions
+Several technical challenges were encountered during implementation:
+• WebView JavaScript compatibility: The emergency map uses Leaflet.js
+rendered inside a React Native WebView. ES6+ syntax (optional chaining,
+template literals) is not universally supported in all WebView engines. Solution:
+All inline JavaScript was rewritten using ES5-compatible syntax.
+• Overpass API reliability: The Overpass API (used for finding nearby medical
+facilities) frequently experienced timeouts or rate limiting. Solution: A
+multi-endpoint cascade with several mirrors and a Nominatim geocoding fallback
+was implemented, with per-request abort timeouts to avoid blocking the UI.
+• AI response parsing: Large Language Models occasionally return malformed
+JSON (trailing commas, markdown code fences, extra text before/after the JSON
+object). Solution: The aiJSON() function implements robust cleaning: stripping
+markdown fences, removing trailing commas, extracting JSON boundaries, and
+falling back to brace-matching extraction.
+77
+• Medical data authorization: Ensuring that doctors can only access data of
+their linked patients required complex Row Level Security policies spanning many
+database entities. Solution: The doctor_patient_relationships table serves as
+the authorization backbone, referenced in every RLS policy via subqueries.
+• Real-time message synchronization: Maintaining message ordering and
+preventing duplicates across multiple devices required careful handling of Supabase
+Realtime subscriptions. Solution: Messages are deduplicated by ID on the client
+side, and subscription reconnection logic handles network interruptions gracefully.
+• Push notification targeting: Sending medication reminders to specific patients
+at precise times required a reliable scheduling mechanism. Solution: A scheduled
+Edge Function queries pending doses in the upcoming window, groups by patient,
+and dispatches notifications via FCM.
+Conclusion
+This chapter presented the implementation phase of the DocTIP platform. It described
+the development environment, summarized the main technology choices, and showcased
+the realized interfaces through the patient mobile portal, the doctor mobile portal, and
+the web administration dashboard. The chapter also highlighted how key requirements
+were translated into working features, including AI-assisted triage and clinical support,
+secure access control, real-time interactions, and administrative supervision.
+78
+General Conclusion and Perspectives
+This report covered the complete lifecycle of the DocTIP project, from needs analysis and
+specification to design and implementation. Developed during a final year internship at
+Aderfia Incorporation, DocTIP was conceived as an integrated medical platform that
+supports daily practice management while improving patient follow-up through recovery
+monitoring and AI-assisted features.
+The main outcome of this work is a coherent system composed of a patient mobile
+portal, a doctor mobile portal, and a web administration dashboard, all connected to a
+secure backend. Throughout the implementation, the focus remained on delivering
+practical value: facilitating appointments and communication, organizing clinical
+information, supporting triage and clinical decision-making through AI, and ensuring
+supervision capabilities through analytics and administration tools. Beyond the
+functional deliverables, this project validated key design choices related to security,
+scalability, and maintainability in a medical-data context.
+From an academic perspective, this project strengthened our skills in software
+architecture, cross-platform development, database security, and AI integration. It also
+highlighted the importance of clear documentation: one of the main challenges during
+report writing was to keep the narrative consistent across chapters, select the right level
+of technical detail, and maintain alignment between figures, references, and
+explanations. As future perspectives, DocTIP can be extended by reinforcing offline
+capabilities for constrained connectivity, integrating wearable health data, enhancing AI
+support for voice and image-based workflows, improving the pharmacy and clinical
+workflow integration, supporting multi-clinic administration, and progressively aligning
+with stronger compliance and performance requirements. Overall, DocTIP demonstrates
+the potential of combining mobile applications, cloud services, and AI to modernize
+healthcare operations and patient support.
+79
+References
+[1] [2026-02-05] Object Management Group, Unified Modeling Language (UML)
+Specification, Version 2.5.1, OMG, 2017.
+[2] [2026-02-10] Supabase Inc., Supabase Documentation, https://supabase.com/docs,
+2024.
+[3] [2026-02-14] Expo, Expo Documentation, https://docs.expo.dev, 2024.
+[4] [2026-02-20] OpenAI, GPT-4 Technical Report, arXiv:2303.08774, 2023.
+[5] [2026-03-02] S. Rose, O. Borchert, S. Mitchell, and S. Connelly, Zero Trust
+Architecture, NIST Special Publication 800-207, 2020.
+[6] [2026-03-06] K. Schwaber and J. Sutherland, The Scrum Guide, Scrum.org, 2020.
+[7] [2026-03-12] Meta Platforms, React Native Documentation, https://reactnative.
+dev, 2024.
+[8] [2026-03-18] Tailwind Labs, Tailwind CSS Documentation, https://tailwindcss.
+com/docs, 2024.
+[9] [2026-03-24] P. Mendez, Zustand: Bear necessities for state management in React,
+https://github.com/pmndrs/zustand, 2024.
+[10] [2026-04-02] The PostgreSQL Global Development Group, PostgreSQL
+Documentation, https://www.postgresql.org/docs/, 2024.
+[11] [2026-04-09] Deno Land Inc., Deno Runtime Documentation, https://deno.com/
+runtime, 2024.
+[12] [2026-04-16] Agora.io, Agora Video SDK Documentation, https://docs.agora.io,
+2024.
+[13] [2026-04-24] E. You, Vite: Next Generation Frontend Tooling, https://vitejs.dev,
+2024.
+[14] [2026-05-03] V. Agafonkin, Leaflet: An open-source JavaScript library for interactive
+maps, https://leafletjs.com, 2024.
+80
+[15] [2026-05-11] Google, Firebase Cloud Messaging Documentation, https://firebase.
+google.com/docs/cloud-messaging, 2024.
+81

@@ -1,0 +1,95 @@
+% General Use Case Diagram
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% --- STYLES ---
+\tikzset{
+  actorlabel/.style={font=\scriptsize\bfseries, align=center},
+  usecase/.style={ellipse, draw=black!80, fill=white,
+                  font=\scriptsize, align=center,
+                  minimum width=4.8cm, minimum height=0.9cm},
+  boundary/.style={draw=black!80, line width=0.8pt},
+  assoc/.style={black!80, line width=0.6pt},
+  % Open vee arrowhead (>) as requested
+  include/.style={black!70, dashed, line width=0.6pt,
+                  -{>[length=7pt, width=6pt]}},
+}
+
+% --- ACTOR DRAWING MACRO ---
+\newcommand{\actor}[3]{
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[thick] (0,0.35) circle (0.15);
+    \draw[thick] (0,0.20) -- (0,-0.2);
+    \draw[thick] (-0.3,0.05) -- (0.3,0.05);
+    \draw[thick] (0,-0.2) -- (-0.2,-0.55);
+    \draw[thick] (0,-0.2) -- (0.2,-0.55);
+    \node[actorlabel, below] at (0,-0.60) {#3};
+  \end{scope}
+}
+
+% ================= SYSTEM BOUNDARY & TITLE =================
+\node[boundary, minimum width=15.5cm, minimum height=19cm, anchor=north west]
+      (sys) at (-0.2, 9.2) {};
+
+\node[font=\footnotesize\bfseries, anchor=north]
+      at ($(sys.north)+(0,-0.5)$) {General Use Case Diagram};
+
+% ================= ACTORS =================
+\actor{-1.8}{ 5.5}{Patient}
+\actor{-1.8}{ 1.0}{Doctor}
+\actor{-1.8}{-5.0}{Admin}
+
+% ================= SHARED USE CASES (Patient & Doctor) =================
+\node[usecase] (notif) at (5, 4.0) {Consult Notifications};
+\node[usecase] (msg)   at (5, 3.0) {Manage Messages};
+\node[usecase] (reg)   at (5, 2.0) {Register};
+
+% ================= PATIENT-ONLY USE CASES =================
+\node[usecase] (pdash) at (5, 7.0) {Consult Patient Dashboard};
+\node[usecase] (pprof) at (5, 6.0) {Manage Patient Profile};
+\node[usecase] (disc)  at (5, 5.0) {Discover Doctors};
+
+% ================= DOCTOR-ONLY USE CASES =================
+\node[usecase] (ddash) at (5, 1.0) {Consult Doctor Dashboard};
+\node[usecase] (dprof) at (5, 0.0) {Manage Doctor Profile};
+\node[usecase] (plist) at (5,-1.0) {Consult Patient List};
+
+% ================= ADMIN USE CASES =================
+\node[usecase] (adash) at (5,-2.5) {Consult Admin Dashboard};
+\node[usecase] (mdoc)  at (5,-3.5) {Manage Doctors};
+\node[usecase] (mpat)  at (5,-4.5) {Manage Patients};
+\node[usecase] (mrev)  at (5,-5.5) {Manage Reviews};
+\node[usecase] (mcomp) at (5,-6.5) {Manage Complaints};
+\node[usecase] (anal)  at (5,-7.5) {Consult Analytics};
+\node[usecase] (set)   at (5,-8.5) {Manage Settings};
+
+% ================= AUTHENTICATION USE CASE =================
+\node[usecase, minimum width=4.8cm, minimum height=1.4cm, fill=black!5]
+      (auth) at (12.5, -0.5) {Authenticate};
+
+% ================= ACTOR ASSOCIATIONS (Solid Lines) =================
+\foreach \u in {pdash, pprof, disc, notif, msg, reg} {
+    \draw[assoc] (-1.3, 5.5) -- (\u.west);
+}
+
+\foreach \u in {notif, msg, reg, ddash, dprof, plist} {
+    \draw[assoc] (-1.3, 1.0) -- (\u.west);
+}
+
+\foreach \u in {adash, mdoc, mpat, mrev, mcomp, anal, set} {
+    \draw[assoc] (-1.3, -5.0) -- (\u.west);
+}
+
+% ================= INCLUDE RELATIONSHIPS (Dashed Lines) =================
+\foreach \u/\ang in {
+    pdash/130, pprof/135, disc/140,
+    notif/145, msg/150,
+    ddash/165, dprof/175, plist/185,
+    adash/195, mdoc/205, mpat/215,
+    mrev/220, mcomp/225, anal/230, set/235
+} {
+    \draw[include] (\u.east) --
+    node[pos=0.45, fill=white, inner sep=1pt, font=\tiny] {$\ll$include$\gg$}
+    (auth.\ang);
+}
+
+\end{tikzpicture}

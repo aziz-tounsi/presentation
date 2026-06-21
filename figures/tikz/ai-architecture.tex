@@ -1,0 +1,49 @@
+﻿% DoctIP AI Module Architecture (17 modules)
+\begin{tikzpicture}[x=1cm,y=1cm, scale=0.85, every node/.style={scale=0.85}]
+  \tikzset{
+    grp/.style={draw=black!60, fill=black!4, rounded corners=8pt, line width=0.6pt},
+    mod/.style={draw=black!40, fill=white, rounded corners=4pt, minimum width=7.8cm, minimum height=0.7cm, align=left, font=\scriptsize, inner sep=5pt},
+    mhdr/.style={font=\small\bfseries, text=black!90, align=center},
+    arr/.style={-{Stealth[length=6pt]}, black!60, line width=0.8pt},
+    infra/.style={draw=black!60, fill=white, rounded corners=6pt, minimum width=17.0cm, minimum height=0.9cm, font=\small\bfseries, text=black!80}
+  }
+
+  % - Server-Side Box ---
+  % Box spans from X: -4.5 to 4.2
+  \draw[grp] (-4.5, 0.8) rectangle (4.2, -8.0);
+  \node[mhdr, text width=7.9cm] at (-0.15, 0.15) {Server-Side Supabase Edge Functions\\(GPT-4)};
+  
+  \node[mod, right] (s1) at (-4.2, -0.8) {\textbf{ai-triage} Symptom urgency + conditions};
+  \node[mod, right] (s2) at (-4.2, -1.7) {\textbf{ai-clinical-support} Differential diagnosis};
+  \node[mod, right] (s3) at (-4.2, -2.6) {\textbf{compute-pri} Recovery Index computation};
+  \node[mod, right] (s4) at (-4.2, -3.5) {\textbf{compute-sqi} Sleep Quality Index};
+  \node[mod, right] (s5) at (-4.2, -4.4) {\textbf{appointment-optimizer} Optimal slot suggestion};
+  \node[mod, right] (s6) at (-4.2, -5.3) {\textbf{emergency-alert} Critical alert dispatch};
+  \node[mod, right] (s7) at (-4.2, -6.2) {\textbf{generate-report} Clinical report generation};
+  \node[mod, right] (s8) at (-4.2, -7.1) {\textbf{medication-reminder-cron} Cron push reminders};
+
+  % - Client-Side Box ---
+  % Box spans from X: 4.8 to 13.5
+  \draw[grp] (4.8, 0.8) rectangle (13.5, -8.9);
+  \node[mhdr] at (9.15, 0.15) {Client-Side OpenRouter (GPT-4.1-nano)};
+
+  \node[mod, right] (c1) at (5.1, -0.8) {\textbf{generateSOAPNote} SOAP note from findings};
+  \node[mod, right] (c2) at (5.1, -1.7) {\textbf{getDifferentialDiagnosis} Ranked diagnoses};
+  \node[mod, right] (c3) at (5.1, -2.6) {\textbf{analyzeHealthData} Trend interpretation};
+  \node[mod, right] (c4) at (5.1, -3.5) {\textbf{predictHealthRisks} Risk category scoring};
+  \node[mod, right] (c5) at (5.1, -4.4) {\textbf{analyzeBehavioralHealth} Wellness + burnout};
+  \node[mod, right] (c6) at (5.1, -5.3) {\textbf{analyzeVoice} Voice dictation polish};
+  \node[mod, right] (c7) at (5.1, -6.2) {\textbf{getHealthIntelligence} Clinical AI insights};
+  \node[mod, right] (c8) at (5.1, -7.1) {\textbf{generateSmartFollowUp} Follow-up plan};
+  \node[mod, right] (c9) at (5.1, -8.0) {\textbf{parseLabUpload} OCR + GPT-4o Vision};
+
+  % - Shared Infrastructure ---
+  \node[infra] (infra) at (4.5, -10.2) {Shared: aiCache.ts (10 min TTL) \textperiodcentered{} aiJSON() parser \textperiodcentered{} Error fallback \textperiodcentered{} Rate limiting};
+
+  % - Arrows ---
+  \draw[arr] (-0.15, -8.0) -- (-0.15, -9.75);
+  \draw[arr] (9.15, -8.9) -- (9.15, -9.75);
+
+\end{tikzpicture}
+
+

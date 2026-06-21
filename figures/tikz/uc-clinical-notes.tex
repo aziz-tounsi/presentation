@@ -1,0 +1,64 @@
+﻿% DoctIP Refined Use Case Diagram: Write AI Clinical Notes
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    actorlabel/.style={font=\scriptsize, align=center},
+    usecase/.style={
+      ellipse,
+      draw=black!75,
+      fill=white,
+      font=\scriptsize,
+      align=center,
+      minimum width=4.2cm,
+      minimum height=0.95cm,
+      inner sep=2.5pt
+    },
+    boundary/.style={draw=black!70, line width=0.6pt, fill=white},
+    assoc/.style={black!70, line width=0.55pt},
+    include/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    extend/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    rellabel/.style={font=\scriptsize, fill=white, inner sep=1.5pt},
+  }
+
+  % System boundary
+  \node[boundary, minimum width=23.0cm, minimum height=14.5cm, anchor=north west] (sys) at (0,11.0) {};
+  \node[font=\footnotesize\bfseries, anchor=north] at ($(sys.north)+(0,-0.72)$) {Write AI Clinical Notes};
+
+  % Actor (Doctor)
+  \begin{scope}[shift={(-1.80,3.40)}]
+    \draw[black!75, line width=0.55pt] (0,0.34) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.20) -- (0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.22,0.02) -- (0.22,0.02);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (-0.18,-0.47);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (0.18,-0.47);
+    \node[actorlabel, below] at (0,-0.52) {Doctor};
+  \end{scope}
+
+  % Use cases
+  \node[usecase] (main) at (4.0,  3.4) {Write AI Clinical Notes};
+
+  \node[usecase] (s1)   at (13.0, 8.5) {select patient context};
+  \node[usecase] (s2)   at (13.0, 6.8) {enter clinical findings};
+  \node[usecase] (s3)   at (13.0, 5.1) {generate SOAP note};
+  \node[usecase] (s4)   at (13.0, 3.4) {suggest ICD-10 codes};
+  \node[usecase] (s5)   at (13.0, 1.7) {edit and validate output};
+  \node[usecase] (s6)   at (13.0,-0.0) {save clinical note};
+  \node[usecase] (auth) at (13.0,-1.7) {authenticate};
+
+  \node[usecase] (ext1) at (19.5, 5.1) {generate prescription draft};
+
+  % Associations
+  \draw[assoc] (-1.20,3.40) -- (main.west);
+
+  % Included relationships forming a neat fan (orthogonal vertical-then-horizontal routing)
+  \draw[include] (main.70) |- node[rellabel, pos=0.8] {<<include>>} (s1.west);
+  \draw[include] (main.50) |- node[rellabel, pos=0.8] {<<include>>} (s2.west);
+  \draw[include] (main.30) |- node[rellabel, pos=0.8] {<<include>>} (s3.west);
+  \draw[include] (main.east) -- node[rellabel, pos=0.5] {<<include>>} (s4.west);
+  \draw[include] (main.350) |- node[rellabel, pos=0.8] {<<include>>} (s5.west);
+  \draw[include] (main.330) |- node[rellabel, pos=0.8] {<<include>>} (s6.west);
+  \draw[include] (main.310) |- node[rellabel, pos=0.8] {<<include>>} (auth.west);
+
+  % Extended relationship
+  \draw[extend] (ext1.west) -- node[rellabel, above=1pt] {<<extend>>} (s3.east);
+\end{tikzpicture}
+

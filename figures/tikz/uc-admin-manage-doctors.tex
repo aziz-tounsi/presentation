@@ -1,0 +1,57 @@
+% Admin - Manage Doctors Use Case Diagram
+\begin{tikzpicture}[x=1.2cm,y=0.85cm]
+
+\tikzset{
+  actorlabel/.style={font=\large\bfseries, align=center},
+  usecase/.style={ellipse, draw=black!80, fill=white,
+                  font=\large\bfseries, align=center,
+                  minimum width=6.2cm, minimum height=1.2cm, inner sep=1pt},
+  boundary/.style={draw=black!80, line width=0.8pt},
+  assoc/.style={black!80, line width=0.6pt},
+  extend/.style={black!70, dashed, line width=0.6pt,
+                  -{>[length=8pt, width=6pt]}},
+  generalization/.style={black!80, line width=0.6pt,
+                  -{Triangle[open, length=8pt, width=8pt]}}
+}
+
+\newcommand{\actor}[3]{
+  \begin{scope}[shift={(#1,#2)}]
+    \draw[thick] (0,0.40) circle (0.18);
+    \draw[thick] (0,0.22) -- (0,-0.25);
+    \draw[thick] (-0.35,0.05) -- (0.35,0.05);
+    \draw[thick] (0,-0.25) -- (-0.25,-0.65);
+    \draw[thick] (0,-0.25) -- (0.25,-0.65);
+    \node[actorlabel, below] at (0,-0.75) {#3};
+  \end{scope}
+}
+
+% Boundary and title
+\draw[boundary] (-0.5, 9.0) rectangle (25.5, -9.0);
+\node[font=\Large\bfseries] at (12.5, 7.5) {Manage Doctors};
+
+% Actor
+\actor{-3.0}{0.0}{Admin}
+
+% Root
+\node[usecase] (root) at (3.5, 0.0) {Manage Doctors};
+\draw[assoc] (-2.5, 0.0) -- (root.west);
+
+% Level 2
+\node[usecase] (list) at (12.5, 0.0) {Consult Doctors list};
+
+% Level 3
+\node[usecase] (c1) at (21.5,  6.0) {Consult Doctor Info};
+\node[usecase] (c2) at (21.5,  3.0) {Approve Doctor};
+\node[usecase] (c3) at (21.5,  0.0) {Reject Doc};
+\node[usecase] (c4) at (21.5, -3.0) {Suspend Doc};
+\node[usecase] (c5) at (21.5, -6.0) {Delete Doc};
+
+% Lines
+\draw[generalization] (list.west) -- (root.east);
+\draw[extend] (c1.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (list.70);
+\draw[extend] (c2.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (list.35);
+\draw[extend] (c3.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (list.0);
+\draw[extend] (c4.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (list.-35);
+\draw[extend] (c5.west) -- node[pos=0.45, fill=white, inner sep=2pt, font=\scriptsize] {$\ll$extend$\gg$} (list.-70);
+
+\end{tikzpicture}

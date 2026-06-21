@@ -1,0 +1,95 @@
+﻿% DoctIP Sequence Diagram: Login Anomaly Detection (Zero-Trust)
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    life/.style={black!60, dashed, line width=0.5pt},
+    part/.style={draw=black!70, fill=white, minimum width=2.4cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    msg/.style={-{Stealth[length=4pt]}, black!75, line width=0.55pt, font=\tiny},
+    ret/.style={-{Stealth[length=4pt]}, black!55, dashed, line width=0.5pt, font=\tiny},
+    frame/.style={draw=black!70, line width=0.55pt},
+    note/.style={draw=black!70, fill=black!5, rounded corners=2pt, font=\tiny, align=left, inner sep=3pt}
+  }
+
+  % X positions (widened to 4.2 spacing)
+  \def\xU{0}
+  \def\xA{4.2}
+  \def\xS{8.4}
+  \def\xAn{12.6}
+  \def\xD{16.8}
+
+  % User actor (stick figure)
+  \begin{scope}[shift={(\xU,0.25)}]
+    \draw[black!75, line width=0.55pt] (0,0.35) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.21)--(0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.20,0.03)--(0.20,0.03);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(-0.16,-0.46);
+    \draw[black!75, line width=0.55pt] (0,-0.18)--(0.16,-0.46);
+    \node[font=\scriptsize, below] at (0,-0.50) {User};
+  \end{scope}
+
+  % Other participants
+  \node[part] (app) at (\xA,0.05) {Mobile App};
+  \node[part] (auth) at (\xS,0.05) {Supabase\\Auth};
+  \node[part] (fn) at (\xAn,0.05) {check-login-\\anomaly Fn};
+  \node[part] (db) at (\xD,0.05) {PostgreSQL};
+
+  % Lifelines
+  \draw[life] (\xU,-0.6) -- (\xU,-17.0);
+  \draw[life] (\xA,-0.3) -- (\xA,-17.0);
+  \draw[life] (\xS,-0.3) -- (\xS,-17.0);
+  \draw[life] (\xAn,-0.3) -- (\xAn,-17.0);
+  \draw[life] (\xD,-0.3) -- (\xD,-17.0);
+
+  % Messages
+  \draw[msg] (\xU,-1.0) -- node[above] {Login attempt (email, password)} (\xA,-1.0);
+  \draw[msg] (\xA,-1.8) -- node[above] {signInWithPassword()} (\xS,-1.8);
+  \draw[ret] (\xS,-2.6) -- node[above] {JWT + user\_id (if valid)} (\xA,-2.6);
+  
+  \draw[msg] (\xA,-3.4) -- node[above] {Invoke check-login-anomaly (user\_id, IP, device)} (\xAn,-3.4);
+  
+  \draw[msg] (\xAn,-4.2) -- node[above] {Query login\_logs (last 30 min)} (\xD,-4.2);
+  \draw[ret] (\xD,-4.8) -- node[above] {Previous attempts count} (\xAn,-4.8);
+  
+  \draw[msg] (\xAn,-5.6) -- node[above] {Query registered\_devices} (\xD,-5.6);
+  \draw[ret] (\xD,-6.2) -- node[above] {Known device list} (\xAn,-6.2);
+  
+  \draw[msg] (\xAn,-6.8) -- +(0.35,0) |- node[right, align=left] {Compute\\risk score} (\xAn,-7.4);
+  
+  \node[note] at (\xAn,-8.2) {+40 brute-force\\+15 new device\\+25 new location\\+10 unusual time};
+  
+  \draw[msg] (\xAn,-9.0) -- node[above] {INSERT login\_logs} (\xD,-9.0);
+  \draw[ret] (\xD,-9.6) -- node[above] {OK} (\xAn,-9.6);
+  
+  \draw[ret] (\xAn,-10.4) -- node[above] {\{action: "...", score\}} (\xA,-10.4);
+
+  % ================= ACTION ALT FRAME =================
+  \def\ayT{-11.0}\def\ayB{-14.6}\def\axL{-0.8}\def\axR{\xA+0.8}
+  \draw[frame] (\axL,\ayT) rectangle (\axR,\ayB);
+  \draw[frame, fill=white] (\axL,\ayT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\axL+0.3,\ayT-0.2) {\textbf{alt}};
+  \node[font=\tiny, anchor=west] at (\axL+0.9,\ayT-0.2) {[action == "allow"]};
+  
+  \draw[ret] (\xA,-11.8) -- node[above] {proceed to portal} (\xU,-11.8);
+  
+  % Else 1
+  \def\eyA{-12.4}
+  \draw[frame, dashed] (\axL,\eyA) -- (\axR,\eyA);
+  \node[font=\tiny, anchor=west] at (\axL+0.2,\eyA-0.2) {[else: action == "warn\_user"]};
+  \draw[ret] (\xA,-13.0) -- node[above] {show security alert banner} (\xU,-13.0);
+  
+  % Else 2
+  \def\eyB{-13.6}
+  \draw[frame, dashed] (\axL,\eyB) -- (\axR,\eyB);
+  \node[font=\tiny, anchor=west] at (\axL+0.2,\eyB-0.2) {[else: action == "require\_2fa"]};
+  \draw[ret] (\xA,-14.2) -- node[above] {2FA verification screen} (\xU,-14.2);
+
+  % ================= SCORE OPTION FRAME =================
+  \def\oyT{-15.0}\def\oyB{-16.6}\def\oxL{\xAn-0.8}\def\oxR{\xD+0.8}
+  \draw[frame] (\oxL,\oyT) rectangle (\oxR,\oyB);
+  \draw[frame, fill=white] (\oxL,\oyT) -- ++(0,-0.4) -- ++(0.6,0) -- ++(0.2,0.4) -- cycle;
+  \node[font=\tiny] at (\oxL+0.3,\oyT-0.2) {\textbf{opt}};
+  \node[font=\tiny, anchor=west] at (\oxL+0.9,\oyT-0.2) {[score $\geq$ 50]};
+  
+  \draw[msg] (\xAn,-15.8) -- node[above] {Notify all admins (FCM / webhook)} (\xD,-15.8);
+
+\end{tikzpicture}
+

@@ -1,0 +1,43 @@
+\begin{tikzpicture}[
+    x=1.1cm, y=1.1cm,
+    box/.style={rectangle, rounded corners=5pt, draw=black, thin,
+                minimum height=1.1cm, align=center,
+                fill=white, font=\sffamily\small, inner xsep=3.5mm, inner ysep=2mm},
+    diamond_node/.style={diamond, draw=black, thin, minimum size=0.5cm, inner sep=0pt},
+    arrow/.style={-{Latex[length=3mm, width=2mm]}, thin}
+]
+
+% ================= COORDINATES & NODES =================
+\coordinate (Start) at (0, 8.5);
+\fill (Start) circle (2.5pt);
+
+\node[box] (StartApp) at (0, 7.2) {Trigger PRI Computation};
+
+\node[box, text width=4cm] (Auth) at (3.8, 4.8) {Fetch Health Metrics};
+
+\node[box] (Enter) at (-3.8, 3.2) {Extract Sleep \& Vitals};
+
+\node[box] (Verify) at (3.8, 1.2) {Evaluate Data Completeness};
+
+\node[diamond_node] (Dia) at (0, -0.8) {};
+
+\node[box] (Error) at (-3.8, -0.8) {Prompt User to Sync Wearable};
+
+\node[box] (Dash) at (3.8, -3.2) {Calculate Score \& Update View};
+
+\coordinate (End) at (0, -5.2);
+\draw[thin] (End) circle (4.5pt);
+\fill (End) circle (2pt);
+
+% ================= DRAWING ARROWS =================
+\draw[arrow] (Start) -- (StartApp);
+\draw[arrow] (StartApp) -- (Auth);
+\draw[arrow] (Auth) -- (Enter);
+\draw[arrow] (Enter) -- (Verify);
+\draw[arrow] (Verify) -- (Dia);
+\draw[arrow] (Dia.west) -- node[above, font=\sffamily\small, yshift=-0.5mm] {incomplete} (Error.east);
+\draw[arrow] (Error.north) -- (Enter.south);
+\draw[arrow] (Dia) -- node[above right, font=\sffamily\small, xshift=-1mm, yshift=-1mm] {complete} (Dash);
+\draw[arrow] (Dash) -- (End);
+
+\end{tikzpicture}

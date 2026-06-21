@@ -1,0 +1,75 @@
+﻿% DoctIP Refined Use Case Diagram: Book an Appointment
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{
+    actorlabel/.style={font=\scriptsize, align=center},
+    usecase/.style={
+      ellipse,
+      draw=black!75,
+      fill=white,
+      font=\scriptsize,
+      align=center,
+      minimum width=4.2cm,
+      minimum height=0.95cm,
+      inner sep=2.5pt
+    },
+    boundary/.style={draw=black!70, line width=0.6pt, fill=white},
+    assoc/.style={black!70, line width=0.55pt},
+    include/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    extend/.style={black!60, line width=0.55pt, dash pattern=on 1.5pt off 2.4pt, -{Stealth[length=5pt, open, fill=white]}},
+    rellabel/.style={font=\scriptsize, fill=white, inner sep=1.5pt},
+  }
+
+  % System boundary
+  \node[boundary, minimum width=14.8cm, minimum height=11.6cm, anchor=north west] (sys) at (0,8.4) {};
+  \node[font=\footnotesize\bfseries, anchor=north] at ($(sys.north)+(0,-0.72)$) {Book an Appointment};
+
+  % Actor (Patient)
+  \begin{scope}[shift={(-1.80,3.50)}]
+    \draw[black!75, line width=0.55pt] (0,0.34) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.20) -- (0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.22,0.02) -- (0.22,0.02);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (-0.18,-0.47);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (0.18,-0.47);
+    \node[actorlabel, below] at (0,-0.52) {Patient};
+  \end{scope}
+
+  % Actor (Appt. Optimizer)
+  \begin{scope}[shift={(16.60,0.50)}]
+    \draw[black!75, line width=0.55pt] (0,0.34) circle (0.14cm);
+    \draw[black!75, line width=0.55pt] (0,0.20) -- (0,-0.18);
+    \draw[black!75, line width=0.55pt] (-0.22,0.02) -- (0.22,0.02);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (-0.18,-0.47);
+    \draw[black!75, line width=0.55pt] (0,-0.18) -- (0.18,-0.47);
+    \node[actorlabel, below] at (0,-0.52) {Appt.\\Optimizer};
+  \end{scope}
+
+  % Use cases
+  \node[usecase] (auth)    at (10.5, 6.6) {authenticate};
+  \node[usecase] (browse)  at (4.0,  4.6) {browse doctor list};
+  \node[usecase] (filter)  at (10.5, 4.6) {filter by specialty};
+  \node[usecase] (profile) at (4.0,  2.4) {view doctor profile};
+  \node[usecase] (visit)   at (10.5, 2.4) {select visit type};
+  \node[usecase] (date)    at (4.0,  0.2) {select date on calendar};
+  \node[usecase] (slot)    at (10.5, 0.2) {get optimal slot (AI)};
+  \node[usecase] (confirm) at (4.0, -2.0) {confirm appointment};
+  \node[usecase] (recv)    at (10.5,-2.0) {receive confirmation};
+
+  % Associations (Patient)
+  \draw[assoc] (-1.20,3.50) -- (browse.west);
+  \draw[assoc] (-1.20,3.50) -- (profile.west);
+  \draw[assoc] (-1.20,3.50) -- (date.west);
+  \draw[assoc] (-1.20,3.50) -- (confirm.west);
+
+  % Association (Optimizer)
+  \draw[assoc] (15.80,0.50) -- (slot.east);
+
+  % Included and Extended relationships
+  \draw[include] (browse.north) -- node[rellabel, left=1pt] {<<include>>} (browse.north |- auth.west) -- (auth.west);
+  
+  \draw[include] (browse.east) -- node[rellabel, pos=0.5] {<<include>>} (filter.west);
+  \draw[extend]  (visit.west)  -- node[rellabel, pos=0.5] {<<extend>>} (profile.east);
+  \draw[include] (date.east)   -- node[rellabel, pos=0.5] {<<include>>} (slot.west);
+  \draw[include] (confirm.east)-- node[rellabel, pos=0.5] {<<include>>} (recv.west);
+
+\end{tikzpicture}
+
