@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -147,13 +147,7 @@ html, body {
   position: relative; overflow: hidden;
   background: linear-gradient(135deg, #0A1F5C 0%, #1E3A8A 100%);
 }
-.section-divider::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
-}
+
 .section-divider .divider-sub {
   font-size: 1rem;
   font-weight: 600;
@@ -1035,6 +1029,15 @@ html, body {
     box-shadow: none !important;
     border: 1px solid #ddd;
   }
+}
+
+.reveal.has-divider::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 10;
 }
 </style>
 </head>
@@ -2538,15 +2541,15 @@ html, body {
     <div class="diagram-grid three-col" data-stagger>
       <div class="diagram-card">
         <h4>Authentication</h4>
-        <img src="figures/diagrams/activity-auth.png" alt="Authentication Activity" class="diagram-img" />
+        <img src="figures/diagrams/activity-auth.png" alt="Authentication Activity" class="diagram-img" style="max-height: 280px;" />
       </div>
       <div class="diagram-card">
         <h4>Appointment Booking</h4>
-        <img src="figures/diagrams/activity-book.png" alt="Booking Activity" class="diagram-img" />
+        <img src="figures/diagrams/activity-book.png" alt="Booking Activity" class="diagram-img" style="max-height: 280px;" />
       </div>
       <div class="diagram-card">
         <h4>AI Triage</h4>
-        <img src="figures/diagrams/activity-triage.png" alt="Triage Activity" class="diagram-img" />
+        <img src="figures/diagrams/activity-triage.png" alt="Triage Activity" class="diagram-img" style="max-height: 280px;" />
       </div>
     </div>
   </div>
@@ -3457,15 +3460,44 @@ function animateSlide(slide) {
   }
 }
 
+function syncViewportBackground(slide) {
+  let bg = '';
+  const content = slide.querySelector('.slide-content');
+  if (content && content.style.background) {
+    bg = content.style.background;
+  } else if (slide.style.background) {
+    bg = slide.style.background;
+  }
+  
+  const revealEl = document.querySelector('.reveal');
+  if (bg) {
+    revealEl.style.background = bg;
+    document.body.style.background = bg;
+    document.documentElement.style.background = bg;
+  } else {
+    revealEl.style.background = 'var(--bg)';
+    document.body.style.background = 'var(--bg)';
+    document.documentElement.style.background = 'var(--bg)';
+  }
+  
+  if (slide.classList.contains('section-divider')) {
+    revealEl.classList.add('has-divider');
+  } else {
+    revealEl.classList.remove('has-divider');
+  }
+}
+
 // Slide transition: GSAP replaces Reveal default
 Reveal.on('slidechanged', event => {
   const slide = event.currentSlide;
   gsap.killTweensOf(slide.querySelectorAll('*'));
   animateSlide(slide);
+  syncViewportBackground(slide);
 });
 
 Reveal.on('ready', event => {
   animateSlide(event.currentSlide);
+  syncViewportBackground(event.currentSlide);
 });
 
 // MICRO-INTERACTIONS: Card hover lift
