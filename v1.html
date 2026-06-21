@@ -1039,6 +1039,19 @@ html, body {
   pointer-events: none;
   z-index: 10;
 }
+
+@media screen and (orientation: portrait) {
+  body {
+    width: 100vh !important;
+    height: 100vw !important;
+    transform: rotate(90deg) !important;
+    transform-origin: top left !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 100vw !important;
+    overflow: hidden !important;
+  }
+}
 </style>
 </head>
 <body>
