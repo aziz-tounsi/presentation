@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -141,11 +141,17 @@ html, body {
 
 /* ========== SECTION DIVIDER ========== */
 .section-divider {
-  width: 100vw; height: 100vh;
+  width: 100%; height: 100%;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #0A1F5C 0%, #1E3A8A 100%);
+  background: #F0F4FF;
+  padding: 0 !important;
+}
+
+/* Section divider slides: remove padding so the gradient fills the slide */
+.reveal .slides section.section-divider {
+  padding: 0 !important;
 }
 
 .section-divider .divider-sub {
@@ -1210,23 +1216,23 @@ html, body {
       </div>
       <div class="toc-card">
         <span class="toc-num">03</span>
-        <div class="toc-text"><h3>Problem &amp; Objectives</h3><p>Problem statement &amp; goals</p></div>
+        <div class="toc-text"><h3>Problem Statement</h3><p>Problem statement</p></div>
       </div>
       <div class="toc-card">
         <span class="toc-num">04</span>
-        <div class="toc-text"><h3>Conceptual Analysis</h3><p>Requirements &amp; non-functional requirements</p></div>
+        <div class="toc-text"><h3>Requirement Analysis</h3><p>Requirements &amp; non-functional requirements</p></div>
       </div>
       <div class="toc-card">
         <span class="toc-num">05</span>
-        <div class="toc-text"><h3>Project Framework</h3><p>Architecture &amp; app modules</p></div>
+        <div class="toc-text"><h3>Methodology</h3><p>Scrum &amp; project workflow</p></div>
       </div>
       <div class="toc-card">
         <span class="toc-num">06</span>
-        <div class="toc-text"><h3>Methodology &amp; Tools</h3><p>Scrum, sprints &amp; timeline</p></div>
+        <div class="toc-text"><h3>Methodology</h3><p>Scrum, sprints &amp; timeline</p></div>
       </div>
       <div class="toc-card">
         <span class="toc-num">07</span>
-        <div class="toc-text"><h3>System Architecture</h3><p>Three-tier, data flow &amp; security</p></div>
+        <div class="toc-text"><h3>System Architecture</h3><p>Three-tier architecture</p></div>
       </div>
       <div class="toc-card">
         <span class="toc-num">08</span>
@@ -1236,10 +1242,7 @@ html, body {
         <span class="toc-num">09</span>
         <div class="toc-text"><h3>Development Environment</h3><p>IDEs, frameworks &amp; libraries</p></div>
       </div>
-      <div class="toc-card">
-        <span class="toc-num">10</span>
-        <div class="toc-text"><h3>Application Screens</h3><p>Patient, doctor &amp; admin interfaces</p></div>
-      </div>
+
       <div class="toc-card">
         <span class="toc-num">11</span>
         <div class="toc-text"><h3>Prospective &amp; Conclusion</h3><p>Future enhancements, achievements &amp; roadmap</p></div>
@@ -1353,10 +1356,10 @@ html, body {
         <div class="info-card">
           <h4>Company Details</h4>
           <div class="detail-grid">
-            <div class="detail-item"><span class="label">Founded:</span> 2018</div>
-            <div class="detail-item"><span class="label">Location:</span> Tunisia</div>
-            <div class="detail-item"><span class="label">Team:</span> 15+ Engineers</div>
-            <div class="detail-item"><span class="label">Focus:</span> Full-stack development</div>
+            <div class="detail-item"><span class="label">Legal Name:</span> Aderfia Inc.</div>
+            <div class="detail-item"><span class="label">Type:</span> Private Startup</div>
+            <div class="detail-item"><span class="label">Founded:</span> 2022</div>
+            <div class="detail-item"><span class="label">Main Activity:</span> Healthcare Technology</div>
           </div>
         </div>
       </div>
@@ -1365,10 +1368,66 @@ html, body {
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 6 — SECTION 02 DIVIDER: Existing Systems Analysis -->
+<!-- SLIDE 6 — SECTION 02 DIVIDER: Problem Statement -->
+<!-- ============================================================ -->
+<section class="section-divider" style="background: linear-gradient(135deg, #3D1A1A 0%, #6B2D2D 100%);">
+  <p class="divider-sub" data-anim="fade-up">Section 02</p>
+  <h2 data-anim="typewriter">Problem Statement</h2>
+  <div class="pills-row" data-stagger>
+    <span class="pill">Problem Statement</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7 — PROBLEM STATEMENT -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="page-heading">
+      <span class="badge" data-anim="fade-up" data-delay="0">Problem Statement</span>
+      <h2 data-anim="wipe">What Problem Are We Solving?</h2>
+    </div>
+    <div class="highlight-box" data-anim="fade-up" data-delay="0.2" style="margin-bottom: 36px;">
+      How can we build a unified, secure, and intelligent platform that streamlines medical appointment management while empowering patients, doctors, and administrators?
+    </div>
+    <div class="grid-2" style="max-width: 900px; margin: 0 auto;" data-stagger>
+      <div class="problem-item">
+        <div class="x-icon">✕</div>
+        <div>
+          <h4>Manual Scheduling Inefficiencies</h4>
+          <p>Phone-based booking leads to long wait times, missed appointments, and scheduling conflicts</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="x-icon">✕</div>
+        <div>
+          <h4>Fragmented Patient Records</h4>
+          <p>Paper-based or siloed digital records make it difficult to track patient history holistically</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="x-icon">✕</div>
+        <div>
+          <h4>Limited Patient-Doctor Communication</h4>
+          <p>No secure channel for follow-up questions, prescription renewals, or post-visit guidance</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="x-icon">✕</div>
+        <div>
+          <h4>No Centralized Administration</h4>
+          <p>Clinics lack unified dashboards for managing doctors, patients, and operational analytics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9 — SECTION 03 DIVIDER: Existing Systems Analysis -->
 <!-- ============================================================ -->
 <section class="section-divider" style="background: linear-gradient(135deg, #3D2A0A 0%, #6B4A1A 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 02</p>
+  <p class="divider-sub" data-anim="fade-up">Section 03</p>
   <h2 data-anim="typewriter">Existing Systems Analysis</h2>
   <div class="pills-row" data-stagger>
     <span class="pill">Market Analysis</span>
@@ -1418,8 +1477,8 @@ html, body {
 <section class="slide">
   <div class="slide-inner">
     <div class="page-heading">
-      <span class="badge" data-anim="fade-up" data-delay="0">Limitations</span>
-      <h2 data-anim="wipe">Common Limitations</h2>
+      <span class="badge" data-anim="fade-up" data-delay="0">Competitor Critique</span>
+      <h2 data-anim="wipe">Competitor Critique</h2>
     </div>
     <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;" data-stagger>
       <div class="warning-item">
@@ -1482,8 +1541,8 @@ html, body {
 <section class="slide">
   <div class="slide-inner">
     <div class="page-heading">
-      <span class="badge" data-anim="fade-up" data-delay="0">Our Solution</span>
-      <h2 data-anim="wipe">Proposed Architecture</h2>
+      <span class="badge" data-anim="fade-up" data-delay="0">Proposed Solution</span>
+      <h2 data-anim="wipe">Proposed Solution</h2>
     </div>
     <div style="max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;" data-stagger>
       <div class="layer-card" style="border-left-color: #4A7BF7;">
@@ -1561,8 +1620,8 @@ html, body {
 <section class="slide">
   <div class="slide-inner">
     <div class="page-heading">
-      <span class="badge" data-anim="fade-up" data-delay="0">Features</span>
-      <h2 data-anim="wipe">What Sets Us Apart</h2>
+      <span class="badge" data-anim="fade-up" data-delay="0">Key Features</span>
+      <h2 data-anim="wipe">Key Features</h2>
     </div>
     <div class="grid-2" style="max-width: 800px; margin: 0 auto;" data-stagger>
       <div class="feature-card">
@@ -1613,65 +1672,7 @@ html, body {
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SLIDE 11 — SECTION 03 DIVIDER: Problem & Objectives -->
-<!-- ============================================================ -->
-<section class="section-divider" style="background: linear-gradient(135deg, #3D1A1A 0%, #6B2D2D 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 03</p>
-  <h2 data-anim="typewriter">Problem &amp; Objectives</h2>
-  <div class="pills-row" data-stagger>
-    <span class="pill">Problem Statement</span>
-    <span class="pill">Project Objectives</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE 12 — PROBLEM STATEMENT -->
-<!-- ============================================================ -->
-<section class="slide">
-  <div class="slide-inner">
-    <div class="page-heading">
-      <span class="badge" data-anim="fade-up" data-delay="0">Problem Statement</span>
-      <h2 data-anim="wipe">What Problem Are We Solving?</h2>
-    </div>
-    <div class="highlight-box" data-anim="fade-up" data-delay="0.2" style="margin-bottom: 36px;">
-      How can we build a unified, secure, and intelligent platform that streamlines medical appointment management while empowering patients, doctors, and administrators?
-    </div>
-    <div class="grid-2" style="max-width: 900px; margin: 0 auto;" data-stagger>
-      <div class="problem-item">
-        <div class="x-icon">✕</div>
-        <div>
-          <h4>Manual Scheduling Inefficiencies</h4>
-          <p>Phone-based booking leads to long wait times, missed appointments, and scheduling conflicts</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <div class="x-icon">✕</div>
-        <div>
-          <h4>Fragmented Patient Records</h4>
-          <p>Paper-based or siloed digital records make it difficult to track patient history holistically</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <div class="x-icon">✕</div>
-        <div>
-          <h4>Limited Patient-Doctor Communication</h4>
-          <p>No secure channel for follow-up questions, prescription renewals, or post-visit guidance</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <div class="x-icon">✕</div>
-        <div>
-          <h4>No Centralized Administration</h4>
-          <p>Clinics lack unified dashboards for managing doctors, patients, and operational analytics</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE 13 — PROJECT OBJECTIVES -->
+<!-- SLIDE 11 — PROJECT OBJECTIVES (moved from Section 02 to be after Solution) -->
 <!-- ============================================================ -->
 <section class="slide">
   <div class="slide-inner">
@@ -1729,7 +1730,7 @@ html, body {
 <!-- SLIDE 14: Section 04 Divider -->
 <section class="section-divider" style="background: linear-gradient(135deg, #1A2332 0%, #2D3A5A 100%);">
   <p class="divider-sub" data-anim="fade-up">Section 04</p>
-  <h2 data-anim="typewriter">Conceptual Analysis</h2>
+  <h2 data-anim="typewriter">Requirement Analysis</h2>
   <div class="pills-row" data-stagger>
     <span class="pill">Functional Requirements</span>
     <span class="pill">Non-Functional Requirements</span>
@@ -1839,175 +1840,12 @@ html, body {
   </div>
 </section>
 
-<!-- SLIDE 19: Section 05 Divider -->
-<section class="section-divider" style="background: linear-gradient(135deg, #2D1B69 0%, #4A2D8A 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 05</p>
-  <h2 data-anim="typewriter">Project Framework</h2>
-  <div class="pills-row" data-stagger>
-    <span class="pill">Three-Tier Architecture</span>
-    <span class="pill">Mobile Apps</span>
-    <span class="pill">Web Dashboard</span>
-  </div>
-</section>
-
-<!-- SLIDE 20: Three-Tier Architecture -->
-<section class="slide">
-  <div class="slide-inner">
-    <span class="badge" data-anim="fade-up" data-delay="0">Architecture</span>
-    <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 24px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Three-Tier Architecture</h2>
-    <div class="card" data-anim="scale-in" data-delay="0.2" style="padding: 32px 40px;">
-      <svg viewBox="0 0 1000 440" width="100%" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
-
-        <!-- ===== TIER 1: PRESENTATION ===== -->
-        <rect x="40" y="20" width="430" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="255" y="55" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Patient Mobile App</text>
-        <text x="255" y="78" text-anchor="middle" fill="#5A6B8A" font-size="12">React Native + Expo · iOS &amp; Android</text>
-
-        <rect x="530" y="20" width="430" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="745" y="55" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Doctor Mobile App</text>
-        <text x="745" y="78" text-anchor="middle" fill="#5A6B8A" font-size="12">React Native + Expo · iOS &amp; Android</text>
-
-        <line x1="255" y1="102" x2="500" y2="150" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a1)"/>
-        <line x1="745" y1="102" x2="500" y2="150" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a1)"/>
-
-        <!-- ===== TIER 2: LOGIC ===== -->
-        <rect x="140" y="160" width="720" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="500" y="195" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Supabase Edge Functions</text>
-        <text x="500" y="218" text-anchor="middle" fill="#5A6B8A" font-size="12">JWT Auth · Row Level Security · REST API · Real-time · Storage</text>
-
-        <line x1="310" y1="242" x2="250" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
-        <line x1="500" y1="242" x2="500" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
-        <line x1="690" y1="242" x2="750" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
-
-        <!-- ===== TIER 3: DATA ===== -->
-        <rect x="60" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="195" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">PostgreSQL</text>
-        <text x="195" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">Relational DB · RLS · ACID</text>
-
-        <rect x="365" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="500" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">OpenAI + OpenRouter</text>
-        <text x="500" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">GPT-4 + Nano · AI Triage · NLP</text>
-
-        <rect x="670" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
-
-        <text x="805" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">Agora + FCM</text>
-        <text x="805" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">Video Calls · Push Notifications</text>
-
-        <!-- Footer -->
-        <text x="500" y="420" text-anchor="middle" fill="#5A6B8A" font-size="12">Serverless architecture on Supabase — Presentation → Logic → Data</text>
-
-        <defs>
-          <marker id="a1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4A7BF7"/></marker>
-          <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38BDF8"/></marker>
-        </defs>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 21: Mobile Apps -->
-<section class="slide">
-  <div class="slide-inner">
-    <span class="badge" data-anim="fade-up">Mobile</span>
-    <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 20px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Mobile Applications</h2>
-    <div class="grid-2" data-stagger style="gap: 28px;">
-      <div class="card" style="padding: 22px 24px;">
-        <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 14px;">
-          <img src="figures/screen-patient-home.png" alt="Patient App Home" style="width: 105px; height: 210px; object-fit: contain; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.14);" onerror="this.style.display='none';">
-          <img src="figures/patienthomedashboard.png" alt="Patient Dashboard" style="width: 105px; height: 210px; object-fit: contain; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.14);" onerror="this.style.display='none';">
-        </div>
-        <h4 style="color: #0A1F5C; margin-bottom: 4px; font-size: 1rem; font-weight: 800;">Patient App</h4>
-        <ul class="checklist">
-          <li>Book appointments with specialists</li>
-          <li>View medical records &amp; history</li>
-          <li>Manage medications &amp; reminders</li>
-          <li>AI symptom triage &amp; risk scoring</li>
-          <li>Secure messaging with doctors</li>
-        </ul>
-      </div>
-      <div class="card" style="padding: 22px 24px;">
-        <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 14px;">
-          <img src="figures/screen-doctor-home.png" alt="Doctor App Home" style="width: 105px; height: 210px; object-fit: contain; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.14);" onerror="this.style.display='none';">
-          <img src="figures/home2.png" alt="Doctor App Screen 2" style="width: 105px; height: 210px; object-fit: contain; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.14);" onerror="this.style.display='none';">
-        </div>
-        <h4 style="color: #0A1F5C; margin-bottom: 4px; font-size: 1rem; font-weight: 800;">Doctor App</h4>
-        <ul class="checklist">
-          <li>Manage patient list &amp; profiles</li>
-          <li>View appointment schedule</li>
-          <li>Create prescriptions &amp; lab requests</li>
-          <li>AI clinical note generation (SOAP)</li>
-          <li>ORION AI clinical assistant</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 22: Web Dashboard -->
-<section class="slide">
-  <div class="slide-inner">
-    <span class="badge" data-anim="fade-up">Admin</span>
-    <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 20px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Web Dashboard</h2>
-    <div class="grid-2" data-stagger style="gap: 24px; align-items: center;">
-      <div class="card" style="padding: 12px; overflow: hidden;">
-        <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #F0F4FF; border-radius: 8px 8px 0 0;">
-          <span style="width: 10px; height: 10px; border-radius: 50%; background: #FF5F57;"></span>
-          <span style="width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E;"></span>
-          <span style="width: 10px; height: 10px; border-radius: 50%; background: #28CA42;"></span>
-          <span style="margin-left: 8px; font-size: 0.7rem; color: #2D3A5A; font-weight: 600;">Admin Dashboard</span>
-        </div>
-        <img src="figures/screen-admin-dashboard.png" alt="Admin Dashboard" style="width: 100%; display: block; border-radius: 0 0 8px 8px;" onerror="this.style.display='none';">
-      </div>
-      <div class="flex-col" style="gap: 14px;">
-        <h3 style="color: #0A1F5C; font-size: 1rem; font-weight: 800; margin-bottom: 4px;">Web Administration</h3>
-        <p style="color: #5A6B8A; font-size: 0.85rem; line-height: 1.5;">Centralized web dashboard for managing doctors, patients, and platform operations.</p>
-        <div class="flex-col" style="gap: 10px;">
-          <div class="card" style="padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
-            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(74,123,247,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: #0A1F5C;">User Management</div>
-              <div style="font-size: 0.78rem; color: #5A6B8A;">Approve, reject &amp; monitor accounts</div>
-            </div>
-          </div>
-          <div class="card" style="padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
-            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(56,189,248,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-5"/></svg>
-            </div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: #0A1F5C;">Analytics &amp; Insights</div>
-              <div style="font-size: 0.78rem; color: #5A6B8A;">Real-time platform metrics</div>
-            </div>
-          </div>
-          <div class="card" style="padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
-            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(16,185,129,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            </div>
-            <div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: #0A1F5C;">System Configuration</div>
-              <div style="font-size: 0.78rem; color: #5A6B8A;">Configure platform settings</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 23: Section 06 Divider -->
+<!-- SLIDE 19: Section 05 Divider: Methodology -->
 <section class="section-divider" style="background: linear-gradient(135deg, #0A3D1A 0%, #1A6B3D 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 06</p>
-  <h2 data-anim="typewriter">Methodology & Tools</h2>
+  <p class="divider-sub" data-anim="fade-up">Section 05</p>
+  <h2 data-anim="typewriter">Methodology</h2>
   <div class="pills-row" data-stagger>
     <span class="pill">Scrum Methodology</span>
-    <span class="pill">Sprint Planning</span>
-    <span class="pill">Project Timeline</span>
   </div>
 </section>
 
@@ -2023,240 +1861,18 @@ html, body {
   </div>
 </section>
 
-<!-- SLIDE 25: Sprint Planning -->
-<section style="padding: 60px 80px;">
-  <span class="badge" data-anim="fade-up">Sprints</span>
-  <h2 data-anim="wipe" style="margin-top: 0; font-size: 2.4rem; color: #0A1F5C;">Sprint Planning</h2>
-  <div class="card" data-anim="fade-up" style="margin-top: 36px; padding: 40px;">
-    <!-- Sprint Timeline Bar -->
-    <div style="display: flex; align-items: center; justify-content: space-between; position: relative; padding: 20px 0;">
-      <!-- Connecting line -->
-      <div style="position: absolute; top: 40px; left: 40px; right: 40px; height: 4px; background: linear-gradient(to right, #0A3D1A, #1A6B3D, #4A7BF7, #38BDF8); border-radius: 2px;"></div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #0A3D1A, #1A6B3D); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S0</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Setup</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #0A3D1A, #1A6B3D); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S1</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Auth</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #1A3A8A, #4A7BF7); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S2</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Dashboard</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #1A3A8A, #4A7BF7); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S3</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Triage</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #4A7BF7, #38BDF8); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S4</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Booking</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #4A7BF7, #38BDF8); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S5</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Messaging</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #38BDF8, #0EA5E9); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S6</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Analytics</span>
-      </div>
-
-      <div style="display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;">
-        <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #38BDF8, #0EA5E9); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:0.85rem; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">S7</div>
-        <span style="margin-top: 12px; font-size: 0.8rem; color: #2D3A5A; font-weight: 600;">Polish</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 26: Project Timeline -->
-<section style="padding: 60px 80px;">
-  <span class="badge" data-anim="fade-up">Timeline</span>
-  <h2 data-anim="wipe" style="margin-top: 0; font-size: 2.4rem; color: #0A1F5C;">Project Timeline</h2>
-  <div class="grid-2" data-stagger style="margin-top: 36px; gap: 24px;">
-    <div class="card" style="padding: 32px; text-align: center;">
-      <div style="font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #0A3D1A, #1A6B3D); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">8</div>
-      <p style="color: #2D3A5A; font-size: 1rem; font-weight: 600; margin-top: 4px;">Sprints</p>
-    </div>
-    <div class="card" style="padding: 32px; text-align: center;">
-      <div style="font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #1A3A8A, #4A7BF7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">33</div>
-      <p style="color: #2D3A5A; font-size: 1rem; font-weight: 600; margin-top: 4px;">User Stories</p>
-    </div>
-    <div class="card" style="padding: 32px; text-align: center;">
-      <div style="font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #4A7BF7, #38BDF8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">16</div>
-      <p style="color: #2D3A5A; font-size: 1rem; font-weight: 600; margin-top: 4px;">Weeks Duration</p>
-    </div>
-    <div class="card" style="padding: 32px; text-align: center;">
-      <div style="font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #2D1B69, #4A2D8A); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">4</div>
-      <p style="color: #2D3A5A; font-size: 1rem; font-weight: 600; margin-top: 4px;">Core Tools</p>
-    </div>
-  </div>
-  <!-- Timeline bar -->
-  <div class="card" data-anim="fade-up" style="margin-top: 28px; padding: 32px 40px;">
-    <div style="position: relative; height: 48px; background: linear-gradient(to right, #0A3D1A, #1A6B3D, #4A7BF7, #38BDF8); border-radius: 24px; overflow: hidden;">
-      <div style="position: absolute; left: 0; top: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: space-around; padding: 0 20px;">
-        <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">Week 1</span>
-        <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">Week 4</span>
-        <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">Week 8</span>
-        <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">Week 12</span>
-        <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">Week 16</span>
-      </div>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 12px; padding: 0 4px;">
-      <span style="font-size: 0.8rem; color: #2D3A5A;">Setup & Auth</span>
-      <span style="font-size: 0.8rem; color: #2D3A5A;">Core Features</span>
-      <span style="font-size: 0.8rem; color: #2D3A5A;">Advanced</span>
-      <span style="font-size: 0.8rem; color: #2D3A5A;">Polish & Launch</span>
-    </div>
-  </div>
-</section>
+<!-- Sprint Planning and Project Timeline slides removed -->
 
 
 
 
 
-<!-- SLIDE 27 - Section 07 Divider: System Architecture -->
-<section class="section-divider" style="background: linear-gradient(135deg, #1A1A3D 0%, #2D2D6B 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 07</p>
-  <h2 data-anim="typewriter">System Architecture</h2>
-  <div class="pills-row" data-stagger>
-    <span class="pill">Three-Tier Architecture</span>
-    <span class="pill">Data Flow</span>
-    <span class="pill">Security</span>
-  </div>
-</section>
 
-<!-- SLIDE 28 - Three-Tier Architecture -->
-<section class="slide">
-  <div class="slide-inner">
-    <span class="badge" data-anim="fade-up" data-delay="0">Architecture</span>
-    <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 8px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">System Architecture</h2>
-    <p class="slide-subtitle" data-anim="fade-up" style="margin-bottom: 20px; font-size: 0.9rem; color: #5A6B8A;">Three-tier architecture powering the clinical triage platform</p>
-    <div class="diagram-container" data-anim="scale-in" data-delay="0.2" style="max-height: 440px; display: flex; align-items: center; justify-content: center; padding: 16px; background: #fff; border: 1px solid var(--card-border); border-radius: 20px; box-shadow: var(--card-shadow);">
-      <img src="figures/diagrams/system-architecture.png" alt="System Architecture Diagram" style="max-width: 100%; max-height: 400px; object-fit: contain;" />
-    </div>
-  </div>
-</section>
 
-<!-- SLIDE 29 - Data Flow -->
-<section class="slide">
-  <div class="slide-inner">
-    <span class="badge" data-anim="fade-up" data-delay="0">Data Flow</span>
-    <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 8px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Data Flow Architecture</h2>
-    <p class="slide-subtitle" data-anim="fade-up" style="margin-bottom: 32px; font-size: 0.9rem; color: #5A6B8A;">End-to-end request lifecycle from client to database</p>
-    <div data-stagger style="display: flex; align-items: stretch; justify-content: center; gap: 24px; flex-wrap: nowrap;">
-      <div class="card" style="padding: 24px; text-align: center; width: 280px; display: flex; flex-direction: column; align-items: center;">
-        <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #4A7BF7, #38BDF8); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(74,123,247,0.3); margin-bottom: 14px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="5" y="3" width="22" height="26" rx="3" stroke="white" stroke-width="2" fill="none"/>
-            <rect x="9" y="9" width="14" height="10" rx="1" stroke="white" stroke-width="1.5" fill="rgba(255,255,255,0.2)"/>
-            <circle cx="16" cy="24" r="1.5" fill="white"/>
-          </svg>
-        </div>
-        <h4 style="color: #0A1F5C; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Client</h4>
-        <p style="font-size: 0.75rem; color: #5A6B8A; line-height: 1.5;">React Native app sends encrypted HTTP requests via Expo Router</p>
-      </div>
-      <div style="display: flex; align-items: center; flex-shrink: 0;">
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
-          <path d="M0 12H40M40 12L32 4M40 12L32 20" stroke="#4A7BF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="card" style="padding: 24px; text-align: center; width: 280px; display: flex; flex-direction: column; align-items: center;">
-        <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #38BDF8, #0EA5E9); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(56,189,248,0.3); margin-bottom: 14px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="3" y="6" width="26" height="20" rx="3" stroke="white" stroke-width="2" fill="none"/>
-            <path d="M3 12H29" stroke="white" stroke-width="1.5"/>
-            <circle cx="7" cy="9" r="1" fill="white"/>
-            <circle cx="10" cy="9" r="1" fill="white"/>
-            <circle cx="13" cy="9" r="1" fill="white"/>
-            <rect x="7" y="16" width="18" height="2" rx="1" fill="rgba(255,255,255,0.4)"/>
-            <rect x="7" y="20" width="12" height="2" rx="1" fill="rgba(255,255,255,0.4)"/>
-          </svg>
-        </div>
-        <h4 style="color: #0A1F5C; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Edge Functions</h4>
-        <p style="font-size: 0.75rem; color: #5A6B8A; line-height: 1.5;">Supabase Edge Functions validate auth, process business logic, call AI</p>
-      </div>
-      <div style="display: flex; align-items: center; flex-shrink: 0;">
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
-          <path d="M0 12H40M40 12L32 4M40 12L32 20" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="card" style="padding: 24px; text-align: center; width: 280px; display: flex; flex-direction: column; align-items: center;">
-        <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #0A1F5C, #1E3A8A); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(10,31,92,0.3); margin-bottom: 14px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <ellipse cx="16" cy="9" rx="11" ry="4" stroke="white" stroke-width="2" fill="rgba(255,255,255,0.1)"/>
-            <path d="M5 9V23C5 25.2 9.8 27 16 27S27 25.2 27 23V9" stroke="white" stroke-width="2" fill="none"/>
-            <path d="M5 15C5 17.2 9.8 19 16 19S27 17.2 27 15" stroke="white" stroke-width="1.5" fill="none"/>
-          </svg>
-        </div>
-        <h4 style="color: #0A1F5C; font-size: 1rem; font-weight: 800; margin-bottom: 8px;">Database</h4>
-        <p style="font-size: 0.75rem; color: #5A6B8A; line-height: 1.5;">PostgreSQL with Row Level Security enforces access policies at query time</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Conceptual Design section starts here -->
 
-<!-- SLIDE 30 - Security -->
-<section>
-  <div class="slide-header">
-    <span class="badge">Security</span>
-    <h2 data-anim="wipe">Security Architecture</h2>
-    <p class="slide-subtitle" data-anim="fade-up">Multi-layered security model protecting sensitive clinical data</p>
-  </div>
-  <div class="slide-content">
-    <div class="cards-grid three-col" data-stagger>
-      <div class="card">
-        <div class="card-icon">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <circle cx="28" cy="20" r="8" stroke="#4A7BF7" stroke-width="2.5" fill="rgba(74,123,247,0.1)"/>
-            <path d="M16 42C16 35.4 21.4 30 28 30S40 35.4 40 42" stroke="#4A7BF7" stroke-width="2.5" fill="none"/>
-            <rect x="36" y="10" width="12" height="16" rx="3" stroke="#38BDF8" stroke-width="2" fill="rgba(56,189,248,0.1)"/>
-            <path d="M40 16V18M40 18V20" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="40" cy="22" r="1" fill="#38BDF8"/>
-          </svg>
-        </div>
-        <h3>Authentication</h3>
-        <p>JWT-based authentication with automatic token refresh. Secure session management via Supabase Auth with support for email, OAuth, and magic links.</p>
-        <div class="card-tag">JWT + Auto Refresh</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <path d="M28 8L40 16V30C40 40 28 48 28 48S16 40 16 30V16L28 8Z" stroke="#4A7BF7" stroke-width="2.5" fill="rgba(74,123,247,0.1)"/>
-            <path d="M22 28L26 32L34 24" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Authorization</h3>
-        <p>Role-based access control (RBAC) with PostgreSQL Row Level Security. Patients, doctors, and admins see only their authorized data.</p>
-        <div class="card-tag">RBAC + RLS</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <rect x="10" y="24" width="36" height="22" rx="4" stroke="#4A7BF7" stroke-width="2.5" fill="rgba(74,123,247,0.1)"/>
-            <path d="M20 24V18C20 12.5 23.6 8 28 8S36 12.5 36 18V24" stroke="#4A7BF7" stroke-width="2.5" fill="none"/>
-            <circle cx="28" cy="35" r="3" fill="#38BDF8"/>
-            <path d="M28 38V41" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Encryption</h3>
-        <p>End-to-end encryption with TLS 1.3 for data in transit and AES-256 for data at rest. All API communications are fully encrypted.</p>
-        <div class="card-tag">TLS 1.3 + AES-256</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE 31 - Section 08 Divider: Conceptual Design -->
 <section class="section-divider" style="background: linear-gradient(135deg, #0A3D3D 0%, #1A6B6B 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 08</p>
+  <p class="divider-sub" data-anim="fade-up">Section 07</p>
   <h2 data-anim="typewriter">Conceptual Design</h2>
   <div class="pills-row" data-stagger>
     <span class="pill">Use Cases</span>
@@ -2475,35 +2091,35 @@ html, body {
   </div>
 </section>
 
-<!-- SLIDE 36 - Authentication Sequence -->
+<!-- SLIDE 36 - AI Clinical Diagnostic Assistance Sequence -->
 <section class="slide">
   <div class="slide-inner">
     <span class="badge" data-anim="fade-up" data-delay="0">Sequence</span>
-    <h2 data-anim="wipe" style="margin: 0 0 6px 0; font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Authentication Flow</h2>
-    <p style="margin: 0 0 14px 0; font-size: 0.85rem; color: #5A6B8A; line-height: 1.5;">JWT-based authentication lifecycle with Supabase Auth</p>
+    <h2 data-anim="wipe" style="margin: 0 0 6px 0; font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">AI Clinical Diagnostic Assistance</h2>
+    <p style="margin: 0 0 14px 0; font-size: 0.85rem; color: #5A6B8A; line-height: 1.5;">Interaction between the doctor, the clinical support Edge Function, and OpenAI GPT-4 for diagnostic assistance.</p>
     <div data-stagger style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 28px; align-items: center; margin-top: 0;">
       <div>
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <div class="card" style="padding: 10px 14px; display: flex; align-items: center; gap: 8px;">
             <div style="width: 6px; height: 6px; border-radius: 50%; background: #4A7BF7;"></div>
-            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">User submits email &amp; password</div>
+            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">Doctor requests diagnostic assistance</div>
           </div>
           <div class="card" style="padding: 10px 14px; display: flex; align-items: center; gap: 8px;">
             <div style="width: 6px; height: 6px; border-radius: 50%; background: #38BDF8;"></div>
-            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">Supabase Auth validates credentials</div>
+            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">Edge Function builds clinical prompt</div>
           </div>
           <div class="card" style="padding: 10px 14px; display: flex; align-items: center; gap: 8px;">
             <div style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></div>
-            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">JWT token issued &amp; stored</div>
+            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">GPT-4 returns diagnostic suggestions</div>
           </div>
           <div class="card" style="padding: 10px 14px; display: flex; align-items: center; gap: 8px;">
             <div style="width: 6px; height: 6px; border-radius: 50%; background: #8B5CF6;"></div>
-            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">User redirected to portal</div>
+            <div style="font-size: 0.78rem; color: #2D3A5A; font-weight: 600;">Doctor reviews and confirms diagnosis</div>
           </div>
         </div>
       </div>
       <div class="diagram-container" data-anim="scale-in" data-delay="0.2" style="max-height: 460px; display: flex; align-items: center; justify-content: center; padding: 10px; background: #fff; border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--card-shadow);">
-        <img src="figures/diagrams/seq-auth.png" alt="Authentication Sequence Diagram" style="max-width: 100%; max-height: 440px; object-fit: contain;" />
+        <img src="figures/diagrams/seq-clinical-ai.png" alt="AI Clinical Diagnostic Assistance Sequence Diagram" style="max-width: 100%; max-height: 440px; object-fit: contain;" />
       </div>
     </div>
   </div>
@@ -2564,6 +2180,75 @@ html, body {
         <h4>AI Triage</h4>
         <img src="figures/diagrams/activity-triage.png" alt="Triage Activity" class="diagram-img" style="max-height: 280px;" />
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 38 - Section 08 Divider: System Architecture (moved AFTER Conceptual Design) -->
+<section class="section-divider" style="background: linear-gradient(135deg, #1A1A3D 0%, #2D2D6B 100%);">
+  <p class="divider-sub" data-anim="fade-up">Section 08</p>
+  <h2 data-anim="typewriter">System Architecture</h2>
+  <div class="pills-row" data-stagger>
+    <span class="pill">Three-Tier Architecture</span>
+  </div>
+</section>
+
+<!-- SLIDE 38b - Three-Tier Architecture -->
+<section class="slide">
+  <div class="slide-inner">
+    <span class="badge">Architecture</span>
+    <h2 style="margin-top: 0; margin-bottom: 24px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Three-Tier Architecture</h2>
+    <div class="card" style="padding: 32px 40px;">
+      <svg viewBox="0 0 1000 440" width="100%" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Inter', sans-serif;">
+
+        <!-- ===== TIER 1: PRESENTATION ===== -->
+        <rect x="40" y="20" width="430" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="255" y="55" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Patient Mobile App</text>
+        <text x="255" y="78" text-anchor="middle" fill="#5A6B8A" font-size="12">React Native + Expo · iOS &amp; Android</text>
+
+        <rect x="530" y="20" width="430" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="745" y="55" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Doctor Mobile App</text>
+        <text x="745" y="78" text-anchor="middle" fill="#5A6B8A" font-size="12">React Native + Expo · iOS &amp; Android</text>
+
+        <line x1="255" y1="102" x2="500" y2="150" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a1)"/>
+        <line x1="745" y1="102" x2="500" y2="150" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a1)"/>
+
+        <!-- ===== TIER 2: LOGIC ===== -->
+        <rect x="140" y="160" width="720" height="80" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="500" y="195" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="16">Supabase Edge Functions</text>
+        <text x="500" y="218" text-anchor="middle" fill="#5A6B8A" font-size="12">JWT Auth · Row Level Security · REST API · Real-time · Storage</text>
+
+        <line x1="310" y1="242" x2="250" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
+        <line x1="500" y1="242" x2="500" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
+        <line x1="690" y1="242" x2="750" y2="290" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#a2)"/>
+
+        <!-- ===== TIER 3: DATA ===== -->
+        <rect x="60" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="195" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">PostgreSQL</text>
+        <text x="195" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">Relational DB · RLS · ACID</text>
+
+        <rect x="365" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="500" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">OpenAI + OpenRouter</text>
+        <text x="500" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">GPT-4 + Nano · AI Triage · NLP</text>
+
+        <rect x="670" y="300" width="270" height="85" rx="14" fill="#FFF" stroke="#D6E4FF" stroke-width="1.5"/>
+
+        <text x="805" y="337" text-anchor="middle" fill="#0A1F5C" font-weight="800" font-size="15">Agora + FCM</text>
+        <text x="805" y="360" text-anchor="middle" fill="#5A6B8A" font-size="12">Video Calls · Push Notifications</text>
+
+        <!-- Footer -->
+        <text x="500" y="420" text-anchor="middle" fill="#5A6B8A" font-size="12">Serverless architecture on Supabase — Presentation → Logic → Data</text>
+
+        <defs>
+          <marker id="a1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4A7BF7"/></marker>
+          <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38BDF8"/></marker>
+        </defs>
+      </svg>
     </div>
   </div>
 </section>
@@ -2681,11 +2366,11 @@ html, body {
   <div class="slide-inner">
     <span class="badge" data-anim="fade-up" data-delay="0">Backend</span>
     <h2 data-anim="wipe" style="margin-top: 0; margin-bottom: 6px; font-size: 2.2rem; font-weight: 800; color: var(--primary);">Backend & Database</h2>
-    <p class="slide-subtitle" data-anim="fade-up" style="margin-bottom: 14px; font-size: 0.85rem; color: #5A6B8A;">Serverless backend with PostgreSQL and AI integration</p>
-    <div data-stagger style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-      <div class="card" style="padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="figures/logos/supabase.png" alt="Supabase" style="width: 44px; height: 44px; object-fit: contain;" />
+    <p class="slide-subtitle" data-anim="fade-up" style="margin-bottom: 26px; font-size: 0.85rem; color: #5A6B8A;">Serverless backend with PostgreSQL and AI integration</p>
+    <div data-stagger style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+      <div class="card" style="padding: 18px 20px; display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <img src="figures/logos/supabase.png" alt="Supabase" style="width: 56px; height: 56px; object-fit: contain;" />
         </div>
         <div style="flex: 1; min-width: 0;">
           <h4 style="color: #0A1F5C; font-size: 0.85rem; font-weight: 800; margin-bottom: 3px;">Supabase</h4>
@@ -2698,9 +2383,9 @@ html, body {
           <p style="font-size: 0.7rem; color: #5A6B8A; line-height: 1.35;">Open-source Firebase alternative for auth, real-time, storage &amp; Edge Functions.</p>
         </div>
       </div>
-      <div class="card" style="padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="figures/logos/postgresql.png" alt="PostgreSQL" style="width: 44px; height: 44px; object-fit: contain;" />
+      <div class="card" style="padding: 18px 20px; display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <img src="figures/logos/postgresql.png" alt="PostgreSQL" style="width: 56px; height: 56px; object-fit: contain;" />
         </div>
         <div style="flex: 1; min-width: 0;">
           <h4 style="color: #0A1F5C; font-size: 0.85rem; font-weight: 800; margin-bottom: 3px;">PostgreSQL</h4>
@@ -2712,9 +2397,9 @@ html, body {
           <p style="font-size: 0.7rem; color: #5A6B8A; line-height: 1.35;">Enterprise-grade relational database with Row Level Security.</p>
         </div>
       </div>
-      <div class="card" style="padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="figures/logos/nodejs.png" alt="Node.js" style="width: 44px; height: 44px; object-fit: contain;" />
+      <div class="card" style="padding: 18px 20px; display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <img src="figures/logos/nodejs.png" alt="Node.js" style="width: 56px; height: 56px; object-fit: contain;" />
         </div>
         <div style="flex: 1; min-width: 0;">
           <h4 style="color: #0A1F5C; font-size: 0.85rem; font-weight: 800; margin-bottom: 3px;">Node.js</h4>
@@ -2725,9 +2410,9 @@ html, body {
           <p style="font-size: 0.7rem; color: #5A6B8A; line-height: 1.35;">Server-side logic for data processing &amp; validation.</p>
         </div>
       </div>
-      <div class="card" style="padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="figures/logos/openai.png" alt="OpenAI" style="width: 44px; height: 44px; object-fit: contain;" />
+      <div class="card" style="padding: 18px 20px; display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <img src="figures/logos/openai.png" alt="OpenAI" style="width: 56px; height: 56px; object-fit: contain;" />
         </div>
         <div style="flex: 1; min-width: 0;">
           <h4 style="color: #0A1F5C; font-size: 0.85rem; font-weight: 800; margin-bottom: 3px;">OpenAI</h4>
@@ -2738,9 +2423,9 @@ html, body {
           <p style="font-size: 0.7rem; color: #5A6B8A; line-height: 1.35;">GPT models powering the AI triage engine.</p>
         </div>
       </div>
-      <div class="card" style="padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
-          <img src="figures/logos/openrouter.png" alt="OpenRouter" style="width: 44px; height: 44px; object-fit: contain;" />
+      <div class="card" style="padding: 18px 20px; display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+          <img src="figures/logos/openrouter.png" alt="OpenRouter" style="width: 56px; height: 56px; object-fit: contain;" />
         </div>
         <div style="flex: 1; min-width: 0;">
           <h4 style="color: #0A1F5C; font-size: 0.85rem; font-weight: 800; margin-bottom: 3px;">OpenRouter</h4>
@@ -2760,221 +2445,6 @@ html, body {
 
 
 
-<!-- ==================== SLIDE 43 — SECTION 10 DIVIDER ==================== -->
-<section class="section-divider" style="background: linear-gradient(135deg, #0A1F5C 0%, #1E3A8A 100%);">
-  <p class="divider-sub" data-anim="fade-up">Section 10</p>
-  <h2 data-anim="typewriter">Application Screens</h2>
-  <div class="pills-row" data-stagger>
-    <span class="pill">Patient App</span>
-    <span class="pill">Doctor App</span>
-    <span class="pill">Admin Dashboard</span>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 44 — PATIENT APP: AUTH & ONBOARDING ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Patient App</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Authentication &amp; Onboarding</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">A guided first-run experience that lets new patients create a secure account, complete their medical profile, and learn the platform in under five minutes.</p>
-    <div data-anim="scale-in" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/patientlogin.png" alt="Login Screen" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Secure Login</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Email &amp; password authentication with JWT session tokens and automatic refresh.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/patientregistre.png" alt="Registration Screen" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Multi-step Registration</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Step-by-step form with validation, role selection, and medical history intake.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/discover1.png" alt="Onboarding / Discover" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Guided Tour</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Interactive onboarding carousel explaining every core feature of the app.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 45 — PATIENT APP: HOME & RECORDS ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Patient App</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Home Dashboard &amp; Medical Records</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">A single hub where patients see their daily vitals, upcoming appointments, recent prescriptions, and a complete timeline of their medical history.</p>
-    <div data-anim="scale-in" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/patienthomedashboard.png" alt="Home Dashboard" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Home Dashboard</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Daily vitals, upcoming appointments, and quick actions at a glance.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/medicalrecord1.png" alt="Medical Record" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Medical Records</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Searchable, chronological list of every consultation, diagnosis, and prescription.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/screen-medical-record.png" alt="Medical Record Detail" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Record Detail</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Full clinical context including doctor notes, attachments, and lab results.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 46 — PATIENT APP: MEDICATIONS & RECOVERY ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Patient App</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Medications &amp; Recovery Tracking</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">Active treatment monitoring with smart reminders, recovery scoring, and risk alerts that help patients stay on track between consultations.</p>
-    <div data-anim="scale-in" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/screen-medications.png" alt="Medications" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Medications</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Daily schedule with intake reminders, dosage, and adherence tracking.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/recoveryindex2.png" alt="Recovery Index" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Recovery Index</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Composite score that reflects overall progress against the care plan.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/riskscore2.png" alt="Risk Score" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Risk Score</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">AI-derived risk assessment with early warning indicators for the clinician.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 47 — PATIENT APP: ADDITIONAL FEATURES ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Patient App</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Booking, Chat &amp; Wellness</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">Everything that keeps patients engaged with their care: scheduling, secure messaging with clinicians, and lifestyle tracking for sleep, activity, and stress.</p>
-    <div data-anim="scale-in" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/book2.png" alt="Book Appointment" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Appointment Booking</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Browse doctor availability, pick a slot, and confirm in three taps.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/chat1.png" alt="Chat" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Secure Chat</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">End-to-end messaging with the assigned clinician, with file attachments.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/sleepquality2.png" alt="Sleep Quality" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Sleep &amp; Wellness</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Track sleep quality, activity, and stress with weekly insights.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 48 — DOCTOR APP ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Doctor App</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Doctor Mobile Application</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">A clinical workspace in the doctor's pocket: review the AI-suggested triage queue, document consultations, and stay in sync with the patient's care plan from anywhere.</p>
-    <div data-anim="scale-in" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/screen-doctor-home.png" alt="Doctor Home" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Doctor Home</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Personal dashboard with daily agenda, pending reviews, and KPIs.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/screen-clinical-notes.png" alt="Clinical Notes" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Clinical Notes</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Structured editor for diagnoses, prescriptions, and follow-up plans.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:170px;">
-        <img src="figures/screen-triage.png" alt="AI Triage" style="width:150px;height:300px;object-fit:cover;border-radius:18px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">AI Triage Review</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Validate or override the AI suggestion per patient with full context.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SLIDE 49 — ADMIN DASHBOARD ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Admin Panel</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Web Admin Dashboard</h2>
-    <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">A full operations console for platform administrators: monitor users, audit activity, manage doctor onboarding, and export compliance reports.</p>
-    <div data-anim="scale-in" style="display:flex;gap:20px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:340px;">
-        <img src="figures/screen-admin-dashboard.png" alt="Admin Dashboard" style="width:340px;height:240px;object-fit:cover;border-radius:12px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Operations Overview</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Real-time KPIs, alerts, and system health indicators in one view.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:340px;">
-        <img src="figures/screen-admin-analytics.png" alt="Admin Analytics" style="width:340px;height:240px;object-fit:cover;border-radius:12px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Analytics</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Usage trends, demographics, and engagement metrics with drill-down.</div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:340px;">
-        <img src="figures/screen-admin-doctors.png" alt="Admin Doctors" style="width:340px;height:240px;object-fit:cover;border-radius:12px;box-shadow:0 4px 12px rgba(10,31,92,0.10),0 16px 40px rgba(10,31,92,0.18);background:#fff;" onerror="this.style.display='none';" />
-        <div class="card" style="padding:10px 14px;width:100%;text-align:center;">
-          <div style="font-size:0.85rem;color:#0A1F5C;font-weight:800;margin-bottom:2px;">Doctor/Patient Management</div>
-          <div style="font-size:0.72rem;color:#5A6B8A;line-height:1.4;">Onboard, verify, and manage the clinician and patient directory with roles and specialties.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ==================== SLIDE 50 — SECTION 11 DIVIDER ==================== -->
 <section class="section-divider" style="background: linear-gradient(135deg, #0A3D2A 0%, #1A6B4A 100%);">
   <p class="divider-sub" data-anim="fade-up">Section 11</p>
@@ -2989,6 +2459,55 @@ html, body {
   </div>
 </section>
 
+<!-- ==================== SLIDE 54 — CONCLUSION ==================== -->
+<section>
+  <div class="slide-content">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Conclusion</span>
+    </div>
+    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Project Conclusion</h2>
+    <p style="margin: 0 0 22px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">A complete, working health platform delivered end-to-end.</p>
+    <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;">
+      <div class="card" style="padding:18px 18px;text-align:center;">
+        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">Goals Delivered</div>
+        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">All planned functional and non-functional requirements met within the academic timeline.</div>
+      </div>
+      <div class="card" style="padding:18px 18px;text-align:center;">
+        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">AI Working</div>
+        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Real triage engine with GPT-4 integration, validated against clinical scenarios.</div>
+      </div>
+      <div class="card" style="padding:18px 18px;text-align:center;">
+        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">3 User Roles</div>
+        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Patient, doctor, and admin experiences fully built and tested end-to-end.</div>
+      </div>
+      <div class="card" style="padding:18px 18px;text-align:center;">
+        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">Scalable Stack</div>
+        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Serverless architecture ready to grow with users, regions, and new features.</div>
+      </div>
+    </div>
+    <div class="card" style="padding:22px 28px;background:#F5F8FF;border:1px solid #D6E4FF;color:#0A1F5C;display:flex;align-items:center;gap:18px;">
+      <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 3 6 1 1 1 2 1 3h6c0-1 0-2 1-3 1-1 3-3 3-6a7 7 0 0 0-7-7z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.78rem;color:#4A7BF7;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">Key Takeaway</div>
+        <div style="font-size:1.05rem;line-height:1.4;font-weight:600;">DocTIP is a complete prototype that demonstrates how AI can responsibly support clinical workflows while keeping the human relationship at the center of care.</div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- ==================== SLIDE 53 — FUTURE ENHANCEMENTS ==================== -->
 <section>
   <div class="slide-content">
@@ -3046,60 +2565,9 @@ html, body {
     </div>
   </div>
 </section>
-
-<!-- ==================== SLIDE 54 — CONCLUSION ==================== -->
-<section>
-  <div class="slide-content">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
-      <span class="slide-badge" data-anim="fade-up" style="margin-bottom:0;">Conclusion</span>
-    </div>
-    <h2 data-anim="wipe" style="margin: 0 0 4px 0; font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1.15;">Project Conclusion</h2>
-    <p style="margin: 0 0 22px 0; font-size: 0.95rem; color: #5A6B8A; line-height: 1.5; max-width: 900px;">DocTIP has been delivered as a complete, working health platform — a successful end-to-end execution of an ambitious idea into a production-ready product.</p>
-    <div data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;">
-      <div class="card" style="padding:18px 18px;text-align:center;">
-        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">Goals Delivered</div>
-        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">All planned functional and non-functional requirements met within the academic timeline.</div>
-      </div>
-      <div class="card" style="padding:18px 18px;text-align:center;">
-        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        </div>
-        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">AI Working</div>
-        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Real triage engine with GPT-4 integration, validated against clinical scenarios.</div>
-      </div>
-      <div class="card" style="padding:18px 18px;text-align:center;">
-        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">3 User Roles</div>
-        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Patient, doctor, and admin experiences fully built and tested end-to-end.</div>
-      </div>
-      <div class="card" style="padding:18px 18px;text-align:center;">
-        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <div style="font-size:0.95rem;color:#0A1F5C;font-weight:800;margin-bottom:4px;">Scalable Stack</div>
-        <div style="font-size:0.78rem;color:#5A6B8A;line-height:1.4;">Serverless architecture ready to grow with users, regions, and new features.</div>
-      </div>
-    </div>
-    <div class="card" style="padding:22px 28px;background:#F5F8FF;border:1px solid #D6E4FF;color:#0A1F5C;display:flex;align-items:center;gap:18px;">
-      <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 3 6 1 1 1 2 1 3h6c0-1 0-2 1-3 1-1 3-3 3-6a7 7 0 0 0-7-7z"/></svg>
-      </div>
-      <div>
-        <div style="font-size:0.78rem;color:#4A7BF7;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">Key Takeaway</div>
-        <div style="font-size:1.05rem;line-height:1.4;font-weight:600;">DocTIP is a complete prototype that demonstrates how AI can responsibly support clinical workflows while keeping the human relationship at the center of care.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ==================== SLIDE 55 — THANK YOU ==================== -->
-<section>
-  <div class="slide-content" style="background: linear-gradient(135deg, #0A1F5C 0%, #1E3A8A 60%, #4A2D8A 100%); border-radius: 0; padding: 48px 40px; min-height: 640px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #FFFFFF;">
+<section style="padding: 0; height: 100%;">
+  <div class="slide-content" style="background: linear-gradient(135deg, #0A1F5C 0%, #1E3A8A 60%, #4A2D8A 100%); border-radius: 0; padding: 48px 40px; min-height: 640px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #FFFFFF;">
     <h2 data-anim="wipe" style="font-size: 2.6rem; font-weight: 800; margin-bottom: 36px; color: #FFFFFF;">Project Achievements</h2>
     <div class="achievements-row" data-stagger style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
       <!-- Goals Achieved -->
@@ -3480,6 +2948,8 @@ function syncViewportBackground(slide) {
     bg = content.style.background;
   } else if (slide.style.background) {
     bg = slide.style.background;
+  } else if (slide.dataset.bg) {
+    bg = slide.dataset.bg;
   }
   
   const revealEl = document.querySelector('.reveal');
@@ -3503,14 +2973,14 @@ function syncViewportBackground(slide) {
 // Slide transition: GSAP replaces Reveal default
 Reveal.on('slidechanged', event => {
   const slide = event.currentSlide;
-  gsap.killTweensOf(slide.querySelectorAll('*'));
-  animateSlide(slide);
   syncViewportBackground(slide);
+  gsap.killTweensOf(slide.querySelectorAll('*'));
+  try { animateSlide(slide); } catch(e) { console.error('Animation error:', e); }
 });
 
 Reveal.on('ready', event => {
-  animateSlide(event.currentSlide);
   syncViewportBackground(event.currentSlide);
+  try { animateSlide(event.currentSlide); } catch(e) { console.error('Animation error:', e); }
 });
 
 // MICRO-INTERACTIONS: Card hover lift
